@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!-- ad fields -->
+<fields>	
+	<!-- provisional hasta que se cambie de forma definitiva a propertyArea -->
+	<field name ="constructedArea" type="double" indexed="true" stored="true" omitNorms="true" docValues="true"/>
+	<field name ="totalSurface" type="double" indexed="true" stored="true"/>
+	<field name ="isStudio" type="boolean" indexed="true" stored="true" omitNorms="false"/>
+	
+</fields>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<fields>
+	<!-- user fields -->
+	<field name ="firstName" type="string" indexed="false" stored="true" />
+	<field name ="lastName" type="string" indexed="false" stored="true" />
+	<field name ="email" type="string" indexed="true" stored="true" required="true"/>
+	<field name ="isValidEmail" type="boolean" indexed="true" stored="true" omitNorms="false"/>
+	<field name ="isEmailGenerated" type="boolean" indexed="true" stored="true" omitNorms="false"/>
+	<field name ="phone1Prefix" type="string" indexed="false" stored="true"/>
+	<field name ="phone1" type="string" indexed="true" stored="true"/>
+	<field name ="phone2Prefix" type="string" indexed="false" stored="true"/>
+	<field name ="phone2" type="string" indexed="true" stored="true"/>
+	<field name ="phoneRedirection" type="string" indexed="true" stored="true" docValues="true"/>
+	<field name ="availabilityHour1" type="int" indexed="false" stored="true"/>
+	<field name ="availabilityHour2" type="int" indexed="false" stored="true"/>
+	<field name ="commercialDataId" type="int" indexed="true" stored="true"  omitNorms="false" docValues="true"/>
+	<field name ="micrositeShortName" type="string" indexed="true" stored="true"/>
+	<field name ="brandingLogo" type="string" indexed="false" stored="true"/>
+	<field name ="agencyLogo" type="string" indexed="false" stored="true"/>
+	<field name ="micrositeOnlineServiceId" type="int" indexed="true" stored="true" omitNorms="false" docValues="true"/>
+	<field name ="preferredContactMethodId" type="int" indexed="true" stored="true" omitNorms="false"/>
+	<field name ="agencyIsABank" type="boolean" indexed="true" stored="true" omitNorms="false"/>
+	<field name ="commercialName" type="string" indexed="true" stored="true"/>
+	<field name ="feedKey" type="string" indexed="false" stored="true"/>
+</fields>	
+
+
+	  

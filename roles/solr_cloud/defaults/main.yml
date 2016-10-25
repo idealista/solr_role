@@ -1,0 +1,10 @@
+---
+solr_cloud_version: 6.2.1
+solr_cloud_build_name: solr-{{ solr_cloud_version }}
+solr_cloud_package: "{{ solr_cloud_build_name }}.tgz"
+solr_cloud_url: "http://apache.uvigo.es/lucene/solr/{{ solr_cloud_version }}/{{ solr_cloud_package }}"
+solr_jmx_enabled: true
+solr_jmx_port: 1099
+
+zookeeper_hosts: zook1.pre.all.sys.idealista:2181,zook2.pre.all.sys.idealista:2181,zook3.pre.all.sys.idealista:2181
+zookeeper_hosts_solr_path: solr

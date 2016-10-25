@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!-- ad fields -->
+<fields>
+
+	<field name="auxGeoTags" type="string" multiValued="true" indexed="false" stored="false" />
+	<field name="isFinished" type="boolean" indexed="false" stored="false" />
+	<field name="latitude" type="double" indexed="false" stored="false" />
+	<field name="longitude" type="double" indexed="false" stored="false" />
+	<field name="movedLatitude" type="double" indexed="false" stored="false" />
+	<field name="movedLongitude" type="double" indexed="false" stored="false" />
+	<field name="shortName" type="string" indexed="false" stored="true" />
+	<field name="chaletTypeId" type="int" indexed="false" stored="false" />
+	<field name="countryhouseTypeId" type="int" indexed="false" stored="false" />
+	<field name="officeLocationId" type="int" indexed="false" stored="false" />
+	<field name="roomTypeId" type="int" indexed="false" stored="false" />
+	<field name="landTypeId" type="int" indexed="false" stored="false" />
+	<field name="newDevelopmentTypeId" type="int" indexed="false" stored="false" />
+	<field name="name" type="string" indexed="false" stored="false" />
+	<field name="buildPurposeId" type="int" indexed="false" stored="false" />
+	<field name="hasFullEquipKitchen" type="boolean" indexed="false" stored="false" />
+	<field name="auxMultimediaTypesId" type="int" multiValued="true" indexed="false" stored="false" />
+	<field name="price" type="double" indexed="false" stored="false" />
+	
+	<field name="hash" type="string" indexed="false" stored="true" />
+	
+</fields>

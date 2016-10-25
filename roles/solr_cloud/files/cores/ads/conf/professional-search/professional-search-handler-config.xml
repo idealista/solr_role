@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!-- DisMaxRequestHandler allows easy searching across multiple fields for 
+	simple user-entered phrases. It's implementation is now just the standard 
+	SearchHandler with a default query parser of "dismax". see http://wiki.apache.org/solr/DisMaxRequestHandler -->
+	
+<requestHandler name="/professional-search" class="solr.SearchHandler" default="false">
+
+	<lst name="defaults">
+		<str name="wt">json</str>
+		<str name="indent">${solr.indent:on}</str>
+		<int name="rows">20</int>
+		<str name="defType">professionalSearchQParser</str>
+		<str name="echoParams">explicit</str>
+		<float name="tie">0.01</float>
+		<str name="debugQuery">false</str>
+		<str name="spellcheck">false</str>
+		
+		<xi:include href="professional-search_queryfields.xml" xmlns:xi="http://www.w3.org/2001/XInclude">
+			<xi:fallback />
+		</xi:include>
+		
+		<str name="bf"></str>
+		<str name="fl">*,score</str>
+		<int name="ps">100</int>
+		<str name="q.alt">*:*</str>
+		<str name="hl.fl">*</str>
+	</lst>
+
+	<arr name="components">
+		<str>query</str>
+		<str>facet</str>
+		<str>stats</str>
+		<str>debug</str>
+	</arr>
+	
+</requestHandler>
+

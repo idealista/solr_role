@@ -1,0 +1,84 @@
+#!/bin/sh
+
+### BEGIN INIT INFO
+# Provides:          node_exporter
+# Required-Start:    $remote_fs
+# Required-Stop:     $remote_fs
+# Should-Start:      $all
+# Should-Stop:       $all
+# Default-Start:     2 3 4 5
+# Default-Stop:      0 1 6
+# Short-Description: Prometheus node exporter.
+# Description:       Node exporter gather and publish host metrics.
+### END INIT INFO
+
+set -e
+
+. /lib/lsb/init-functions
+
+NAME=node_exporter
+DESC="Prometheus metrics exporter"
+DAEMON=`which $NAME`
+USER={{ node_exporter_user }}
+PID="/var/run/$NAME.pid"
+
+DAEMON_ARGS=''
+{% for option in node_exporter_options %}
+DAEMON_ARGS="$DAEMON_ARGS -{{ option }}"
+{% endfor %}
+
+# Check if DAEMON binary exist
+[ -f $DAEMON ] || exit 0
+
+start () {
+  start-stop-daemon --start --background --exec $DAEMON --pidfile $PID --make-pidfile --chuid $USER -- $DAEMON_ARGS
+  RETVAL=$?
+
+  if [ $RETVAL ]; then
+    log_end_msg 0
+  else
+    log_end_msg 1
+  fi
+}
+
+stop () {
+  if start-stop-daemon --retry TERM/5/KILL/5 --oknodo --stop --pidfile $PID
+  then
+    log_end_msg 0
+    rm $PID
+  else
+    log_end_msg 1
+  fi
+}
+
+case "$1" in
+  start)
+    log_daemon_msg "Starting $DESC -" "$NAME"
+    start
+    ;;
+
+  stop)
+    log_daemon_msg "Stopping $DESC -" "$NAME"
+    stop
+    ;;
+
+  restart)
+    log_daemon_msg "Restarting $DESC -" "$NAME"
+    stop
+    start
+    ;;
+
+  syntax)
+    $DAEMON --help
+    ;;
+
+  status)
+    status_of_proc -p $PID $DAEMON $NAME
+    ;;
+
+  *)
+    log_action_msg "Usage: /etc/init.d/$NAME {start|stop|restart|syntax|status}"
+    ;;
+esac
+
+exit 0

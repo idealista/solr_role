@@ -1,0 +1,9 @@
+- src: http://deployer@git.sys.idealista/scm/as/prometheus_node_exporter-role.git
+  scm: git
+  version: origin/master
+  name: prometheus_node_exporter
+
+- src: http://deployer@git.sys.idealista/scm/as/java-role.git
+  scm: git
+  version: origin/master
+  name: java

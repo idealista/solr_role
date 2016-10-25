@@ -1,0 +1,151 @@
+# The ASF licenses this file to You under the Apache License,Version 2.0
+# (the "License"); you may not use this file except in compliance with
+# the License.  You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing,software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND,either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#-----------------------------------------------------------------------
+#some test synonym mappings unlikely to appear in real input text
+#aaa => aaaa
+#bbb => bbbb1 bbbb2
+#ccc => cccc1,cccc2
+#a\=>a => b\=>b
+#a\,a => b\,b
+#fooaaa,baraaa,bazaaa
+
+#Some synonym groups specific to this example
+#GB,gib,gigabyte,gigabytes
+#MB,mib,megabyte,megabytes
+#Television,Televisions,TV,TVs
+#notice we use "gib" instead of "GiB" so any WordDelimiterFilter coming
+#after us won't split it into two words.
+
+#Synonym mappings can be used for spelling correction too
+
+#operación
+venta,compra,comprar,ventas,compras,buy,Kaufen,acheter,comprare,ven,Verkaufen,sell,vendre,vendere,vender,compro,vendo,acquistare,vendita,compro,vendo,vendesi,acquisto,sale,venda,vendas
+affitta,affitto,affita,affito,alquilar,alquiler,alquileres,rent,llogar,Mieten,louer,affittare,arrendar,alquilo,llogar,lloger,affittasi,fitto,alugar
+
+#tipologias
+geminada,geminadas,geminado,agrupada,duplicada,pareado,pareados,apariat,Doppelhaus,semidetached,jumeau,bifamiliare,apariats,Doppelhauser,bifamiliari
+adosado,adosados,adossat,Reihenhaus,row,mitoyen,schiera,banda,mitoyens,adosados,Reihenhauser,adossats
+atico,aticos,atic,penthouse,attique,attico,recuado,aticos,atics,penthouses,attiques,attici,recuados
+independiente,independientes,independent,Einfamilienhaus,detached,independant,indipendente,independente,independe,Einfamilienhauser,independants,indipendenti,independentes,unifamiliar
+duplex,Maisonette,Maisonettes,duplexes
+chalet,chalets,chalete,chaletes,xalet,Villa,pavillon,villetta,moradia,xalets,Villen,pavillons,villette,moradias,vivenda,terrea,rustico,rustici,ville,rustica,rusticas,ville
+estudio,estudios,estudi,Studiowohnung,studio,monolocale,estudios,estudis,Studiowohnungen,studios,monolocali,t0,loft
+vivienda,viviendas,habitatge,Immobilie,home,logement,casa,viviendas,habitatges,Immobilien,homes,logements,case,casas,abitazione,abitazioni,piso,pisos,pis,Wohnung,flat,appartement,appartamento,apartamento,pisos,Wohnungen,flats,appartements,appartamenti,apartamentos,alloggio,alloggi,Maison,Maisons
+bilocale,bivano,bivani,bilocali
+casali,casale
+cascina,cascine
+quinta,quintas,quintinhas,quintinha,alentejana,alentejano,moinho,moinhos,palacio,palacete
+herdade,herdades
+nova,novo,nuevas,nuevos,nueva,nuevo
+construcao,empreendimento,empreendimentos,obra,promociones,promocion,nuevas,nuevos,nueva,nuevo,projecto,projeto,new,development,obra,nueva,nuove,costrucioni
+second,segunda,seconda
+hand,mano,mao
+reformada,recuperada,reconstruida,reconstruido,restored
+reformer,reformar,ristrutturare,reformar,recuperar,reconstruir
+good,buen,buono,bom
+condition,estado,stato
+terreno,terrenos,parcela,monte,loteamento
+urbano,urbanos,construcao,lote,urbanizado,projecto,projeto,viabilidade
+urbanizable,urbanizável
+rustico,rusticos,cultivo,agricola,misto,rural,propriedade
+uffici,ufficio,oficina,oficinas
+negozi,negozio,capannoni,capannone,negozi,capannoni,local,locales,nave,naves,negocio,negocios,loja,lojas,armazem,armazens
+
+#tipo de via
+via,vie,contrada,contrade,rua,ruas,calle,calles
+praca,pracas,piazza,piazze,pza,pze,plaza,plazas
+piazzale,ple
+Av,avenida,ave
+autoestrada,auto-estrada,autoestrada,autopista
+Calçadinha,calçada
+Largo,lg
+Rotunda,rot,rotonda
+Travessa,tv
+#Variante
+
+#floornumbertext
+cave,sotano
+subcave,semisotano
+r/c,bajo,res
+andar,planta,piso
+
+#filtros
+video,videos,foto,fotos,picture
+videoprof,prof,professionale,professionali
+virtuale,visita,visite,virtuale,virtuali,vvirtual,visitas,virtual,virtuales,virtuais
+terrazza,terrazze,balcone,balconi,terratetti,terratetto,terraza,terrazas,balcon,balcones,terraz,varanda,terraco,varandas,terracos,patio
+ascensore,ascensori,montacarico,montacarichi,ascensor,ascensores,elevador,elevadores
+garaje,garajes,garage,garages,posto,posti,garagem,garagens,box,estacionamento,cochera,cocheras
+piscina,piscine,vasca,vasche,piscinas,pileta,piletas
+stanza,stanze,camera,camere,dormitorios,dormitorio,habitación,habitaciones,dorm,quarto,quartos,qua,habitacao,divisao,aposentos
+ripostiglio,ripostigli,sgabuzzino,sgabuzzini
+trastero,trasteros,tratero,arrecadacao,arecadacao,arrecadacoes,arrumos
+piano,piani,planta,plantas,andar,andares,piso
+bagno,bagni,wc,servizio,servizi,baño,baños,wcs,servicios,servicio,banho,lavabo,banhos
+euro,euri,euros,eur
+stenditoio,stenditoi,stendibiancheria,tendedero,tendederos,estendal,estendais
+armadio,armadi,armario,armarios,roupeiro,roupeiros
+encastrado,encastrados,embutido,embutidos,empotrado,empotrados,encaixado
+equipada,equipado,electrodomesticos
+aquecimento,caldeira,gas,electrica,carvao
+agua,aqua,caliente,quente
+air,aire,condicionado,acondicionado,ar,frio,cold
+external,exterior
+internal,interior
+allarme,allarmi,alarma,alarmas
+moto,motos
+ragazzo,chico,chicos,hombre,hombres
+ragazza,ragazze,donna,donne,chica,chicas,mujer,mujeres
+animali,cane,cane,gatto,gatti,mascota,mascotas,perro,perros,gato,gatos
+fumatore,fumatori,fumador,fumadores
+gay,gays
+lesbiana,lesbianas
+cocina,cucina,cozinha
+amueblado,ammobiliato,mobilado
+
+#orientation
+orientation,orientacion
+north,norte
+south,sur
+east,este
+west,oeste
+
+#descripciònes
+giardino,cortile
+
+#otros
+banca,banche,cassa,casse,banco,bancos,caja,cajas,caixa,caixas
+urbanizzazione,urb,urbanizacion,urbanizacao,condominio
+
+
+#special locations .it
+#san,s.,s
+#sant,sant'
+#eur,e.u.r.
+#trastevere,santa maria in trastevere,s. maria in trastevere
+#venezia e isole,venezia santa lucia,venezia s. lucia,venezia s lucia
+
+#special locations .com
+araba,alava
+balears,baleares
+gipuzkoa,guipuzcoa
+bizkaia,vizcaya
+gerona,girona
+lerida,lleida
+nafarroa,navarra
+orense,ourense
+
+#special locations .pt
+faro,algarve
+ilha,madeira,arquipelago,isla,açores
+porto,oporto

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<requestHandler name="/replication" class="solr.ReplicationHandler" >
+    <lst name="master">
+        <!--Replicate on 'startup' and 'commit'. 'optimize' is also a valid value for replicateAfter. -->
+        <str name="replicateAfter">startup</str>
+        <str name="replicateAfter">commit</str>
+
+        <!--Create a backup after 'optimize'. Other values can be 'commit', 'startup'. It is possible to have multiple entries of this config string.  Note that this is just for backup, replication does not require this. -->
+        <str name="backupAfter">optimize</str>
+<!--            <str name="backupAfter">commit</str>  -->
+
+                <str name="maxNumberOfBackups">2</str>
+
+        <!--If configuration files need to be replicated give the names here, separated by comma -->
+<!--         <str name="confFiles"> -->
+<!--         	solrconfig.xml, -->
+<!--         	solrconfig_queryfields.xml, -->
+<!--         	schema.xml, -->
+<!--         	stopwords.txt, -->
+<!--         	synonyms.txt, -->
+<!--         	mapping-ISOLatin1Accent.txt, -->
+<!--         	schemaFiles/adFields.xml, -->
+<!--         	schemaFiles/componentFields.xml, -->
+<!--         	schemaFiles/deletedFields.xml, -->
+<!--         	schemaFiles/deprecatedFields.xml, -->
+<!--         	schemaFiles/extendedAdFields.xml, -->
+<!--         	schemaFiles/habitaniaExtraFields.xml, -->
+<!--         	schemaFiles/locationsAdressesFields.xml, -->
+<!--         	schemaFiles/multimediaFields.xml, -->
+<!--         	schemaFiles/semanticFields.xml, -->
+<!--         	schemaFiles/typologyFields.xml, -->
+<!--         	schemaFiles/userFields.xml -->
+<!--         </str> -->
+       <!--The default value of reservation is 10 secs.See the documentation below . Normally , you should not need to specify this -->
+        <str name="commitReserveDuration">00:00:10</str>
+    </lst>
+    <lst name="slave">
+      <str name="masterUrl">${solr.urlmaster}/${solr.core.name}</str>
+      <str name="pollInterval">24:00:00</str>
+    </lst>
+</requestHandler>

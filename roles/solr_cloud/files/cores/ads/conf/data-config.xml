@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<dataConfig>
+
+  <dataSource type="JdbcDataSource" jndiName="${profile.datasource}"/>
+
+  <document name="ads">
+
+	    <entity
+	      	name="ad"
+	     	pk="ID"
+		 	query="select a.id from core.ads a where a.adstateid = 3"
+		 	
+		 	deletedPkQuery="select a.id from core.ads a where a.adstateid != 3 and a.modificationdate > TO_DATE('${dataimporter.last_index_time}', 'YYYY-MM-DD HH24:MI:SS')-1/(24*60)"
+		 	
+		  	deltaQuery="WITH brandingLogos AS (SELECT distinct(mm.absolutepath || mm.name) brandinglogo, MM.ASSOCIATIONDATE, uc.id usercontactid, OS2.CREATIONDATE
+						FROM CORE.micrositesmultimedias mm,
+                      		core.micrositeservice ms,
+                      		core.onlineservices os,
+                      		core.onlineservices os2,
+                      		core.commercialdata c,
+                      		core.usercontacts uc
+                		WHERE  C.ID = uc.commercialdataid
+                      		AND os.commercialdataid = uc.commercialdataid
+                      		AND os.id = ms.onlineserviceid
+                      		AND ms.onlineserviceid = mm.micrositeid
+                      		AND os2.commercialdataid = os.commercialdataid
+                      		AND (OS2.ONLINESERVICETYPEID = 12 OR C.ISCLUBCLIENT = 1)
+                      		AND os2.isactive = 1
+                      		AND os.isactive = 1
+                      		AND mm.micrositemultimediatypeid = 1),
+                     agencyLogos AS (SELECT mm.associationdate, ps.onlineserviceid publishserviceid
+              			FROM core.micrositesmultimedias mm,
+                   			core.micrositeservice ms,
+                   			core.publishservices ps,
+                   			core.onlineservices os,
+                   			core.onlineservices os2,
+                   			core.commercialdata c
+                		WHERE
+                   			os.commercialdataid = c.id
+                   			AND os.id = ms.onlineserviceid
+                   			AND os.isactive = 1
+                   			AND ms.onlineserviceid = mm.micrositeid
+                   			AND mm.micrositemultimediatypeid = 1
+                   			AND os2.id = ps.onlineserviceid
+                   			AND os2.commercialdataid = c.id
+                   			AND os2.isactive = 1)
+           			select a.id id
+                    		FROM core.ads a, web.adsranking ar, core.adspricedrop ap,
+                    			(select distinct userid from core.callforwardingscheduled cfs where cfs.modificationdate > TO_DATE('${dataimporter.last_index_time}', 'YYYY-MM-DD HH24:MI:SS')-1/(24*60)) usersWithcfsModified,
+                    			(select distinct cd.id from core.commercialData cd where cd.modificationdate > TO_DATE('${dataimporter.last_index_time}', 'YYYY-MM-DD HH24:MI:SS')-1/(24*60)) changedCommercialData,
+                    			(select distinct exp.adid from core.EXPORTADSCHECK exp where exp.modifydate > TO_DATE('${dataimporter.last_index_time}', 'YYYY-MM-DD HH24:MI:SS')-1/(24*60)) changedExportAdCheck,
+                        		core.addresses adr, core.locations loc, core.onlineservices os, brandingLogos bl, agencyLogos al, core.mlsads ma, core.webadminads waa
+                    		WHERE   a.id = ar.adid(+)
+                          			and a.id = ap.adid(+)
+                          			and a.id = changedExportAdCheck.adid(+)                          			
+                          			and a.addressid = adr.id
+                          			and adr.locationid = loc.id
+                          			and a.userid = userswithcfsmodified.userid(+)
+                          			and a.usercontactid = bl.usercontactid(+)
+                          			and a.publishserviceid = os.id
+                          			and a.publishserviceid = al.publishserviceid(+)
+                          			and os.commercialdataid = changedcommercialdata.id(+)                          			
+                          			and a.id = ma.adid(+)
+                          			and a.id = waa.adid(+)
+                          			and a.adstateid = 3
+                          			and (a.modificationdate > TO_DATE('${dataimporter.last_index_time}', 'YYYY-MM-DD HH24:MI:SS')-1/(24*60)
+                          			or ar.modificationdate > TO_DATE('${dataimporter.last_index_time}', 'YYYY-MM-DD HH24:MI:SS')-1/(24*60)
+                          			or ap.dropdate > TO_DATE('${dataimporter.last_index_time}', 'YYYY-MM-DD HH24:MI:SS')-1/(24*60)
+                          			or loc.modificationdate > TO_DATE('${dataimporter.last_index_time}', 'YYYY-MM-DD HH24:MI:SS')-1/(24*60)
+                          			or bl.associationdate > TO_DATE('${dataimporter.last_index_time}', 'YYYY-MM-DD HH24:MI:SS')-1/(24*60)
+                          			or al.associationdate > TO_DATE('${dataimporter.last_index_time}', 'YYYY-MM-DD HH24:MI:SS')-1/(24*60)
+                          			or ma.modificationdate > TO_DATE('${dataimporter.last_index_time}', 'YYYY-MM-DD HH24:MI:SS')-1/(24*60)
+                          			or waa.exportdate > TO_DATE('${dataimporter.last_index_time}', 'YYYY-MM-DD HH24:MI:SS')-1/(24*60)
+                          			or bl.CREATIONDATE > TO_DATE('${dataimporter.last_index_time}', 'YYYY-MM-DD HH24:MI:SS')-1/(24*60)
+                          			or usersWithcfsModified.userid = a.userid
+                          			or os.commercialDataId = changedCommercialData.id
+                                	or exists (select 1 from AD_FORCED_UPDATES af where af.adid = a.id and af.forcedate > TO_DATE('${dataimporter.last_index_time}', 'YYYY-MM-DD HH24:MI:SS')-1/(24*60)))"
+
+			deltaImportQuery="select a.id from core.ads a where a.id = ${dataimporter.delta.ID}"
+		    transformer="DateFormatTransformer">
+		</entity>
+	</document>
+
+</dataConfig>

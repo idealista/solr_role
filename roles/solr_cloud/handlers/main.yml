@@ -1,0 +1,6 @@
+---
+# handlers file for solr_cloud
+- name: restart SolrCloud
+  service:
+    name: solr
+    state: restarted

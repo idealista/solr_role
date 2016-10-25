@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!-- 
+	 fields and boosts to use when building DisjunctionMaxQueries from the users query. 
+	 Format is: "fieldA^1.0 fieldB^2.2". 
+	 This param can be specified multiple times, and the fields are additive. 
+-->
+
+     <str name="qf">
+		id^2100000.0
+		semanticUserId^2000000.0
+		semanticLocationName^100000.0
+		semanticLevel3Name^100000.0
+		semanticLevel8Name^3500.0
+		semanticLevel7Name^1000.0
+		semanticLevel5Name^500.0
+		semanticLevel4Name^300.0
+		semanticCommercialName^200.0
+		semanticStreetName^200.0
+		semanticStreetNumber^100.0
+		semanticNewDevelopmentName^75.0
+		semanticBuildingName^50.0
+		semanticCommentsParams^0.1
+		semanticHighlightCommentsParams^0.1
+		semanticGeoTags^1900000.0		
+		semanticAdOperation^1500000.0
+		semanticAdTypology^1300000.0
+		semanticStreetType^110000.0	
+		semanticMultimediaTypes^50.0
+        semanticHasNorthOrientation^50.0
+        semanticHasSouthOrientation^50.0
+        semanticHasEastOrientation^50.0
+        semanticHasWestOrientation^50.0
+		semanticBuiltTypeId^50.0
+		semanticHasTerrace^50.0
+		semanticFlatLocation^50.0
+		semanticHasLift^50.0
+		semanticParkingSpaceNumber^50.0
+		semanticHasSwimmingPool^50.0
+		semanticAirConditioningId^50.0
+		semanticHasBoxRoom^50.0
+		semanticHasWardrobe^50.0
+		semanticFloorNumber^50.0
+		semanticRoomNumber^50.0
+		semanticBathNumber^50.0
+		semanticAmenityId^50.0
+		semanticIsFlat^1500000.0
+		semanticIsHouse^1500000.0
+		semanticNewDevelopmentBuiltType^50
+		semanticDistribution^50
+		semanticIsOnlyOfficeBuilding^50
+		semanticOfficeLift^50
+		semanticHasAccessControl^50
+		semanticHasHotWater^50
+		semanticHasHeating^50
+		semanticHasSecuritySystem^50
+		semanticGender^50
+		semanticArePetsAllowed^50
+		semanticIsSmokingAllowed^50
+		semanticSexualOrientation^50
+		semanticHasSmokeExtractor^50
+		semanticIsCornerLocated^50
+		semanticUbication^50
+		semanticGarageCapacity^50
+		semanticHasAutomaticDoor^50
+		semanticHasSecurityCamera^50
+		semanticHasAlarm^50
+		semanticHasPersonalSecurity^50
+		semanticSubtypology^50
+		semanticAgencyIsABank^50
+     </str>  

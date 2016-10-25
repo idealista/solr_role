@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- habitania extra fields -->
+<fields>
+	<field name ="multipleListingServiceIdParams" type="int" multiValued="true" indexed="true" stored="true" />
+	<field name ="webAdminAdsIdParams" type="int" multiValued="true" indexed="true" stored="false" />
+</fields>

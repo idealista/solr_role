@@ -1,0 +1,53 @@
+---
+# tasks file for solr_cloud
+# installation instructions taken from: https://cwiki.apache.org/confluence/display/solr/Taking+Solr+to+Production
+
+- name: Download SolrCloud binaries
+  get_url:
+    url: "{{ solr_cloud_url }}"
+    dest: /opt/{{ solr_cloud_package }}
+  register: download_result
+
+- name: Extract SolrCloud installation script in the current directory
+  shell: "tar xzf /opt/{{ solr_cloud_package }} {{ solr_cloud_build_name }}/bin/install_solr_service.sh --strip-components=2"
+  args:
+    chdir: /opt
+  when: download_result|changed
+
+- name: Execute SolrCloud installation script
+  shell: /opt/install_solr_service.sh /opt/{{ solr_cloud_package }}
+  when: download_result|changed
+
+- name: Give execution permission to zkcli script
+  file:
+    path: "/opt/solr/server/scripts/cloud-scripts/zkcli.sh"
+    mode: 0744
+
+- name: Create Root Path (znode) in ZooKeeper using zkcli script
+  shell: "/opt/solr/server/scripts/cloud-scripts/zkcli.sh -zkhost {{ zookeeper_hosts }} -cmd makepath /{{ zookeeper_hosts_solr_path }}"
+  ignore_errors: true
+
+- name: Add ZK_HOST variable to SolrCloud include file
+  replace:
+    dest: "/etc/default/solr.in.sh"
+    regexp: '#?\s*ZK_HOST=\"?\S*\"?$'
+    replace: 'ZK_HOST="{{ zookeeper_hosts }}/{{ zookeeper_hosts_solr_path }}"'
+
+- name: Add SOLR_HOST variable to SolrCloud include file
+  replace:
+    dest: "/etc/default/solr.in.sh"
+    regexp: '#?\s*SOLR_HOST=\"?\S*\"?$'
+    replace: "SOLR_HOST=\"{{ hostvars[inventory_hostname]['ansible_eth1']['ipv4']['address'] }}\""
+
+- name: Defining if could be used with a JMX-enabled Java profiling tool (JConsole/VisualVM)
+  replace:
+    dest: "/etc/default/solr.in.sh"
+    regexp: '#?\s*ENABLE_REMOTE_JMX_OPTS=\"?\S*\"?$'
+    replace: 'ENABLE_REMOTE_JMX_OPTS="{{ solr_jmx_enabled }}"'
+
+- name: Defining RMI Port for JMX
+  replace:
+    dest: "/etc/default/solr.in.sh"
+    regexp: '#?\s*RMI_PORT=\d*$'
+    replace: 'RMI_PORT={{ solr_jmx_port }}'
+  notify: restart SolrCloud

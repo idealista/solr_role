@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!-- 
+	 fields and boosts to use when building DisjunctionMaxQueries from the users query. 
+	 Format is: "fieldA^1.0 fieldB^2.2". 
+	 This param can be specified multiple times, and the fields are additive. 
+-->
+
+     <str name="qf">
+		professionalSearchAdId^2100000.0
+		professionalSearchExternalReference^2050000.0
+		professionalSearchStreetName^2000000.0
+     </str>  

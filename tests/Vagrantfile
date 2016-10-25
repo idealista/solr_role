@@ -1,0 +1,29 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+Vagrant.configure(2) do |config|
+
+  if Vagrant.has_plugin?("vagrant-timezone")
+    config.timezone.value = "Europe/Madrid"
+  end
+
+  config.vm.provider "virtualbox" do |virtualbox|
+    virtualbox.memory = 1024
+    virtualbox.cpus = 1
+  end
+
+  (1..4).each do |i|
+    config.vm.define "solrc#{i}" do |solrc|
+      solrc.vm.box = "debian/jessie64"
+      solrc.vm.box_version = "8.5.0"
+      solrc.vm.hostname = "solrc#{i}"
+      solrc.vm.network "private_network", ip:"10.0.0.#{i+1}"
+      solrc.vm.provision "ansible" do |ansible|
+        ansible.playbook = "main.yml"
+        ansible.sudo = true
+        ansible.inventory_path = "inventory/vagrant.ini"
+      end
+    end
+  end
+
+end

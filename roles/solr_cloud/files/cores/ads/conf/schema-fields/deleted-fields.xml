@@ -1,0 +1,120 @@
+<!-- 	 housingTypeId - RENOMBRADO A SUBTYPOPLOGYID -->
+<!-- 	  <field name ="housingTypeId" type="int" indexed="true" stored="true"/> -->
+<!-- 	 landTypeId - SE ELIMINA. ES SUBTIPOLOGIA -->
+<!-- 	  <field name ="landTypeId" type="int" indexed="true" stored="true"/> -->
+<!-- 	 name - SE ELIMINA PQ YA EXISTE NEWDEVELOPMENTNAME -->
+<!-- 	  <field name ="name" type="text" indexed="true" stored="true"/> -->
+<!-- 	 totalPictures - REVISAR. MIRAR SI SE PUEDE PREGUNTAR POR EL LENGTH DEL MULTIVALUADO	 -->
+<!-- 	  <field name ="totalPictures" type="int" indexed="true" stored="true"/> -->
+<!-- 	  <field name ="totalVideos" type="int" indexed="true" stored="true"/> -->
+<!-- 	  <field name ="totalProfessionalVideos" type="int" indexed="true" stored="true"/> -->
+<!-- 	  <field name ="totalVTours" type="int" indexed="true" stored="true"/> -->
+
+<!-- masterThumbnailPath - SE ELIMINA PARA USARSE EL 0 DE MULTIMEDIA PICTURE PARAMS. HABLAR CON DANI JIMENEZ -->
+<!-- 	  <field name ="masterThumbnailPath" type="string" indexed="false" stored="true"/> -->
+
+
+<!-- 	  officialCode-SE ELIMINA DEBIA SER DE LAS ON INTERNACIONALES -->
+<!-- 	  <field name ="officialCode" type="string" indexed="false" stored="true"/> -->
+<!-- 	 userTypedLocation - SE ELIMINA. NADIE VA A QUERER ENSEÑAR LO QUE HA PUESTO EL TIO -->
+<!-- 	  <field name ="userTypedLocation" type="text" indexed="false" stored="true"/> -->
+<!-- 	subTypeId - SE ELIMINA. ES EL MISMO QUE SUBTYPOLOGYID -->
+<!-- 	  <field name ="subTypeId" type="int" indexed="true" stored="true"/> -->
+<!-- 	micrositePropertyTypeId - SE ELIMINA, NO TIENE SENTIDO, HAY QUE REHACER QUIEN UTILIZA ESTO -->
+<!-- 	  <field name ="micrositePropertyTypeId" type="int" indexed="true" stored="true"/> -->
+<!-- 	  <field name ="thumbnail" type="string" indexed="false" stored="true"/> -->
+<!-- 	  <field name ="priceDropDate" type="date" indexed="false" stored="true"/> -->
+<!-- 	 floorNumberInt - SE ELIMINA, NO SE ESTÁ USANDO -->
+<!-- 	  <field name ="floorNumberInt" type="int" indexed="true" stored="false"/> -->
+<!-- 	  <field name ="masterthumbnail" type="string" indexed="false" stored="true"/> -->
+<!-- 	phone -  SE ELIMINA. REPETIDO CON PHONE1 -->
+<!-- 	  <field name ="phone" type="string" indexed="true" stored="true"/> -->
+<!-- 	phonePrefix -	SE ELIMINA. REPETIDO CON PHONE1PREFIX -->
+<!-- 	  <field name ="phonePrefix" type="string" indexed="true" stored="true"/> -->
+<!-- 	  dropDate - SE ELIMINA Y SE DEJA PRICEDROPDATE	 -->
+<!-- 	  <field name ="dropDate" type="date" indexed="false" stored="true"/> -->
+<!-- 	userIdString -  SE ELIMINA -->
+<!-- 	  <field name ="userIdString" type="string_b" indexed="true" stored="true"/> -->
+<!-- 	homeType - SE ELIMINA -->
+<!-- 	  <field name ="homeType" type="int" indexed="true" stored="true"/> -->
+<!-- 	  builtTypeFilter - SE ELIMINA. NO ESTÁ EN NINGUN LADO -->
+<!-- 	  <field name ="builtTypeFilter" type="int" indexed="true" stored="true"/> -->
+<!-- 	 hasKitchenAmenities - SE ELIMINA -->
+<!-- 	  <field name ="hasKitchenAmenities" type="boolean" indexed="true" stored="false"/> -->
+<!-- 	hasParkingSpace - se elimina, se utilizará has parkingspace number -->
+<!-- 	  <field name ="hasParkingSpace" type="boolean" indexed="true" stored="true"/> -->
+<!-- 	totalContactEmails : SE ELIMINA, YA NO SE USA -->
+<!-- 	  <field name ="totalContactEmails" type="int" indexed="true" stored="false"/> -->
+
+	  <!-- securitySystem - SE ELIMINA POR ESTAR DUPLICADO CON SECURITYSUSTEMS (hay que calcularlo) -->
+<!-- 	  <field name ="securitySystem" type="boolean" indexed="true" stored="false"/> -->
+
+	  <!-- officeLocationId - SE ELIMINA POR ESTAR DUPLICADO CON FLATLOCATIONID. SI ACASO CREAR DT PARA CAMBIAR EL NOMBRE EN BBDD -->
+<!-- 	  <field name ="officeLocationId" type="int" indexed="true" stored="true"/> -->
+	  <!-- 	 genderWeight - SE ELIMINA, NO TIENE SENTIDO -->
+<!-- 	  <field name ="genderWeight" type="int" indexed="true" stored="false"/> -->
+
+<!-- 	 chaletTypeId - se elimina. Es subtypologyid -->
+<!-- 	  <field name ="chaletTypeId" type="int" indexed="false" stored="true"/> -->
+
+<!-- 	homeTypeId -  SE ELIMINA PORQUE NO SE ESTÁ USANDO -->
+<!-- 	  <field name ="homeTypeId" type="int" indexed="false" stored="true"/> -->
+
+	  <!-- roomTypeId : SE ELIMINA. ES SUBTIPOLOGIA	 -->
+<!-- 	  <field name ="roomTypeId" type="int" indexed="false" stored="true" /> -->
+
+<!-- 	  garageTypeId - SE ELIMINA, NO EXISTE. DEPRECADO -->
+<!-- 	  <field name ="garageTypeId" type="int" indexed="false" stored="true" /> -->
+
+<!-- 	 isOffice - SE ELIMINA, LO PIDIO VOLCADOS Y AHORA NO SE ENCUENTRA POR NINGUN LADO -->
+<!-- 	  <field name ="isOffice" type="int" indexed="false" stored="true" /> -->
+
+<!-- 	isPriceDrop -  SE ELIMINA EN FAVOR DE UTILIZAR PRICEDROPDATE Y PRICEDROPVALUE -->
+<!-- 	  <field name ="isPriceDrop" type="int" indexed="false" stored="true" /> -->
+<!-- 	buildTypeEnergycertId - SE ELIMINA. ES DE VOLCADOS. HABLAR CON JOAO, ESTE REALMENTE ES ENERGYCERFITICATIONID -->
+<!-- 	  <field name ="buildTypeEnergycertId" type="int" indexed="false" stored="true" /> -->
+	  <!-- 	hasFullEquipKitchen - SE ELIMINA -->
+<!-- 	  <field name ="hasFullEquipKitchen" type="int" indexed="false" stored="true" /> -->
+<!-- 	 code - SE ELIMINA. ERA EL ADID -->
+<!-- 	  <field name ="code" type="int" indexed="true" stored="true"/> -->
+<!-- 	 newDevelopmentTypeText - SE ELIMINA -->
+<!-- 	  <field name ="newDevelopmentTypeText" type="text" indexed="true" stored="false"/> -->
+<!-- SE ELIMINA POR ESTAR DUPLICADO CON airConditioningIdText -->
+<!-- 	  <field name ="hasAirConditioningText" type="text" indexed="true" stored="false"/> -->
+
+<!-- <field name ="latitude" type="double" indexed="true" stored="true"/> -->
+<!-- <field name ="longitude" type="double" indexed="true" stored="true"/> -->
+<!-- <field name ="movedLatitude" type="double" indexed="true" stored="true"/> -->
+<!-- <field name ="movedLongitude" type="double" indexed="true" stored="true"/> -->
+<!-- locationNameOriginal - SE ELIMINA -->
+<!-- <field name ="locationNameOriginal" type="text" indexed="true" stored="true"/> -->
+<!-- <field name ="adId" type="int" indexed="true" stored="true"/> -->
+
+<!--  se elimina por subtypologyid -->
+<!-- 	<field name ="newDevelopmentTypeId" type="int" indexed="true" stored="true"/> -->
+
+<!-- buildPurposeId - se elimina por subtypologyId -->
+<!-- 	<field name ="buildPurposeId" type="int" indexed="true" stored="true"/> -->
+
+		<!-- campos auxiliares -->
+<!-- 		<field name="auxGeoTags" type="text" multiValued="true" indexed="false" stored="false" /> -->
+<!-- 		<field name="isFinished" type="boolean" indexed="false" stored="false" /> -->
+<!-- 		<field name="latitude" type="double" indexed="false" stored="false" /> -->
+<!-- 		<field name="longitude" type="double" indexed="false" stored="false" /> -->
+<!-- 		<field name="movedLatitude" type="double" indexed="false" stored="false" /> -->
+<!-- 		<field name="movedLongitude" type="double" indexed="false" stored="false" /> -->
+<!-- 		<field name="shortName" type="text" indexed="false" stored="true" /> -->
+<!-- 		<field name="chaletTypeId" type="int" indexed="false" stored="false" /> -->
+<!-- 		<field name="countryhouseTypeId" type="int" indexed="false" stored="false" /> -->
+<!-- 		<field name="officeLocationId" type="int" indexed="false" stored="false" /> -->
+<!-- 		<field name="roomTypeId" type="int" indexed="false" stored="false" /> -->
+<!-- 		<field name="landTypeId" type="int" indexed="false" stored="false" /> -->
+<!-- 		<field name="newDevelopmentTypeId" type="int" indexed="false" stored="false" /> -->
+<!-- 		<field name="name" type="string" indexed="false" stored="false" /> -->
+<!-- 		<field name="buildPurposeId" type="int" indexed="false" stored="false" /> -->
+<!-- 		<field name="hasFullEquipKitchen" type="boolean" indexed="false" stored="false" /> -->
+<!-- 		<field name="auxMultimediaTypesId" type="int" multiValued="true" indexed="false" stored="false" /> -->
+<!-- 		<field name="price" type="double" indexed="false" stored="false" /> -->
+		
+		
+

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<updateRequestProcessorChain name="adsChain" class="org.apache.solr.update.processor.UpdateRequestProcessorChain" default="true">
+	<processor class="com.ilc.solr.chain.ads.steps.init.InitProcessorFactory" default="true" />
+	<processor class="com.ilc.solr.chain.ads.steps.ad.AdFieldsProcessorFactory" />
+	<processor class="com.ilc.solr.chain.ads.steps.extended.ExtendedFieldsProcessorFactory" />
+	<processor class="com.ilc.solr.chain.ads.steps.typologyinfo.TypologyInfoFieldsProcessorFactory" />
+	<processor class="com.ilc.solr.chain.ads.steps.location.LocationFieldsProcessorFactory" />
+	<processor class="com.ilc.solr.chain.ads.steps.multimedia.MultimediaFieldsProcessorFactory" />
+	<processor class="com.ilc.solr.chain.ads.steps.user.UserFieldsProcessorFactory" />
+	<processor class="com.ilc.solr.chain.ads.steps.semantic.SemanticFieldsProcessorFactory" />
+	<processor class="com.ilc.solr.chain.ads.steps.professionalsearch.ProfessionalSearchFieldsProcessorFactory" />
+	<processor class="solr.RunUpdateProcessorFactory" />
+	<!-- <processor class="solr.LogUpdateProcessorFactory" /> -->
+</updateRequestProcessorChain>

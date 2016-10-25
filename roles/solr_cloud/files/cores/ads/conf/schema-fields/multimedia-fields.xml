@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<fields>
+	<!-- multimedia fields -->
+	<field name ="multimediaPicturesParams" type="string" multiValued="true" indexed="false" stored="true"/>
+	<field name ="multimediaVideosParams" type="string" multiValued="true" indexed="false" stored="true"/>
+	<field name ="multimediaProfessionalVideosParams" type="string" multiValued="true" indexed="false" stored="true"/>
+	<field name ="multimediaVirtualToursParams" type="string" multiValued="true" indexed="false" stored="true"/>
+	<field name ="hasPicsAndPlan" type="boolean" indexed="true" stored="true" omitNorms="false"/>
+	<field name="totalVideos" type="int" indexed="true" stored="true" omitNorms="false" docValues="true"/>
+	<field name="totalProfessionalVideos" type="int" indexed="true" stored="true" omitNorms="false" docValues="true"/>
+	<field name="totalVirtualTours" type="int" indexed="true" stored="true" omitNorms="false" docValues="true"/>
+	<field name="totalPictures" type="int" indexed="true" stored="true" omitNorms="false" docValues="true"/>
+</fields>

@@ -1,0 +1,46 @@
+---
+- name: Debian repo
+  apt_key:
+    keyserver: hkp://keyserver.ubuntu.com:80
+    id: EEA14886
+  when: ansible_distribution in [ 'Debian' ]
+
+- name: Debian repo key
+  apt_repository:
+    repo: "{{ java_repo }}"
+    update_cache: yes
+  when: ansible_distribution in [ 'Debian' ]
+
+- name: Add Java ppa to Ubuntu
+  apt_repository:
+    repo: ppa:{{ java_ppa }}
+    update_cache: yes
+  when: ansible_distribution in [ 'Ubuntu' ]
+
+- name: Autoaccept license for Java
+  debconf:
+    name: oracle-java{{ item }}-installer
+    question: shared/accepted-oracle-license-v1-1
+    value: 'true'
+    vtype: select
+  with_items: "{{ java_version }}"
+
+- name: Install Java
+  apt:
+    pkg: oracle-java{{ item }}-installer
+    state: latest
+    install_recommends: yes
+  with_items: "{{ java_version }}"
+
+- name: Set Java Env
+  apt:
+    pkg: oracle-java{{ java_set_version }}-set-default
+    state: latest
+    install_recommends: yes
+
+- name: Ensure Defaults on etc/alternatives systems
+  file:
+    src: /usr/lib/jvm/java-{{ java_set_version }}-oracle
+    dest: /usr/lib/jvm/default-java
+    force: yes
+    state: link

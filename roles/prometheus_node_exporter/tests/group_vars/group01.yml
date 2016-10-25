@@ -1,0 +1,5 @@
+---
+node_exporter_country_role: es
+node_exporter_env_role: pre
+node_exporter_service_roles:
+  - 'vagrant'

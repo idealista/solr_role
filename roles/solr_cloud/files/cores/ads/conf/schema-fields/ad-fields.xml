@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!-- ad fields -->
+<fields>
+	<field name ="adStateId" type="int" indexed="true" stored="true" required="true" omitNorms="false" docValues="true"/>
+	<field name ="adTypologyId" type="int" indexed="true" stored="true" required="true" omitNorms="false" docValues="true"/>
+	<field name ="adOperationId" type="int" indexed="true" stored="true" required="true" omitNorms="false" docValues="true"/>
+	<field name ="adOriginId" type="int" indexed="true" stored="true" required="true" omitNorms="false" docValues="true"/>
+	<field name ="creationDate" type="date" indexed="true" stored="true" required="true" omitNorms="true" docValues="true"/>
+	<field name ="firstActivationDate" type="date" indexed="true" stored="true" omitNorms="false"/>
+	<field name ="modificationDate" type="date" indexed="true" stored="true" required="true" omitNorms="false"/>
+	<field name ="publishServiceId" type="int" indexed="true" stored="true" required="true" omitNorms="false"/>
+	<field name ="isInvoiceAd" type="boolean" indexed="false" stored="true" required="true"/>
+	<field name ="propertyTypeId" type="int" indexed="true" stored="true" omitNorms="false"/>
+	<field name ="adScopeId" type="int" indexed="true" stored="true" omitNorms="false" docValues="true"/>
+	<field name ="externalReference" type="string" indexed="true" stored="true"/>
+	<field name ="lastActivationDate" type="date" indexed="true" stored="true" omitNorms="false"/>
+	<field name ="lastDeactivationDate" type="date" indexed="true" stored="true" omitNorms="false"/>
+	<field name ="lastReactDateAfterLongInact" type="date" indexed="true" stored="true" omitNorms="false"/>
+	<field name ="userContactId" type="int"  indexed="false" stored="true" required="true"/>
+	<field name ="expirationDate" type="date" indexed="false" stored="true"/>
+	<field name ="userId" type="int" indexed="true" stored="true" required="true" omitNorms="false" docValues="true"/>
+	<field name ="userTypeId" type="int" indexed="true" stored="true" omitNorms="false"/>
+	
+	<field name ="priceForSale" type="double" indexed="true" stored="true" omitNorms="true" docValues="true"/>
+	<field name ="priceForRent" type="double" indexed="true" stored="true" omitNorms="true" docValues="true"/>
+	<field name ="priceForRentToOwn" type="double" indexed="true" stored="true" omitNorms="true" docValues="true"/>
+	<field name ="priceForOwn" type="double" indexed="true" stored="true" omitNorms="true" docValues="true"/>
+	
+</fields>
