@@ -1,5 +1,0 @@
-machine_country{role="{{ node_exporter_country_role|default('all') }}"} 1
-machine_env{role="{{ node_exporter_env_role|default('int') }}"} 1
-{% for role in node_exporter_service_roles %}
-machine_role{role="{{ role }}"} 1
-{% endfor %}

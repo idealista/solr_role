@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8" ?>
-<!-- ad fields -->
-<fields>
-	<!-- saved ad component needed -->
-	<field name="adId" type="string" indexed="true" stored="false"/>
-   	<copyField source="id" dest="adId" />
-   	<field name="changeStateDate" type="date" indexed="true" stored="true"/>
-</fields>
