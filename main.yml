@@ -1,7 +1,0 @@
----
-# Playbook to deploy SolrCloud
-
-- hosts: all
-  roles:
-    - java
-    - solr_cloud

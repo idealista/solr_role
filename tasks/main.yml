@@ -27,27 +27,9 @@
   shell: "/opt/solr/server/scripts/cloud-scripts/zkcli.sh -zkhost {{ zookeeper_hosts }} -cmd makepath /{{ zookeeper_hosts_solr_path }}"
   ignore_errors: true
 
-- name: Add ZK_HOST variable to SolrCloud include file
-  replace:
-    dest: "/etc/default/solr.in.sh"
-    regexp: '#?\s*ZK_HOST=\"?\S*\"?$'
-    replace: 'ZK_HOST="{{ zookeeper_hosts }}/{{ zookeeper_hosts_solr_path }}"'
-
-- name: Add SOLR_HOST variable to SolrCloud include file
-  replace:
-    dest: "/etc/default/solr.in.sh"
-    regexp: '#?\s*SOLR_HOST=\"?\S*\"?$'
-    replace: "SOLR_HOST=\"{{ hostvars[inventory_hostname]['ansible_eth1']['ipv4']['address'] }}\""
-
-- name: Defining if could be used with a JMX-enabled Java profiling tool (JConsole/VisualVM)
-  replace:
-    dest: "/etc/default/solr.in.sh"
-    regexp: '#?\s*ENABLE_REMOTE_JMX_OPTS=\"?\S*\"?$'
-    replace: 'ENABLE_REMOTE_JMX_OPTS="{{ solr_jmx_enabled }}"'
-
-- name: Defining RMI Port for JMX
-  replace:
-    dest: "/etc/default/solr.in.sh"
-    regexp: '#?\s*RMI_PORT=\d*$'
-    replace: 'RMI_PORT={{ solr_jmx_port }}'
+- name: Configuring SolrCloud instance using solr.in.sh script template
+  template:
+      src: solr.in.sh.j2
+      dest: /etc/default/solr.in.sh
+      force: yes
   notify: restart SolrCloud

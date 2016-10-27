@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="UTF-8" ?>
-
-<queryParser name="professionalSearchQParser" class="com.ilc.solr.parsers.professionalsearch.ProfessionalSearchQParserPlugin"/>
-	
-	

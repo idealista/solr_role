@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8" ?>
-<fields>
-		<!-- semantic fields -->
-		<!-- estan en stored a true para testing -->
-	<field name ="professionalSearchExternalReference" type="professionalSearchText" indexed="true" stored="true"/>
-	<field name ="professionalSearchAdId" type="professionalSearchText" indexed="true" stored="true"/>
-	<field name ="professionalSearchStreetName" type="professionalSearchText" indexed="true" stored="true"/>
-
-</fields>	
