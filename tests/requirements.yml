@@ -1,0 +1,9 @@
+- src: http://deployer:deployer@git.sys.idealista/scm/as/java-role.git
+  scm: git
+  version: origin/master
+  name: java
+
+#- src: http://deployer@git.sys.idealista/scm/as/zookeeper-role.git
+#  scm: git
+#  version: 1.0.0
+#  name: zookeeper
