@@ -13,10 +13,14 @@
   args:
     chdir: /opt
   when: download_result|changed
+  tags:
+   skip_ansible_lint
 
 - name: Execute SolrCloud installation script
   shell: /opt/install_solr_service.sh /opt/{{ solr_cloud_package }}
   when: download_result|changed
+  tags:
+   skip_ansible_lint
 
 - name: Give execution permission to zkcli script
   file:
@@ -26,6 +30,8 @@
 - name: Create Root Path (znode) in ZooKeeper using zkcli script
   shell: "/opt/solr/server/scripts/cloud-scripts/zkcli.sh -zkhost {{ zookeeper_hosts }} -cmd makepath /{{ zookeeper_hosts_solr_path }}"
   ignore_errors: true
+  tags:
+   skip_ansible_lint
 
 - name: Configuring SolrCloud instance using solr.in.sh script template
   template:
