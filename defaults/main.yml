@@ -2,19 +2,19 @@
 solr_cloud_version: 6.3.0
 solr_cloud_build_name: solr-{{ solr_cloud_version }}
 solr_cloud_package: "{{ solr_cloud_build_name }}.tgz"
-solr_cloud_url: http://apache.uvigo.es/lucene/solr/{{ solr_cloud_version }}/{{ solr_cloud_package }}
+solr_cloud_url: http://archive.apache.org/lucene/solr/{{ solr_cloud_version }}/{{ solr_cloud_package }}
 solr_port: 8983
 solr_jmx_enabled: true
 solr_jmx_port: 1099
 solr_host: "{{ hostvars[inventory_hostname]['ansible_eth2']['ipv4']['address'] }}"
 
 solr_heap: 512m
-solr.jetty.threads.min: 10
-solr.jetty.threads.max: 10000
-solr.jetty.threads.idle.timeout: 5000
-solr.jetty.threads.stop.timeout: 60000
-solr.jetty.output.buffer.size: 32768
-solr.jetty.output.aggregation.size: 8192
+solr_jetty_threads_min: 10
+solr_jetty_threads_max: 10000
+solr_jetty_threads_idle_timeout: 5000
+solr_jetty_threads_stop_timeout: 60000
+solr_jetty_output_buffer_size: 32768
+solr_jetty_output_aggregation_size: 8192
 
 zookeeper_hosts: localhost:2181
 zookeeper_hosts_solr_path: solr
