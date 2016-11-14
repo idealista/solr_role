@@ -2,7 +2,7 @@
 solr_cloud_version: 6.3.0
 solr_cloud_build_name: solr-{{ solr_cloud_version }}
 solr_cloud_package: "{{ solr_cloud_build_name }}.tgz"
-solr_cloud_url: http://archive.apache.org/lucene/solr/{{ solr_cloud_version }}/{{ solr_cloud_package }}
+solr_cloud_url: http://archive.apache.org/dist/lucene/solr/{{ solr_cloud_version }}/{{ solr_cloud_package }}
 solr_port: 8983
 solr_jmx_enabled: true
 solr_jmx_port: 1099

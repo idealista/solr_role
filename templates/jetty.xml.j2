@@ -33,10 +33,10 @@
   <Arg name="threadpool"><New id="threadpool" class="org.eclipse.jetty.util.thread.QueuedThreadPool"/></Arg>
   -->
   <Get name="ThreadPool">
-    <Set name="minThreads" type="int"><Property name="solr.jetty.threads.min" default="10"/>{{solr_jetty_threads_min}}</Set>
-    <Set name="maxThreads" type="int"><Property name="solr.jetty.threads.max" default="10000"/>{{solr_jetty_threads_max}}</Set>
-    <Set name="idleTimeout" type="int"><Property name="solr.jetty.threads.idle.timeout" default="5000"/>{{solr_jetty_threads_idle_timeout}}</Set>
-    <Set name="stopTimeout" type="int"><Property name="solr.jetty.threads.stop.timeout" default="60000"/>{{solr_jetty_threads_stop_timeout}}</Set>
+    <Set name="minThreads" type="int"><Property name="solr.jetty.threads.min" default="10">{{solr_jetty_threads_min}}</Property></Set>
+    <Set name="maxThreads" type="int"><Property name="solr.jetty.threads.max" default="10000">{{solr_jetty_threads_max}}</Property></Set>
+    <Set name="idleTimeout" type="int"><Property name="solr.jetty.threads.idle.timeout" default="5000">{{solr_jetty_threads_idle_timeout}}</Property></Set>
+    <Set name="stopTimeout" type="int"><Property name="solr.jetty.threads.stop.timeout" default="60000">{{solr_jetty_threads_stop_timeout}}</Property></Set>
     <Set name="detailedDump">false</Set>
   </Get>
 
@@ -59,8 +59,8 @@
   <New id="httpConfig" class="org.eclipse.jetty.server.HttpConfiguration">
     <Set name="secureScheme">https</Set>
     <Set name="securePort"><Property name="solr.jetty.secure.port" default="8443" /></Set>
-    <Set name="outputBufferSize"><Property name="solr.jetty.output.buffer.size" default="32768" />{{solr_jetty_output_buffer_size}}</Set>
-    <Set name="outputAggregationSize"><Property name="solr.jetty.output.aggregation.size" default="8192" />{{solr_jetty_output_aggregation_size}}</Set>
+    <Set name="outputBufferSize"><Property name="solr.jetty.output.buffer.size" default="32768">{{solr_jetty_output_buffer_size}}</Property></Set>
+    <Set name="outputAggregationSize"><Property name="solr.jetty.output.aggregation.size" default="8192">{{solr_jetty_output_aggregation_size}}</Property></Set>
     <Set name="requestHeaderSize"><Property name="solr.jetty.request.header.size" default="8192" /></Set>
     <Set name="responseHeaderSize"><Property name="solr.jetty.response.header.size" default="8192" /></Set>
     <Set name="sendServerVersion"><Property name="solr.jetty.send.server.version" default="false" /></Set>
