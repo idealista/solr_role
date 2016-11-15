@@ -33,9 +33,34 @@
   tags:
    skip_ansible_lint
 
+- name: Configuring jetty server
+  template:
+      src: jetty.xml.j2
+      dest: /opt/solr/server/etc/jetty.xml
+      force: yes
+  notify: restart SolrCloud
+
 - name: Configuring SolrCloud instance using solr.in.sh script template
   template:
       src: solr.in.sh.j2
       dest: /etc/default/solr.in.sh
       force: yes
+  notify: restart SolrCloud
+
+# TEMPORAL
+- name: Download jts binaries
+  get_url:
+    url: http://repository.int.sys.idealista:8081/nexus/content/groups/public/com/vividsolutions/jts/1.13/jts-1.13.jar
+    dest: /opt/solr/server/lib/ext
+  notify: restart SolrCloud
+
+- name: Create ads lib dir
+  file:
+    path: /opt/solr/adslib
+    state: directory
+
+- name: Download ilc-solr-components
+  get_url:
+    url: http://repository.int.sys.idealista:8081/nexus/content/repositories/idealista-releases/idealista-solr/idealista-solr-components/3.0.0/idealista-solr-components-3.0.0.jar
+    dest: /opt/solr/adslib/
   notify: restart SolrCloud

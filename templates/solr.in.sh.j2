@@ -1,11 +1,3 @@
-
-The programs included with the Debian GNU/Linux system are free software;
-the exact distribution terms for each program are described in the
-individual files in /usr/share/doc/*/copyright.
-
-Debian GNU/Linux comes with ABSOLUTELY NO WARRANTY, to the extent
-permitted by applicable law.
-
 # Licensed to the Apache Software Foundation (ASF) under one or more
 # contributor license agreements.  See the NOTICE file distributed with
 # this work for additional information regarding copyright ownership.
@@ -27,7 +19,7 @@ permitted by applicable law.
 #SOLR_JAVA_HOME=""
 
 # Increase Java Heap as needed to support your indexing / query needs
-SOLR_HEAP="512m"
+SOLR_HEAP="{{solr_heap}}"
 
 # Expert: If you want finer control over memory options, specify them directly
 # Comment out SOLR_HEAP if you are using this though, that takes precedence

@@ -3,4 +3,5 @@
 - hosts: all
   roles:
     - role: java
+    - role: zookeeper
     - role: solr-cloud-role
