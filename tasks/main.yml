@@ -17,7 +17,7 @@
    skip_ansible_lint
 
 - name: Execute SolrCloud installation script
-  shell: /opt/install_solr_service.sh /opt/{{ solr_cloud_package }}
+  shell: /opt/install_solr_service.sh /opt/{{ solr_cloud_package }} -f
   when: download_result|changed
   tags:
    skip_ansible_lint
