@@ -1,66 +1,7 @@
 ---
-# tasks file for solr_cloud
-# installation instructions taken from: https://cwiki.apache.org/confluence/display/solr/Taking+Solr+to+Production
 
-- name: Download SolrCloud binaries
-  get_url:
-    url: "{{ solr_cloud_url }}"
-    dest: /opt/{{ solr_cloud_package }}
-  register: download_result
+- include: install.yml
 
-- name: Extract SolrCloud installation script in the current directory
-  shell: "tar xzf /opt/{{ solr_cloud_package }} {{ solr_cloud_build_name }}/bin/install_solr_service.sh --strip-components=2"
-  args:
-    chdir: /opt
-  when: download_result|changed
-  tags:
-   skip_ansible_lint
+- include: config.yml
 
-- name: Execute SolrCloud installation script
-  shell: /opt/install_solr_service.sh /opt/{{ solr_cloud_package }}
-  when: download_result|changed
-  tags:
-   skip_ansible_lint
-
-- name: Give execution permission to zkcli script
-  file:
-    path: "/opt/solr/server/scripts/cloud-scripts/zkcli.sh"
-    mode: 0744
-
-- name: Create Root Path (znode) in ZooKeeper using zkcli script
-  shell: "/opt/solr/server/scripts/cloud-scripts/zkcli.sh -zkhost {{ zookeeper_hosts }} -cmd makepath /{{ zookeeper_hosts_solr_path }}"
-  ignore_errors: true
-  tags:
-   skip_ansible_lint
-
-- name: Configuring jetty server
-  template:
-      src: jetty.xml.j2
-      dest: /opt/solr/server/etc/jetty.xml
-      force: yes
-  notify: restart SolrCloud
-
-- name: Configuring SolrCloud instance using solr.in.sh script template
-  template:
-      src: solr.in.sh.j2
-      dest: /etc/default/solr.in.sh
-      force: yes
-  notify: restart SolrCloud
-
-# TEMPORAL
-- name: Download jts binaries
-  get_url:
-    url: http://repository.int.sys.idealista:8081/nexus/content/groups/public/com/vividsolutions/jts/1.13/jts-1.13.jar
-    dest: /opt/solr/server/lib/ext
-  notify: restart SolrCloud
-
-- name: Create ads lib dir
-  file:
-    path: /opt/solr/adslib
-    state: directory
-
-- name: Download ilc-solr-components
-  get_url:
-    url: http://repository.int.sys.idealista:8081/nexus/content/repositories/idealista-releases/idealista-solr/idealista-solr-components/3.0.0/idealista-solr-components-3.0.0.jar
-    dest: /opt/solr/adslib/
-  notify: restart SolrCloud
+- include: service.yml

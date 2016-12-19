@@ -21,10 +21,13 @@ molecule:
   # directory containing group_vars to use with ansible
   group_vars: ../tests/group_vars
 
+dependency:
+  name: galaxy
+  requirements_file: tests/requirements.yml
+
 # ansible related configuration
 ansible:
   playbook: tests/playbook.yml
-  requirements_file: tests/requirements.yml
 
 # configuration options for the internal call to vagrant
 vagrant:

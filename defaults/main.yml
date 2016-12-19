@@ -1,12 +1,25 @@
 ---
+
+solr_user: solr
+solr_group: solr
+
+solr_log_dir: /var/log/solr
+solr_home: /var/solr
+solr_data_dir: "{{ solr_home }}/data"
+
+# start on boot
+solr_service_enabled: yes
+# current state: started, stopped
+solr_service_state: started
+
 solr_cloud_version: 6.3.0
 solr_cloud_build_name: solr-{{ solr_cloud_version }}
 solr_cloud_package: "{{ solr_cloud_build_name }}.tgz"
 solr_cloud_url: http://archive.apache.org/dist/lucene/solr/{{ solr_cloud_version }}/{{ solr_cloud_package }}
 solr_port: 8983
-solr_jmx_enabled: true
+solr_jmx_enabled: 'true'
 solr_jmx_port: 1099
-solr_host: "{{ hostvars[inventory_hostname]['ansible_eth1']['ipv4']['address'] }}"
+solr_host: "{{ hostvars[ansible_nodename]['ansible_' + ansible_default_ipv4.alias]['ipv4']['address'] }}"
 
 solr_heap: 512m
 solr_jetty_threads_min: 10
@@ -19,3 +32,8 @@ solr_jetty_output_aggregation_size: 8192
 zookeeper_hosts: localhost:2181
 zookeeper_hosts_solr_path: solr
 zk_host: "{{ zookeeper_hosts }}/{{ zookeeper_hosts_solr_path }}"
+zookeeper_client_path: /opt/solr/server/scripts/cloud-scripts
+
+log_root_level: WARN
+log_file_size: 500MB
+log_max_backup_index: 9

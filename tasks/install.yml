@@ -1,0 +1,43 @@
+---
+# tasks file for solr_cloud
+# installation instructions taken from: https://cwiki.apache.org/confluence/display/solr/Taking+Solr+to+Production
+- name: SolrCloud | Ensure solr group
+  group:
+    name: "{{ solr_group }}"
+
+- name: SolrCloud | Ensure solr user
+  user:
+    name: "{{ solr_user }}"
+    group: "{{ solr_group }}"
+    home: /bin/false
+    createhome: yes
+
+- name: SolrCloud | Ensure solr dirs exists
+  file:
+    path: "{{ item }}"
+    state: directory
+    owner: "{{ solr_user }}"
+    group: "{{ solr_group }}"
+  with_items:
+    - "{{ solr_log_dir }}"
+    - "{{ solr_data_dir }}"
+
+- name: SolrCloud | Download SolrCloud binaries
+  get_url:
+    url: "{{ solr_cloud_url }}"
+    dest: /tmp/{{ solr_cloud_package }}
+  register: download_solr
+
+- name: SolrCloud | Extract SolrCloud installation script in the current directory
+  shell: "tar xzf /tmp/{{ solr_cloud_package }} {{ solr_cloud_build_name }}/bin/install_solr_service.sh --strip-components=2"
+  args:
+    chdir: /tmp
+  when: download_solr|changed
+  tags:
+   skip_ansible_lint
+
+- name: SolrCloud | Execute SolrCloud installation script
+  shell: /tmp/install_solr_service.sh /tmp/{{ solr_cloud_package }} -f -u {{ solr_user }} -n
+  when: download_solr|changed
+  tags:
+   skip_ansible_lint

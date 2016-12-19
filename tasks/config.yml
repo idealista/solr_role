@@ -1,0 +1,38 @@
+---
+
+- name: SolrCloud | Give execution permission to zkcli script
+  file:
+    path: "{{ zookeeper_client_path }}/zkcli.sh"
+    mode: 0744
+
+- name: SolrCloud | Create Root Path (znode) in ZooKeeper using zkcli script
+  shell: >
+    {{ zookeeper_client_path }}/zkcli.sh
+    -zkhost {{ zookeeper_hosts }}
+    -cmd makepath /{{ zookeeper_hosts_solr_path }}
+    >> /tmp/path_created.out
+    creates: /tmp/path_created.out
+  ignore_errors: true
+  tags:
+   skip_ansible_lint
+
+- name: SolrCloud | Configuring jetty server
+  template:
+      src: jetty.xml.j2
+      dest: /opt/solr/server/etc/jetty.xml
+      force: yes
+  notify: restart SolrCloud
+
+- name: SolrCloud | Configuring SolrCloud
+  template:
+      src: solr.in.sh.j2
+      dest: /etc/default/solr.in.sh
+      force: yes
+  notify: restart SolrCloud
+
+- name: SolrCloud | Configuring logging
+  template:
+      src: log4j.properties.j2
+      dest: /opt/solr/log4j.properties
+      force: yes
+  notify: restart SolrCloud
