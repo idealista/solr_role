@@ -2,7 +2,7 @@
 
 # SolrCloud Ansible role
 
-This ansible role installs a solr cloud server in a debian environment.
+This ansible role installs a SolrCloud server in a debian environment.
 
 - [Getting Started](#getting-started)
 	- [Prerequisities](#prerequisities)
@@ -14,11 +14,10 @@ This ansible role installs a solr cloud server in a debian environment.
 - [Authors](#authors)
 - [License](#license)
 - [Contributing](#contributing)
-- [Acknowledgments](#acknowledgments)
 
 ## Getting Started
 
-These instructions will get you a copy of the role for your ansible playbook. Once launched, it will install a [Solr Cloud](https://cwiki.apache.org/confluence/display/solr/SolrCloud) server in a Debian system.
+These instructions will get you a copy of the role for your ansible playbook. Once launched, it will install a [SolrCloud](https://cwiki.apache.org/confluence/display/solr/SolrCloud) server in a Debian system.
 
 ### Prerequisities
 
@@ -89,5 +88,3 @@ This project is licensed under the [Apache 2.0](https://www.apache.org/licenses/
 ## Contributing
 
 Please read [CONTRIBUTING.md](CONTRIBUTING.md) for details on our code of conduct, and the process for submitting pull requests to us.
-
-## Acknowledgments
