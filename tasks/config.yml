@@ -6,11 +6,8 @@
     mode: 0744
 
 - name: SolrCloud | Create Root Path (znode) in ZooKeeper using zkcli script
-  shell: >
-    {{ zookeeper_client_path }}/zkcli.sh
-    -zkhost {{ zookeeper_hosts }}
-    -cmd makepath /{{ zookeeper_hosts_solr_path }}
-    >> /tmp/path_created.out
+  shell: "{{ zookeeper_client_path }}/zkcli.sh -zkhost {{ zookeeper_hosts }} -cmd makepath /{{ zookeeper_hosts_solr_path }} >> /tmp/path_created.out"
+  args:
     creates: /tmp/path_created.out
   ignore_errors: true
   tags:
