@@ -1,6 +1,7 @@
 ---
 # handlers file for solr_cloud
 - name: restart SolrCloud
-  service:
+  systemd:
     name: solr
     state: restarted
+  when: solr_service_state != 'stopped'
