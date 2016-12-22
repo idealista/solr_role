@@ -4,4 +4,4 @@
   roles:
     - role: java
     - role: zookeeper
-    - role: solr-cloud-role
+    - role: solrcloud-role
