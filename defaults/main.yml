@@ -26,8 +26,16 @@ solr_jetty_threads_min: 10
 solr_jetty_threads_max: 10000
 solr_jetty_threads_idle_timeout: 5000
 solr_jetty_threads_stop_timeout: 60000
+
+solr_jetty_secure_port: 8443
 solr_jetty_output_buffer_size: 32768
 solr_jetty_output_aggregation_size: 8192
+solr_jetty_request_header_size: #8192
+solr_jetty_response_header_size: #8192
+solr_jetty_send_server_version: #'false'
+solr_jetty_send_date_header: #'false'
+solr_jetty_header_cache_size: #512
+solr_jetty_delay_dispatch_until_content: #'false'
 
 zookeeper_hosts: localhost:2181
 zookeeper_hosts_solr_path: solr
