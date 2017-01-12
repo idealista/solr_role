@@ -3,6 +3,10 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+## [1.1.1] 2017-01-11
+### Fixed
+- *#4 Copy solr.xml file for not default data dir* @jmonterrubio
+
 ## [1.1.0]
 ### Added
 - *#1 Enable all the jetty HttpConfiguration parameters from ansible* @jmonterrubio

@@ -20,10 +20,17 @@
       force: yes
   notify: restart SolrCloud
 
-- name: SolrCloud | Configuring SolrCloud
+- name: SolrCloud | Configuring SolrCloud init script
   template:
       src: solr.in.sh.j2
       dest: /etc/default/solr.in.sh
+      force: yes
+  notify: restart SolrCloud
+
+- name: SolrCloud | Configuring SolrCloud properties
+  template:
+      src: solr.xml.j2
+      dest: "{{ solr_data_dir }}/solr.xml"
       force: yes
   notify: restart SolrCloud
 
