@@ -21,6 +21,25 @@ solr_jmx_enabled: 'true'
 solr_jmx_port: 1099
 solr_host: "{{ hostvars[ansible_nodename]['ansible_' + ansible_default_ipv4.alias]['ipv4']['address'] }}"
 
+solr_gc_tune: "-XX:NewRatio=3 \
+-XX:SurvivorRatio=4 \
+-XX:TargetSurvivorRatio=90 \
+-XX:MaxTenuringThreshold=8 \
+-XX:+UseConcMarkSweepGC \
+-XX:+UseParNewGC \
+-XX:ConcGCThreads=4 -XX:ParallelGCThreads=4 \
+-XX:+CMSScavengeBeforeRemark \
+-XX:PretenureSizeThreshold=64m \
+-XX:+UseCMSInitiatingOccupancyOnly \
+-XX:CMSInitiatingOccupancyFraction=50 \
+-XX:CMSMaxAbortablePrecleanTime=6000 \
+-XX:+CMSParallelRemarkEnabled \
+-XX:+ParallelRefProcEnabled \
+-XX:+AggressiveOpts \
+-XX:+UseFastAccessorMethods \
+-XX:+UseTLAB"
+solr_stack_size: 256k
+
 solr_heap: 512m
 solr_jetty_threads_min: 10
 solr_jetty_threads_max: 10000
