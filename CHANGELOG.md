@@ -3,6 +3,9 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+## [1.2.0](https://github.com/idealista-tech/solrcloud-role/tree/1.2.0) (2017-01-27)
+[Full Changelog](https://github.com/idealista-tech/solrcloud-role/compare/1.1.1...1.2.0)
+
 ### Added
 - *#8 Set JVM args by configuration* @jmonterrubio
 
