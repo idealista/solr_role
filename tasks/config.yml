@@ -40,3 +40,26 @@
       dest: /opt/solr/log4j.properties
       force: yes
   notify: restart SolrCloud
+
+- name: SolrCloud | Create NFS folder (Install dependencies)
+  apt:
+    name: nfs-common
+    state: installed
+  when: mount_name is defined and mount_source is defined
+
+- name: SolrCloud | Create NFS folder (Mount the folder)
+  mount:
+    name: "{{ mount_name }}"
+    src: "{{ mount_source }}"
+    fstype: nfs
+    opts: "{{ mount_options }}"
+    state: mounted
+  when: mount_name is defined and mount_source is defined
+
+- name: SolrCloud | Create NFS folder (Change owner)
+  file:
+    path: "{{ mount_name }}"
+    state: directory
+    owner: "{{ solr_user }}"
+    group: "{{ solr_group }}"
+  when: mount_name is defined and mount_source is defined
