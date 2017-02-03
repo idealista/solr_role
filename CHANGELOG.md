@@ -3,6 +3,9 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+## [1.3.0](https://github.com/idealista-tech/solrcloud-role/tree/1.3.0) (2017-02-23)
+[Full Changelog](https://github.com/idealista-tech/solrcloud-role/compare/1.2.0...1.3.0)
+
 ### Added
 - *[#11](https://github.com/idealista-tech/solrcloud-role/issues/11) Add mount folder for backup* @jmonterrubio
 
