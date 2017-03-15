@@ -56,6 +56,9 @@ solr_jetty_send_date_header: #'false'
 solr_jetty_header_cache_size: #512
 solr_jetty_delay_dispatch_until_content: #'false'
 
+solr_jetty_http_selectors: -1
+solr_jetty_http_acceptors: -1
+
 zookeeper_hosts: localhost:2181
 zookeeper_hosts_solr_path: solr
 zk_host: "{{ zookeeper_hosts }}/{{ zookeeper_hosts_solr_path }}"
