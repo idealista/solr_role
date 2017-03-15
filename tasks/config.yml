@@ -20,7 +20,7 @@
       force: yes
   notify: restart SolrCloud
 
-- name: SolrCloud | Configuring jetty server http 
+- name: SolrCloud | Configuring jetty server http
   template:
       src: jetty-http.xml.j2
       dest: /opt/solr/server/etc/jetty-http.xml
