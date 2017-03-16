@@ -1,8 +1,12 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
-## [Unreleased]
-###Added
+## [Unreleased](https://github.com/idealista-tech/solrcloud-role/tree/develop)
+
+## [1.4.0](https://github.com/idealista-tech/solrcloud-role/tree/1.4.0) (2017-03-16)
+[Full Changelog](https://github.com/idealista-tech/solrcloud-role/compare/1.3.0...1.4.0)
+
+### Added
 - *[#15](https://github.com/idealista-tech/solrcloud-role/issues/15) Add jetty-http config file* @javierRobledo
 
 ## [1.3.0](https://github.com/idealista-tech/solrcloud-role/tree/1.3.0) (2017-02-23)
@@ -15,19 +19,19 @@ All notable changes to this project will be documented in this file.
 [Full Changelog](https://github.com/idealista-tech/solrcloud-role/compare/1.1.1...1.2.0)
 
 ### Added
-- *#8 Set JVM args by configuration* @jmonterrubio
+- *[#8](https://github.com/idealista-tech/solrcloud-role/issues/8) Set JVM args by configuration* @jmonterrubio
 
 ## [1.1.1](https://github.com/idealista-tech/solrcloud-role/tree/1.1.1) (2017-01-11)
 [Full Changelog](https://github.com/idealista-tech/solrcloud-role/compare/1.1.0...1.1.1)
 
 ### Fixed
-- *#4 Copy solr.xml file for not default data dir* @jmonterrubio
+- *[#4](https://github.com/idealista-tech/solrcloud-role/issues/4) Copy solr.xml file for not default data dir* @jmonterrubio
 
 ## [1.1.0](https://github.com/idealista-tech/solrcloud-role/tree/1.1.0)
 [Full Changelog](https://github.com/idealista-tech/solrcloud-role/compare/1.0.1...1.1.0)
 
 ### Added
-- *#1 Enable all the jetty HttpConfiguration parameters from ansible* @jmonterrubio
+- *[#1](https://github.com/idealista-tech/solrcloud-role/issues/1) Enable all the jetty HttpConfiguration parameters from ansible* @jmonterrubio
 
 ### Fixed
 - *Renamed solrcloud-role in tests playbook* @jmonterrubio
