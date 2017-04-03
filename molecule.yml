@@ -32,6 +32,10 @@ ansible:
 # configuration options for the internal call to vagrant
 vagrant:
   # molecule's --platform option will look for these names
+  raw_config_args:
+  - "landrush.enabled = true"
+  - "landrush.tld = ''"
+  - "landrush.guest_redirect_dns = false"
   platforms:
     - name: Debian
       box: debian/jessie64
@@ -44,6 +48,11 @@ vagrant:
         cpus: 1
 
   instances:
+    - name: zookeeper
+      interfaces:
+        - network_name: private_network
+          type: dhcp
+          auto_config: true
     - name: solrcloud
       ansible_groups:
         - group01

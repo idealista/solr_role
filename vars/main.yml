@@ -1,0 +1,5 @@
+---
+
+solr_cloud_build_name: "solr-{{ solr_cloud_version }}"
+solr_cloud_package: "{{ solr_cloud_build_name }}.tgz"
+solr_cloud_url: "http://archive.apache.org/dist/lucene/solr/{{ solr_cloud_version }}/{{ solr_cloud_package }}"

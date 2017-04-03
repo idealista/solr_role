@@ -1,7 +1,16 @@
 ---
 
-- include: install.yml
+- name: SolrCloud | Install
+  include: install.yml
+  tags:
+    - install
 
-- include: config.yml
+- name: SolrCloud | Configure
+  include: config.yml
+  tags:
+    - configure
 
-- include: service.yml
+- name: SolrCloud | Service
+  include: service.yml
+  tags:
+    - service
