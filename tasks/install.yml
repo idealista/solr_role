@@ -22,22 +22,50 @@
     - "{{ solr_log_dir }}"
     - "{{ solr_data_dir }}"
 
+- name: SolrCloud | Check if service is running
+  command: systemctl status solr.service
+  ignore_errors: yes
+  changed_when: false
+  register: service_solrcloud_status
+
+- name: SolrCloud | Check installed version
+  action: >
+    uri \
+      url="http://localhost:{{ solr_port }}/solr/admin/info/system" \
+      return_content=yes
+  register: solrcloud_check
+  changed_when: false
+  ignore_errors: true
+  when: service_solrcloud_status | success
+
 - name: SolrCloud | Download SolrCloud binaries
   get_url:
     url: "{{ solr_cloud_url }}"
     dest: /tmp/{{ solr_cloud_package }}
-  register: download_solr
+  when: |
+      "Loaded: not-found" in service_solrcloud_status.stdout or
+      service_solrcloud_status | success and
+        (solrcloud_check | failed or
+        "<str name=\"lucene-spec-version\">{{ solr_cloud_version }}</str>" not in solrcloud_check.content)
 
 - name: SolrCloud | Extract SolrCloud installation script in the current directory
   shell: "tar xzf /tmp/{{ solr_cloud_package }} {{ solr_cloud_build_name }}/bin/install_solr_service.sh --strip-components=2"
   args:
     chdir: /tmp
-  when: download_solr|changed
+  when: |
+      "Loaded: not-found" in service_solrcloud_status.stdout or
+      service_solrcloud_status | success and
+        (solrcloud_check | failed or
+        "<str name=\"lucene-spec-version\">{{ solr_cloud_version }}</str>" not in solrcloud_check.content)
   tags:
-   skip_ansible_lint
+    - skip_ansible_lint
 
 - name: SolrCloud | Execute SolrCloud installation script
   shell: /tmp/install_solr_service.sh /tmp/{{ solr_cloud_package }} -f -u {{ solr_user }} -n
-  when: download_solr|changed
+  when: |
+      "Loaded: not-found" in service_solrcloud_status.stdout or
+      service_solrcloud_status | success and
+        (solrcloud_check | failed or
+        "<str name=\"lucene-spec-version\">{{ solr_cloud_version }}</str>" not in solrcloud_check.content)
   tags:
-   skip_ansible_lint
+    - skip_ansible_lint
