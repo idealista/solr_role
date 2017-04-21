@@ -2,4 +2,4 @@
 solr_cloud_version: 6.3.0
 solr_port: 8983
 
-solr_zookeeper_hosts: zookeeper:2181
+solr_zookeeper_hosts: zookeeper.vm:2181
