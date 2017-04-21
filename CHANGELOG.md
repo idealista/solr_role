@@ -3,6 +3,12 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased](https://github.com/idealista/solrcloud-role/tree/develop)
 
+## [1.5.1](https://github.com/idealista/solrcloud-role/tree/1.5.1) (2017-04-21)
+[Full Changelog](https://github.com/idealista/solrcloud-role/compare/1.5.0...1.5.1)
+
+### Fixed
+- *[#21](https://github.com/idealista/solrcloud-role/issues/21) Fixing Acceptor/Selector thread configuration in jetty-http template* @dortegau
+
 ## [1.5.0](https://github.com/idealista/solrcloud-role/tree/1.5.0) (2017-03-31)
 [Full Changelog](https://github.com/idealista/solrcloud-role/compare/1.4.0...1.5.0)
 
