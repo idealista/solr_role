@@ -22,8 +22,8 @@
     <Arg>
       <New class="org.eclipse.jetty.server.ServerConnector">
         <Arg name="server"><Ref refid="Server" /></Arg>
-        <Arg name="acceptors" type="int"><Property name="solr.jetty.http.acceptors" default="-1"/>{{ solr_jetty_http_acceptors }}</Arg>
-        <Arg name="selectors" type="int"><Property name="solr.jetty.http.selectors" default="-1"/>{{ solr_jetty_http_selectors }}</Arg>
+        <Arg name="acceptors" type="int"><Property name="solr.jetty.http.acceptors" default="{{ solr_jetty_http_acceptors }}"/></Arg>
+        <Arg name="selectors" type="int"><Property name="solr.jetty.http.selectors" default="{{ solr_jetty_http_selectors }}"/></Arg>
         <Arg name="factories">
           <Array type="org.eclipse.jetty.server.ConnectionFactory">
             <Item>
