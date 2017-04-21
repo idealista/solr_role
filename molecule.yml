@@ -34,7 +34,7 @@ vagrant:
   # molecule's --platform option will look for these names
   raw_config_args:
   - "landrush.enabled = true"
-  - "landrush.tld = ''"
+  - "landrush.tld = 'vm'"
   - "landrush.guest_redirect_dns = false"
   platforms:
     - name: Debian
@@ -48,12 +48,12 @@ vagrant:
         cpus: 1
 
   instances:
-    - name: zookeeper
+    - name: zookeeper.vm
       interfaces:
         - network_name: private_network
           type: dhcp
           auto_config: true
-    - name: solrcloud
+    - name: solrcloud.vm
       ansible_groups:
         - group01
       interfaces:

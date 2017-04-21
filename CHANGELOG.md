@@ -3,6 +3,13 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased](https://github.com/idealista/solrcloud-role/tree/develop)
 
+## [1.5.2](https://github.com/idealista/solrcloud-role/tree/1.5.2) (2017-04-21)
+[Full Changelog](https://github.com/idealista/solrcloud-role/compare/1.5.1...1.5.2)
+
+### Fixed
+- *[#24](https://github.com/idealista/solrcloud-role/issues/24) Fixing jetty-xml configuration file (deleting values inside config sets)* @dortegau
+- *[#26](https://github.com/idealista/solrcloud-role/issues/26) Fixing jetty-xml configuration file (deleting values inside config sets)* @dortegau
+
 ## [1.5.1](https://github.com/idealista/solrcloud-role/tree/1.5.1) (2017-04-21)
 [Full Changelog](https://github.com/idealista/solrcloud-role/compare/1.5.0...1.5.1)
 

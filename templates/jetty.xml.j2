@@ -33,10 +33,10 @@
   <Arg name="threadpool"><New id="threadpool" class="org.eclipse.jetty.util.thread.QueuedThreadPool"/></Arg>
   -->
   <Get name="ThreadPool">
-    <Set name="minThreads" type="int"><Property name="solr.jetty.threads.min" default="10">{{solr_jetty_threads_min}}</Property></Set>
-    <Set name="maxThreads" type="int"><Property name="solr.jetty.threads.max" default="10000">{{solr_jetty_threads_max}}</Property></Set>
-    <Set name="idleTimeout" type="int"><Property name="solr.jetty.threads.idle.timeout" default="5000">{{solr_jetty_threads_idle_timeout}}</Property></Set>
-    <Set name="stopTimeout" type="int"><Property name="solr.jetty.threads.stop.timeout" default="60000">{{solr_jetty_threads_stop_timeout}}</Property></Set>
+    <Set name="minThreads" type="int"><Property name="solr.jetty.threads.min" default="{{solr_jetty_threads_min}}" /></Set>
+    <Set name="maxThreads" type="int"><Property name="solr.jetty.threads.max" default="{{solr_jetty_threads_max}}" /></Set>
+    <Set name="idleTimeout" type="int"><Property name="solr.jetty.threads.idle.timeout" default="{{solr_jetty_threads_idle_timeout}}" /></Set>
+    <Set name="stopTimeout" type="int"><Property name="solr.jetty.threads.stop.timeout" default="{{solr_jetty_threads_stop_timeout}}" /></Set>
     <Set name="detailedDump">false</Set>
   </Get>
 
@@ -58,15 +58,15 @@
   <!-- =========================================================== -->
   <New id="httpConfig" class="org.eclipse.jetty.server.HttpConfiguration">
     <Set name="secureScheme">https</Set>
-    <Set name="securePort"><Property name="solr.jetty.secure.port" default="8443" />{{solr_jetty_secure_port}}</Set>
-    <Set name="outputBufferSize"><Property name="solr.jetty.output.buffer.size" default="32768">{{solr_jetty_output_buffer_size}}</Property></Set>
-    <Set name="outputAggregationSize"><Property name="solr.jetty.output.aggregation.size" default="8192">{{solr_jetty_output_aggregation_size}}</Property></Set>
-    <Set name="requestHeaderSize"><Property name="solr.jetty.request.header.size" default="8192" />{{solr_jetty_request_header_size}}</Set>
-    <Set name="responseHeaderSize"><Property name="solr.jetty.response.header.size" default="8192" />{{solr_jetty_response_header_size}}</Set>
-    <Set name="sendServerVersion"><Property name="solr.jetty.send.server.version" default="false" />{{solr_jetty_send_server_version}}</Set>
-    <Set name="sendDateHeader"><Property name="solr.jetty.send.date.header" default="false" />{{solr_jetty_send_date_header}}</Set>
-    <Set name="headerCacheSize"><Property name="solr.jetty.header.cache.size" default="512" />{{solr_jetty_header_cache_size}}</Set>
-    <Set name="delayDispatchUntilContent"><Property name="solr.jetty.delayDispatchUntilContent" default="false"/>{{solr_jetty_delay_dispatch_until_content}}</Set>
+    <Set name="securePort"><Property name="solr.jetty.secure.port" default="{{solr_jetty_secure_port}}" /></Set>
+    <Set name="outputBufferSize"><Property name="solr.jetty.output.buffer.size" default="{{solr_jetty_output_buffer_size}}" /></Set>
+    <Set name="outputAggregationSize"><Property name="solr.jetty.output.aggregation.size" default="{{solr_jetty_output_aggregation_size}}" /></Set>
+    <Set name="requestHeaderSize"><Property name="solr.jetty.request.header.size" default="{{solr_jetty_request_header_size}}" /></Set>
+    <Set name="responseHeaderSize"><Property name="solr.jetty.response.header.size" default="{{solr_jetty_response_header_size}}" /></Set>
+    <Set name="sendServerVersion"><Property name="solr.jetty.send.server.version" default="{{solr_jetty_send_server_version}}" /></Set>
+    <Set name="sendDateHeader"><Property name="solr.jetty.send.date.header" default="{{solr_jetty_send_date_header}}" /></Set>
+    <Set name="headerCacheSize"><Property name="solr.jetty.header.cache.size" default="{{solr_jetty_header_cache_size}}" /></Set>
+    <Set name="delayDispatchUntilContent"><Property name="solr.jetty.delayDispatchUntilContent" default="{{solr_jetty_delay_dispatch_until_content}}"/></Set>
     <!-- Uncomment to enable handling of X-Forwarded- style headers
     <Call name="addCustomizer">
       <Arg><New class="org.eclipse.jetty.server.ForwardedRequestCustomizer"/></Arg>
