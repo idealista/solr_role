@@ -35,7 +35,7 @@ vagrant:
   raw_config_args:
   - "landrush.enabled = true"
   - "landrush.tld = 'vm'"
-  - "landrush.guest_redirect_dns = false"
+  - "landrush.guest_redirect_dns = true"
   platforms:
     - name: Debian
       box: debian/jessie64
