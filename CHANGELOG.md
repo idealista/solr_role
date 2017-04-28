@@ -3,12 +3,22 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased](https://github.com/idealista/solrcloud-role/tree/develop)
 
+## [1.6.0](https://github.com/idealista/solrcloud-role/tree/1.6.0) (2017-04-24)
+[Full Changelog](https://github.com/idealista/solrcloud-role/compare/1.5.2...1.6.0)
+
+### Changed
+- *[#30](https://github.com/idealista/solrcloud-role/issues/30) Upgrading to SolrCloud 6.5.0* @dortegau
+
+### Fixed
+- *[#26](https://github.com/idealista/solrcloud-role/issues/26) Fixing configuration issues in tests when default TLD was added* @dortegau
+
+
 ## [1.5.2](https://github.com/idealista/solrcloud-role/tree/1.5.2) (2017-04-21)
 [Full Changelog](https://github.com/idealista/solrcloud-role/compare/1.5.1...1.5.2)
 
 ### Fixed
 - *[#24](https://github.com/idealista/solrcloud-role/issues/24) Fixing jetty-xml configuration file (deleting values inside config sets)* @dortegau
-- *[#26](https://github.com/idealista/solrcloud-role/issues/26) Fixing jetty-xml configuration file (deleting values inside config sets)* @dortegau
+- *[#26](https://github.com/idealista/solrcloud-role/issues/26) Adding default TLD in molecule.yml* @dortegau
 
 ## [1.5.1](https://github.com/idealista/solrcloud-role/tree/1.5.1) (2017-04-21)
 [Full Changelog](https://github.com/idealista/solrcloud-role/compare/1.5.0...1.5.1)
