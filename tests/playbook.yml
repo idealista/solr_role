@@ -1,11 +1,11 @@
 ---
 
-- hosts: zookeeper
+- hosts: zookeeper.vm
   roles:
     - role: java
     - role: zookeeper
 
-- hosts: solrcloud
+- hosts: solrcloud.vm
   roles:
     - role: java
     - role: solrcloud-role
