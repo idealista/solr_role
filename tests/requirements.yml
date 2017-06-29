@@ -1,6 +1,6 @@
 - src: https://github.com/idealista-tech/java-role
   scm: git
-  version: 1.1.0
+  version: 1.2.0
   name: java
 
 - src: https://github.com/idealista-tech/zookeeper-role

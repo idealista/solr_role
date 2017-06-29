@@ -3,6 +3,13 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased](https://github.com/idealista/solrcloud-role/tree/develop)
 
+## [1.7.0](https://github.com/idealista/solrcloud-role/tree/1.7.0) (2017-06-29)
+[Full Changelog](https://github.com/idealista/solrcloud-role/compare/1.6.0...1.7.0)
+
+### Changed
+- *[#36](https://github.com/idealista/solrcloud-role/issues/36) Support Debian stretch* @jmonterrubio
+
+
 ## [1.6.0](https://github.com/idealista/solrcloud-role/tree/1.6.0) (2017-04-24)
 [Full Changelog](https://github.com/idealista/solrcloud-role/compare/1.5.2...1.6.0)
 
