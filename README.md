@@ -1,4 +1,4 @@
-![Logo](logo.gif)
+![Logo](https://raw.githubusercontent.com/idealista/java-role/master/logo.gif)
 
 # SolrCloud Ansible role
 
