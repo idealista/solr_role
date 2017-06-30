@@ -43,7 +43,7 @@
     url: "{{ solr_cloud_url }}"
     dest: /tmp/{{ solr_cloud_package }}
   when: |
-      "Loaded: not-found" in service_solrcloud_status.stdout or
+      service_solrcloud_status.rc > 0 or
       service_solrcloud_status | success and
         (solrcloud_check | failed or
         "<str name=\"lucene-spec-version\">{{ solr_cloud_version }}</str>" not in solrcloud_check.content)
@@ -53,7 +53,7 @@
   args:
     chdir: /tmp
   when: |
-      "Loaded: not-found" in service_solrcloud_status.stdout or
+      service_solrcloud_status.rc > 0 or
       service_solrcloud_status | success and
         (solrcloud_check | failed or
         "<str name=\"lucene-spec-version\">{{ solr_cloud_version }}</str>" not in solrcloud_check.content)
@@ -63,7 +63,7 @@
 - name: SolrCloud | Execute SolrCloud installation script
   shell: /tmp/install_solr_service.sh /tmp/{{ solr_cloud_package }} -f -u {{ solr_user }} -n
   when: |
-      "Loaded: not-found" in service_solrcloud_status.stdout or
+      service_solrcloud_status.rc > 0 or
       service_solrcloud_status | success and
         (solrcloud_check | failed or
         "<str name=\"lucene-spec-version\">{{ solr_cloud_version }}</str>" not in solrcloud_check.content)
