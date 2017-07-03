@@ -2,6 +2,7 @@
 All notable changes to this project will be documented in this file.
 
 ## [Unreleased](https://github.com/idealista/solrcloud-role/tree/develop)
+- *[#39](https://github.com/idealista/solrcloud-role/issues/39) Upgrading to SolrCloud 6.6.0* @dortegau
 
 ## [1.7.0](https://github.com/idealista/solrcloud-role/tree/1.7.0) (2017-06-29)
 [Full Changelog](https://github.com/idealista/solrcloud-role/compare/1.6.0...1.7.0)
