@@ -2,6 +2,11 @@
 All notable changes to this project will be documented in this file.
 
 ## [Unreleased](https://github.com/idealista/solrcloud-role/tree/develop)
+
+### Fixed
+- *[#43](https://github.com/idealista/solrcloud-role/issues/43) Fixing idempotence tests due to change to JSON as default response format* @dortegau
+
+### Changed
 - *[#41](https://github.com/idealista/solrcloud-role/issues/41) Upgrading to SolrCloud 7.0.0* @dortegau
 
 ## [1.7.0](https://github.com/idealista/solrcloud-role/tree/1.7.0) (2017-06-29)

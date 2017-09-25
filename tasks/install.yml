@@ -31,7 +31,7 @@
 - name: SolrCloud | Check installed version
   action: >
     uri \
-      url="http://localhost:{{ solr_port }}/solr/admin/info/system" \
+      url="http://localhost:{{ solr_port }}/solr/admin/info/system?wt=xml" \
       return_content=yes
   register: solrcloud_check
   changed_when: false
