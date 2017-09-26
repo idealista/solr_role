@@ -31,9 +31,8 @@ For testing purposes, [Molecule](https://molecule.readthedocs.io/) with [Vagrant
 Create or add to your roles dependency file (e.g requirements.yml):
 
 ```
-- src: http://github.com/idealista/solrcloud-role.git
-  scm: git
-  version: 1.5.1
+- src: idealista.solrcloud-role
+  version: 1.8.0
   name: solrcloud
 ```
 
