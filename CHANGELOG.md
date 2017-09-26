@@ -2,6 +2,7 @@
 All notable changes to this project will be documented in this file.
 
 ## [Unreleased](https://github.com/idealista/solrcloud-role/tree/develop)
+- *[#14](https://github.com/idealista/solrcloud-role/issues/14) Add Travis CI* @jnogol
 
 ## [1.8.0](https://github.com/idealista/solrcloud-role/tree/1.8.0) (2017-09-26)
 [Full Changelog](https://github.com/idealista/solrcloud-role/compare/1.7.0...1.8.0)

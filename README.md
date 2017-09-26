@@ -1,5 +1,7 @@
 ![Logo](https://raw.githubusercontent.com/idealista/solrcloud-role/master/logo.gif)
 
+[![Build Status](https://travis-ci.org/idealista/mysql-role.png)](https://travis-ci.org/idealista/solrcloud-role)
+
 # SolrCloud Ansible role
 
 This ansible role installs a SolrCloud server in a debian environment.
