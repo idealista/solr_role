@@ -31,11 +31,11 @@ ansible:
 
 # configuration options for the internal call to vagrant
 vagrant:
-  # molecule's --platform option will look for these names
   raw_config_args:
   - "landrush.enabled = true"
   - "landrush.tld = 'vm'"
   - "landrush.guest_redirect_dns = true"
+  # molecule's --platform option will look for these names
   platforms:
     - name: Debian9
       box: debian/stretch64
@@ -62,3 +62,39 @@ vagrant:
         - network_name: private_network
           type: dhcp
           auto_config: true
+
+docker:
+  containers:
+    - name: zookeeper.vm
+      hostname: zookeeper
+      image: geerlingguy/docker-debian9-ansible
+      image_version: latest
+      # All these parameters are needed for Docker testing with systemd
+      privileged: True
+      cap_add:
+        - SYS_ADMIN
+      volume_mounts:
+        - '/sys/fs/cgroup:/sys/fs/cgroup:ro'
+      command: '/lib/systemd/systemd'
+
+    - name: solrcloud.vm
+      hostname: solrcloud
+      ansible_groups:
+        - group01
+      image: geerlingguy/docker-debian9-ansible
+      image_version: latest
+      # All these parameters are needed for Docker testing with systemd
+      privileged: True
+      cap_add:
+        - SYS_ADMIN
+      volume_mounts:
+        - '/sys/fs/cgroup:/sys/fs/cgroup:ro'
+      links:
+        zookeeper.vm: zookeeper.vm
+      command: '/lib/systemd/systemd'
+
+verifier:
+  name: testinfra
+  options:
+    connection: ansible
+    ansible-inventory: .molecule/ansible_inventory
