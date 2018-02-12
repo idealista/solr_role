@@ -38,7 +38,7 @@ GC_TUNE="{{ solr_gc_tune }}"
 ZK_HOST="{{ solr_zk_host }}"
 
 # Set the ZooKeeper client timeout (for SolrCloud mode)
-ZK_CLIENT_TIMEOUT="15000"
+ZK_CLIENT_TIMEOUT="{{ solr_zookeeper_client_timeout }}"
 
 # By default the start script uses "localhost"; override the hostname here
 # for production SolrCloud environments to control the hostname exposed to cluster state
