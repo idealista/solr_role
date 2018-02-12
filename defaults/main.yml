@@ -71,6 +71,7 @@ solr_zookeeper_hosts: "{{ zookeeper_hosts }}"
 solr_zookeeper_hosts_solr_path: "{{ zookeeper_hosts_solr_path }}"
 solr_zk_host: "{{ solr_zookeeper_hosts }}/{{ solr_zookeeper_hosts_solr_path }}"
 solr_zookeeper_client_path: "{{ zookeeper_client_path }}"
+solr_zookeeper_client_timeout: 15000
 
 # LOG
 log_root_level: WARN # Deprecated
