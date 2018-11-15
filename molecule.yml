@@ -32,9 +32,13 @@ ansible:
 # configuration options for the internal call to vagrant
 vagrant:
   raw_config_args:
-  - "landrush.enabled = true"
-  - "landrush.tld = 'vm'"
-  - "landrush.guest_redirect_dns = true"
+    - "hostmanager.enabled = true"
+    # Enable for debug purpose
+    # - "hostmanager.manage_host = true"
+    - "hostmanager.manage_guest = true"
+    - "hostmanager.ignore_private_ip = false"
+    - "hostmanager.include_offline = true"
+
   # molecule's --platform option will look for these names
   platforms:
     - name: Debian9
@@ -53,14 +57,16 @@ vagrant:
     - name: zookeeper.vm
       interfaces:
         - network_name: private_network
-          type: dhcp
+          type: static
+          ip: 172.28.128.61
           auto_config: true
     - name: solrcloud.vm
       ansible_groups:
         - group01
       interfaces:
         - network_name: private_network
-          type: dhcp
+          type: static
+          ip: 172.28.128.62
           auto_config: true
 
 docker:
