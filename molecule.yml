@@ -54,13 +54,13 @@ vagrant:
         cpus: 1
 
   instances:
-    - name: zookeeper.vm
+    - name: zookeeper
       interfaces:
         - network_name: private_network
           type: static
           ip: 172.28.128.61
           auto_config: true
-    - name: solrcloud.vm
+    - name: solrcloud
       ansible_groups:
         - group01
       interfaces:
@@ -71,7 +71,7 @@ vagrant:
 
 docker:
   containers:
-    - name: zookeeper.vm
+    - name: zookeeper
       hostname: zookeeper
       image: geerlingguy/docker-debian9-ansible
       image_version: latest
@@ -83,7 +83,7 @@ docker:
         - '/sys/fs/cgroup:/sys/fs/cgroup:ro'
       command: '/lib/systemd/systemd'
 
-    - name: solrcloud.vm
+    - name: solrcloud
       hostname: solrcloud
       ansible_groups:
         - group01
@@ -96,7 +96,7 @@ docker:
       volume_mounts:
         - '/sys/fs/cgroup:/sys/fs/cgroup:ro'
       links:
-        zookeeper.vm: zookeeper.vm
+        zookeeper: zookeeper
       command: '/lib/systemd/systemd'
 
 verifier:

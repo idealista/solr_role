@@ -6,11 +6,10 @@ language: python
 services:
   - docker
 install:
-  - pip install ansible==2.5.3.0
-  - pip install molecule==1.25.0
-  - pip install docker
+  - pip install pipenv
+  - pipenv install -r test-requirements.txt --python 2.7
 script:
-  - molecule test --driver docker
+  - pipenv run molecule test
 
 notifications:
   webhooks: https://galaxy.ansible.com/api/v1/notifications/

@@ -143,7 +143,8 @@ Look to the defaults properties file to see the possible configuration propertie
 ## Testing
 
 ```
-molecule test --platform=Debian9
+$ pipenv install -r test-requirements.txt -python 2.7
+$ pipenv run molecule test
 ```
 
 See molecule.yml to check possible testing platforms.
