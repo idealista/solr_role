@@ -1,4 +1,4 @@
 ansible==2.5.3.0
 molecule==1.25.0
-docker-py==1.10.6
+docker==2.2.1
 python-vagrant==0.5.15
