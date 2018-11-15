@@ -1,0 +1,23 @@
+---
+group:
+  {{ solr_user }}:
+    exists: true
+
+user:
+  {{ solr_user }}:
+    exists: true
+    groups:
+      - {{ solr_group }}
+
+file:
+  /lib/systemd/system/solrcloud.service:
+    owner: {{ solr_user }}
+    group: {{ solr_group }}
+    exists: true
+    filetype: file
+    mode: "0755"
+
+service:
+  solr:
+    enabled: true
+    running: true

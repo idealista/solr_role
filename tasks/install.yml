@@ -10,7 +10,7 @@
     name: "{{ solr_user }}"
     group: "{{ solr_group }}"
     home: /bin/false
-    createhome: yes
+    createhome: true
 
 - name: SolrCloud | Ensure solr dirs exists
   file:
@@ -24,9 +24,11 @@
 
 - name: SolrCloud | Check if service is running
   command: systemctl status solr.service
-  ignore_errors: yes
+  ignore_errors: true
   changed_when: false
   register: service_solrcloud_status
+  tags:
+    - skip_ansible_lint
 
 - name: SolrCloud | Check installed version
   action: >

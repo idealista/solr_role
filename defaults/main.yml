@@ -10,7 +10,7 @@ solr_user: solr
 solr_group: solr
 
 # start on boot
-solr_service_enabled: yes
+solr_service_enabled: true
 # current state: started, stopped
 solr_service_state: started
 
@@ -62,10 +62,14 @@ solr_jetty_http_selectors: -1
 solr_jetty_http_acceptors: -1
 
 # ZOOKEEPER
-zookeeper_hosts: localhost:2181 # Deprecated
-zookeeper_hosts_solr_path: solr # Deprecated
-zk_host: "{{ zookeeper_hosts }}/{{ zookeeper_hosts_solr_path }}" # Deprecated
-zookeeper_client_path: /opt/solr/server/scripts/cloud-scripts # Deprecated
+# Deprecated
+zookeeper_hosts: localhost:2181
+# Deprecated
+zookeeper_hosts_solr_path: solr
+# Deprecated
+zk_host: "{{ zookeeper_hosts }}/{{ zookeeper_hosts_solr_path }}"
+# Deprecated
+zookeeper_client_path: /opt/solr/server/scripts/cloud-scripts
 
 solr_zookeeper_hosts: "{{ zookeeper_hosts }}"
 solr_zookeeper_hosts_solr_path: "{{ zookeeper_hosts_solr_path }}"
@@ -74,16 +78,19 @@ solr_zookeeper_client_path: "{{ zookeeper_client_path }}"
 solr_zookeeper_client_timeout: 15000
 
 # LOG
-log_root_level: WARN # Deprecated
-log_file_size: 500MB # Deprecated
-log_max_backup_index: 9 # Deprecated
+# Deprecated
+log_root_level: WARN
+# Deprecated
+log_file_size: 500MB
+# Deprecated
+log_max_backup_index: 9
 
 solr_log_root_level: "{{ log_root_level }}"
 solr_log_file_size: "{{ log_file_size }}"
 solr_log_max_backup_index: "{{ log_max_backup_index }}"
 
 # MOUNT
-#mount_name: # Deprecated
-#mount_source: # Deprecated
+# mount_name: # Deprecated
+# mount_source: # Deprecated
 solr_mount_name: "{{ mount_name }}"
 solr_mount_source: "{{ mount_source }}"
