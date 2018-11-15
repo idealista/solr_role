@@ -9,7 +9,7 @@ install:
   - pip install pipenv
   - pipenv install -r test-requirements.txt --python 2.7
 script:
-  - pipenv run molecule test
+  - pipenv run molecule test --driver docker
 
 notifications:
   webhooks: https://galaxy.ansible.com/api/v1/notifications/
