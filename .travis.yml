@@ -6,7 +6,7 @@ language: python
 services:
   - docker
 install:
-  - pip install ansible==2.3.1.0
+  - pip install ansible==2.5.3.0
   - pip install molecule==1.25.0
   - pip install docker
 script:
