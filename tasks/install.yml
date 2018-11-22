@@ -38,7 +38,7 @@
   register: solrcloud_check
   changed_when: false
   ignore_errors: true
-  when: service_solrcloud_status | success
+  when: service_solrcloud_status is success
 
 - name: SolrCloud | Download SolrCloud binaries
   get_url:
@@ -46,8 +46,8 @@
     dest: /tmp/{{ solr_cloud_package }}
   when: |
       service_solrcloud_status.rc > 0 or
-      service_solrcloud_status | success and
-        (solrcloud_check | failed or
+      service_solrcloud_status is success and
+        (solrcloud_check is failed or
         "<str name=\"lucene-spec-version\">{{ solr_cloud_version }}</str>" not in solrcloud_check.content)
 
 - name: SolrCloud | Extract SolrCloud installation script in the current directory
@@ -56,8 +56,8 @@
     chdir: /tmp
   when: |
       service_solrcloud_status.rc > 0 or
-      service_solrcloud_status | success and
-        (solrcloud_check | failed or
+      service_solrcloud_status is success and
+        (solrcloud_check is failed or
         "<str name=\"lucene-spec-version\">{{ solr_cloud_version }}</str>" not in solrcloud_check.content)
   tags:
     - skip_ansible_lint
@@ -66,8 +66,8 @@
   shell: /tmp/install_solr_service.sh /tmp/{{ solr_cloud_package }} -f -u {{ solr_user }} -n
   when: |
       service_solrcloud_status.rc > 0 or
-      service_solrcloud_status | success and
-        (solrcloud_check | failed or
+      service_solrcloud_status is success and
+        (solrcloud_check is failed or
         "<str name=\"lucene-spec-version\">{{ solr_cloud_version }}</str>" not in solrcloud_check.content)
   tags:
     - skip_ansible_lint

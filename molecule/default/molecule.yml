@@ -5,6 +5,7 @@ driver:
   name: docker
 platforms:
   - name: zookeeper
+    hostname: zookeeper
     groups:
       - zookeeper_group
     image: geerlingguy/docker-debian9-ansible:latest
@@ -15,6 +16,7 @@ platforms:
       - '/sys/fs/cgroup:/sys/fs/cgroup:ro'
     command: '/lib/systemd/systemd'
   - name: solrcloud
+    hostname: solrcloud
     groups:
       - solrcloud_group
     image: geerlingguy/docker-debian9-ansible:latest
