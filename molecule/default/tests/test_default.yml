@@ -1,6 +1,6 @@
 ---
 group:
-  {{ solr_user }}:
+  {{ solr_group }}:
     exists: true
 
 user:
@@ -10,12 +10,25 @@ user:
       - {{ solr_group }}
 
 file:
-  /lib/systemd/system/solrcloud.service:
+  {{ solr_log_dir }}:
     owner: {{ solr_user }}
     group: {{ solr_group }}
     exists: true
-    filetype: file
-    mode: "0755"
+    filetype: directory
+  {{ solr_home }}:
+    owner: {{ solr_user }}
+    group: {{ solr_group }}
+    exists: true
+    filetype: directory
+  {{ solr_data_dir }}:
+    owner: {{ solr_user }}
+    group: {{ solr_group }}
+    exists: true
+    filetype: directory
+
+port:
+  tcp6:{{ solr_port }}:
+    listening: true
 
 service:
   solr:

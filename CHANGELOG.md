@@ -3,7 +3,7 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased](https://github.com/idealista/solrcloud-role/tree/develop)
 ### Changed
-- *[#55](https://github.com/idealista/solrcloud-role/issues/55) Upgrading Java and ZooKeeper roles to latest versions, using Hostmanager plugin to manage network instead of landrush, adding test-requirements.txt for execution under pipenv and upgrading to Ansible 2.5.3.0* @dortegau
+- *[#55](https://github.com/idealista/solrcloud-role/issues/55) Upgrading Java and ZooKeeper roles to latest versions, using hostmanager plugin to manage network instead of landrush, adding test-requirements.txt for execution under pipenv and upgrading to Ansible 2.5.3.0* @dortegau
 
 ## [1.9.0](https://github.com/idealista/solrcloud-role/tree/1.9.0) (2018-02-12)
 [Full Changelog](https://github.com/idealista/solrcloud-role/compare/1.8.0...1.9.0)
