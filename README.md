@@ -26,7 +26,7 @@ These instructions will get you a copy of the role for your ansible playbook. On
 Ansible 2.5.3.0 version installed.
 Inventory destination should be a Debian environment.
 
-For testing purposes, [Molecule](https://molecule.readthedocs.io/) with [Vagrant](https://www.vagrantup.com/) as driver (using [hostmanager](https://github.com/devopsgroup-io/vagrant-hostmanager) plugin) and [VirtualBox](https://www.virtualbox.org/) as provider.
+For testing purposes, [Molecule](https://molecule.readthedocs.io/) with [Docker](https://www.docker.com/) as driver.
 
 ### Installing
 
@@ -34,7 +34,7 @@ Create or add to your roles dependency file (e.g requirements.yml):
 
 ```
 - src: idealista.solrcloud-role
-  version: 1.8.0
+  version: 1.9.0
   name: solrcloud
 ```
 
@@ -147,7 +147,7 @@ $ pipenv install -r test-requirements.txt -python 2.7
 $ pipenv run molecule test
 ```
 
-See molecule.yml to check possible testing platforms.
+See [molecule.yml](https://github.com/idealista/solrcloud-role/blob/master/molecule/default/molecule.yml) to check possible testing platforms.
 
 ## Built With
 
@@ -157,7 +157,7 @@ See molecule.yml to check possible testing platforms.
 
 For the versions available, see the [tags on this repository](https://github.com/idealista/solrcloud-role/tags).
 
-Additionaly you can see what change in each version in the [CHANGELOG.md](CHANGELOG.md) file.
+Additionaly you can see what change in each version in the [CHANGELOG.md](https://github.com/idealista/solrcloud-role/blob/master/CHANGELOG.md) file.
 
 ## Authors
 
@@ -173,4 +173,4 @@ This project is licensed under the [Apache 2.0](https://www.apache.org/licenses/
 
 ## Contributing
 
-Please read [CONTRIBUTING.md](https://github.com/idealista/mysql-role/blob/master/.github/CONTRIBUTING.md) for details on our code of conduct, and the process for submitting pull requests to us.
+Please read [CONTRIBUTING.md](https://github.com/idealista/solrcloud-role/blob/master/.github/CONTRIBUTING.md) for details on our code of conduct, and the process for submitting pull requests to us.
