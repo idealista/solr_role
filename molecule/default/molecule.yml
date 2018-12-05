@@ -5,8 +5,8 @@ driver:
   name: docker
 platforms:
   - name: zookeeper
-    image: geerlingguy/docker-debian9-ansible
-    image_version: latest
+    hostname: zookeeper
+    image: idealista/java-debian-ansible:3.2.0-debian9
     privileged: true
     capabilities:
       - SYS_ADMIN
@@ -20,8 +20,8 @@ platforms:
         aliases:
           - zookeeper
   - name: solrcloud
-    image: geerlingguy/docker-debian9-ansible
-    image_version: latest
+    hostname: solrcloud
+    image: idealista/java-debian-ansible:3.2.0-debian9
     privileged: true
     capabilities:
       - SYS_ADMIN
@@ -36,6 +36,8 @@ platforms:
           - solrcloud
         links:
           - zookeeper:zookeeper
+    published_ports:
+      - 0.0.0.0:8983:8983/tcp
 provisioner:
   name: ansible
   lint:

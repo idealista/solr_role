@@ -2,10 +2,16 @@
 
 - hosts: zookeeper
   roles:
-    - role: java
     - role: zookeeper
+  pre_tasks:
+    - name: installing required libs
+      apt:
+        pkg: "{{ item }}"
+        state: present
+      with_items:
+        - net-tools
+        - netcat
 
 - hosts: solrcloud
   roles:
-    - role: java
     - role: solrcloud-role

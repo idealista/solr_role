@@ -1,4 +1,5 @@
 ---
+
 group:
   {{ solr_group }}:
     exists: true
@@ -27,7 +28,9 @@ file:
     filetype: directory
 
 port:
-  tcp6:{{ solr_port }}:
+  tcp:{{ solr_port }}:
+    listening: true
+  tcp:{{ solr_jmx_port }}:
     listening: true
 
 service:
