@@ -147,6 +147,8 @@ $ pipenv install -r test-requirements.txt -python 2.7
 $ pipenv run molecule test
 ```
 
+Solr Admin UI should be accessible from: http://localhost:8983/solr/#/
+
 See [molecule.yml](https://github.com/idealista/solrcloud-role/blob/master/molecule/default/molecule.yml) to check possible testing platforms.
 
 ## Built With
