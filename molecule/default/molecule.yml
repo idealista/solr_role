@@ -1,0 +1,50 @@
+---
+dependency:
+  name: galaxy
+driver:
+  name: docker
+platforms:
+  - name: zookeeper
+    hostname: zookeeper
+    image: idealista/java-debian-ansible:3.2.0-debian9
+    privileged: true
+    capabilities:
+      - SYS_ADMIN
+    volumes:
+      - '/sys/fs/cgroup:/sys/fs/cgroup:ro'
+    groups:
+      - zookeeper_group
+    command: '/lib/systemd/systemd'
+    networks:
+      - name: solr-network
+        aliases:
+          - zookeeper
+  - name: solrcloud
+    hostname: solrcloud
+    image: idealista/java-debian-ansible:3.2.0-debian9
+    privileged: true
+    capabilities:
+      - SYS_ADMIN
+    volumes:
+      - '/sys/fs/cgroup:/sys/fs/cgroup:ro'
+    groups:
+      - solrcloud_group
+    command: '/lib/systemd/systemd'
+    networks:
+      - name: solr-network
+        aliases:
+          - solrcloud
+        links:
+          - zookeeper:zookeeper
+    published_ports:
+      - 0.0.0.0:8983:8983/tcp
+provisioner:
+  name: ansible
+  lint:
+    name: ansible-lint
+scenario:
+  name: default
+verifier:
+  name: goss
+  lint:
+    name: yamllint

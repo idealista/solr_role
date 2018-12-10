@@ -1,0 +1,39 @@
+---
+
+group:
+  {{ solr_group }}:
+    exists: true
+
+user:
+  {{ solr_user }}:
+    exists: true
+    groups:
+      - {{ solr_group }}
+
+file:
+  {{ solr_log_dir }}:
+    owner: {{ solr_user }}
+    group: {{ solr_group }}
+    exists: true
+    filetype: directory
+  {{ solr_home }}:
+    owner: {{ solr_user }}
+    group: {{ solr_group }}
+    exists: true
+    filetype: directory
+  {{ solr_data_dir }}:
+    owner: {{ solr_user }}
+    group: {{ solr_group }}
+    exists: true
+    filetype: directory
+
+port:
+  tcp:{{ solr_port }}:
+    listening: true
+  tcp:{{ solr_jmx_port }}:
+    listening: true
+
+service:
+  solr:
+    enabled: true
+    running: true

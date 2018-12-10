@@ -22,37 +22,37 @@
 
 - name: SolrCloud | Configuring jetty server
   template:
-      src: jetty.xml.j2
-      dest: /opt/solr/server/etc/jetty.xml
-      force: yes
+    src: jetty.xml.j2
+    dest: /opt/solr/server/etc/jetty.xml
+    force: true
   notify: restart SolrCloud
 
 - name: SolrCloud | Configuring jetty server http
   template:
-      src: jetty-http.xml.j2
-      dest: /opt/solr/server/etc/jetty-http.xml
-      force: yes
+    src: jetty-http.xml.j2
+    dest: /opt/solr/server/etc/jetty-http.xml
+    force: true
   notify: restart SolrCloud
 
 - name: SolrCloud | Configuring SolrCloud init script
   template:
-      src: solr.in.sh.j2
-      dest: /etc/default/solr.in.sh
-      force: yes
+    src: solr.in.sh.j2
+    dest: /etc/default/solr.in.sh
+    force: true
   notify: restart SolrCloud
 
 - name: SolrCloud | Configuring SolrCloud properties
   template:
-      src: solr.xml.j2
-      dest: "{{ solr_data_dir }}/solr.xml"
-      force: yes
+    src: solr.xml.j2
+    dest: "{{ solr_data_dir }}/solr.xml"
+    force: true
   notify: restart SolrCloud
 
 - name: SolrCloud | Configuring logging
   template:
-      src: log4j.properties.j2
-      dest: /opt/solr/log4j.properties
-      force: yes
+    src: log4j.properties.j2
+    dest: /opt/solr/log4j.properties
+    force: true
   notify: restart SolrCloud
 
 - name: SolrCloud | Create NFS folder (Install dependencies)
