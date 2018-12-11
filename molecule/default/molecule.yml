@@ -19,6 +19,7 @@ platforms:
       - name: solr-network
         aliases:
           - zookeeper
+
   - name: solrcloud
     hostname: solrcloud
     image: idealista/java-debian-ansible:3.2.0-debian9
