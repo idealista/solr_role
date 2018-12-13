@@ -20,8 +20,8 @@ platforms:
         aliases:
           - zookeeper
 
-  - name: solrcloud
-    hostname: solrcloud
+  - name: solrcloud1
+    hostname: solrcloud1
     image: idealista/java-debian-ansible:3.2.0-debian9
     privileged: true
     capabilities:
@@ -29,16 +29,36 @@ platforms:
     volumes:
       - '/sys/fs/cgroup:/sys/fs/cgroup:ro'
     groups:
-      - solrcloud_group
+      - solrcloud
     command: '/lib/systemd/systemd'
     networks:
       - name: solr-network
         aliases:
-          - solrcloud
+          - solrcloud1
         links:
           - zookeeper:zookeeper
     published_ports:
       - 0.0.0.0:8983:8983/tcp
+
+  - name: solrcloud2
+    hostname: solrcloud2
+    image: idealista/java-debian-ansible:3.2.0-debian9
+    privileged: true
+    capabilities:
+      - SYS_ADMIN
+    volumes:
+      - '/sys/fs/cgroup:/sys/fs/cgroup:ro'
+    groups:
+      - solrcloud
+    command: '/lib/systemd/systemd'
+    networks:
+      - name: solr-network
+        aliases:
+          - solrcloud2
+        links:
+          - zookeeper:zookeeper
+    published_ports:
+      - 0.0.0.0:8984:8983/tcp
 provisioner:
   name: ansible
   lint:

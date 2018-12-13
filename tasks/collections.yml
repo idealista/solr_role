@@ -1,0 +1,62 @@
+---
+
+- name: SolrCloud | Check if collections configs exists
+  action: >
+    uri \
+      url="{{ solr_url }}/{{ item.key }}/config" \
+      return_content=yes \
+      status_code=200,404
+  register: config_exists_api_responses
+  changed_when: false
+  with_dict: "{{ solr_collections }}"
+
+- name: SolrCloud | Copy files for collections configs in tmp directories
+  synchronize:
+    src: "{{ solr_collections_template_path }}"
+    dest: "{{ solr_collections_config_tmp_dir }}"
+    recursive: true
+    delete: true
+    checksum: true
+    times: true
+    owner: true
+    group: true
+  register: synchronized_config
+
+- name: SolrCloud | Upload initial config
+  command: >
+    {{ solr_zookeeper_client_path }}/zkcli.sh
+    -zkhost {{ solr_zookeeper_hosts }}/{{ solr_zookeeper_hosts_solr_path }}
+    -cmd upconfig
+    -confname {{ item.key }}
+    -confdir {{ solr_collections_config_tmp_dir }}/{{ item.key }}
+  when: synchronized_config.changed
+  with_dict: "{{ solr_collections }}"
+  tags: skip_ansible_lint
+
+- name: SolrCloud | Return existing collections
+  action: >
+    uri \
+      url="{{ solr_url }}/admin/collections?action=LIST" \
+      return_content=yes
+  register: existing_collections
+  changed_when: false
+
+- name: SolrCloud | Create new collections
+  uri:
+    url: "{{ solr_url }}/admin/collections?action=CREATE&name={{ item }}&numShards={{ solr_collections[item].shards }}&replicationFactor={{ solr_collections[item].replicas }}&collection.configName={{ item }}&maxShardsPerNode={{ solr_collections[item].shards_per_node }}"
+  with_items: "{{ solr_collections.keys() | difference(existing_collections.json.collections) }}"
+
+- name: SolrCloud | Modify existing collections
+  uri:
+    url: "{{ solr_url }}/admin/collections?action=MODIFYCOLLECTION&collection={{ item }}&replicationFactor={{ solr_collections[item].replicas }}&maxShardsPerNode={{ solr_collections[item].shards_per_node }}&autoAddReplicas=true"
+  with_items: "{{ existing_collections.json.collections | intersect(solr_collections.keys()) }}"
+
+- name: SolrCloud | Reload modified collections
+  uri:
+    url: "{{ solr_url }}/admin/collections?action=RELOAD&name={{ item }}"
+  with_items: "{{ existing_collections.json.collections | intersect(solr_collections.keys()) }}"
+
+- name: SolrCloud | Delete collections that exists in SolrCloud but not in given configuration
+  uri:
+    url: "{{ solr_url }}/admin/collections?action=DELETE&name={{ item }}"
+  with_items: "{{ existing_collections.json.collections | difference(solr_collections.keys()) }}"

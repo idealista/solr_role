@@ -1,6 +1,12 @@
 ---
-# tasks file for solr_cloud
+# tasks file for SolrCloud
 # installation instructions taken from: https://cwiki.apache.org/confluence/display/solr/Taking+Solr+to+Production
+- name: SolrCloud | Installing required libs
+  apt:
+    pkg: "{{ item }}"
+    state: present
+  with_items: "{{ solr_required_libs }}"
+
 - name: SolrCloud | Ensure solr group
   group:
     name: "{{ solr_group }}"
@@ -21,6 +27,7 @@
   with_items:
     - "{{ solr_log_dir }}"
     - "{{ solr_data_dir }}"
+    - "{{ solr_collections_config_tmp_dir }}"
 
 - name: SolrCloud | Check if service is running
   command: systemctl status solr.service

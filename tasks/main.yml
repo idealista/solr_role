@@ -14,3 +14,9 @@
   include: service.yml
   tags:
     - service
+
+- name: SolrCloud | Manage collections
+  include: collections.yml
+  run_once: true
+  tags:
+    - collections
