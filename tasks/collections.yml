@@ -20,6 +20,8 @@
     times: true
     owner: true
     group: true
+  become: true
+  become_user: "{{ solr_user }}"
   register: synchronized_config
 
 - name: SolrCloud | Upload initial config
