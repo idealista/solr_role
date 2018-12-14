@@ -1,22 +1,22 @@
 ---
 
 - name: SolrCloud | Install
-  include: install.yml
+  import_tasks: install.yml
   tags:
     - install
 
 - name: SolrCloud | Configure
-  include: config.yml
+  import_tasks: config.yml
   tags:
     - configure
 
 - name: SolrCloud | Service
-  include: service.yml
+  import_tasks: service.yml
   tags:
     - service
 
 - name: SolrCloud | Manage collections
-  include: collections.yml
+  import_tasks: collections.yml
   run_once: true
   tags:
     - collections
