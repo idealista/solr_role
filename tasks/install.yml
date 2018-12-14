@@ -1,6 +1,12 @@
 ---
-# tasks file for solr_cloud
+# tasks file for SolrCloud
 # installation instructions taken from: https://cwiki.apache.org/confluence/display/solr/Taking+Solr+to+Production
+- name: SolrCloud | Installing required libs
+  apt:
+    pkg: "{{ item }}"
+    state: present
+  with_items: "{{ solr_required_libs }}"
+
 - name: SolrCloud | Ensure solr group
   group:
     name: "{{ solr_group }}"
@@ -21,6 +27,7 @@
   with_items:
     - "{{ solr_log_dir }}"
     - "{{ solr_data_dir }}"
+    - "{{ solr_collections_config_tmp_dir }}"
 
 - name: SolrCloud | Check if service is running
   command: systemctl status solr.service
@@ -48,7 +55,7 @@
       service_solrcloud_status.rc > 0 or
       service_solrcloud_status is success and
         (solrcloud_check is failed or
-        "<str name=\"lucene-spec-version\">{{ solr_cloud_version }}</str>" not in solrcloud_check.content)
+        "<str name=\"lucene-spec-version\">{{ solr_version }}</str>" not in solrcloud_check.content)
 
 - name: SolrCloud | Extract SolrCloud installation script in the current directory
   shell: "tar xzf /tmp/{{ solr_cloud_package }} {{ solr_cloud_build_name }}/bin/install_solr_service.sh --strip-components=2"
@@ -58,7 +65,7 @@
       service_solrcloud_status.rc > 0 or
       service_solrcloud_status is success and
         (solrcloud_check is failed or
-        "<str name=\"lucene-spec-version\">{{ solr_cloud_version }}</str>" not in solrcloud_check.content)
+        "<str name=\"lucene-spec-version\">{{ solr_version }}</str>" not in solrcloud_check.content)
   tags:
     - skip_ansible_lint
 
@@ -68,6 +75,6 @@
       service_solrcloud_status.rc > 0 or
       service_solrcloud_status is success and
         (solrcloud_check is failed or
-        "<str name=\"lucene-spec-version\">{{ solr_cloud_version }}</str>" not in solrcloud_check.content)
+        "<str name=\"lucene-spec-version\">{{ solr_version }}</str>" not in solrcloud_check.content)
   tags:
     - skip_ansible_lint

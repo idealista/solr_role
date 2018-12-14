@@ -2,7 +2,12 @@
 All notable changes to this project will be documented in this file.
 
 ## [Unreleased](https://github.com/idealista/solrcloud-role/tree/develop)
+
+### Added
+- *[#53](https://github.com/idealista/solrcloud-role/issues/53) Adding tasks to manage collections* @dortegau
+
 ### Changed
+- *[#58](https://github.com/idealista/solrcloud-role/issues/58) Testing against a cluster with two nodes (solrcloud1 and solrcloud2) instead of one* @dortegau
 - *[#54](https://github.com/idealista/solrcloud-role/issues/54) Installing SolrCloud 7.5.0 by default* @dortegau
 - *[#55](https://github.com/idealista/solrcloud-role/issues/55) Upgrading Java and ZooKeeper roles to latest versions, using hostmanager plugin to manage network instead of landrush, adding test-requirements.txt for execution under pipenv and upgrading to Ansible 2.5.5.0* @dortegau
 

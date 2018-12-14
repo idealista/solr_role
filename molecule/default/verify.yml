@@ -22,7 +22,7 @@
   vars_files:
     - ../../defaults/main.yml
     - ../../vars/main.yml
-    - ./group_vars/solrcloud_group.yml
+    - ./group_vars/solrcloud.yml
 
   tasks:
     - name: Download and install goss
