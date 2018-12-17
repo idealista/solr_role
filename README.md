@@ -23,10 +23,10 @@ These instructions will get you a copy of the role for your ansible playbook. On
 
 ### Prerequisities
 
-Ansible 2.2.1.0 version installed.
+Ansible 2.5.5.0 version installed.
 Inventory destination should be a Debian environment.
 
-For testing purposes, [Molecule](https://molecule.readthedocs.io/) with [Vagrant](https://www.vagrantup.com/) as driver (with [landrush](https://github.com/vagrant-landrush/landrush) plugin) and [VirtualBox](https://www.virtualbox.org/) as provider.
+For testing purposes, [Molecule](https://molecule.readthedocs.io/) with [Docker](https://www.docker.com/) as driver.
 
 ### Installing
 
@@ -34,7 +34,7 @@ Create or add to your roles dependency file (e.g requirements.yml):
 
 ```
 - src: idealista.solrcloud-role
-  version: 1.8.0
+  version: 2.0.0
   name: solrcloud
 ```
 
@@ -53,87 +53,32 @@ Use in a playbook:
     - { role: solrcloud }
 ```
 
-Playbook example showing how to provision from scratch a solrcloud cluster plus create a collection called `mycollection`, using idealista [java](https://github.com/idealista/java-role), [zookeeper](https://github.com/idealista/zookeeper-role) and [solrcloud](https://github.com/idealista/solrcloud-role) roles.
+Playbook example below showing how to provision from scratch a SolrCloud cluster with two nodes plus create an example (and empty) collection called `sample_techproducts_configs`, using idealista [java](https://github.com/idealista/java-role), [zookeeper](https://github.com/idealista/zookeeper-role) and [solrcloud](https://github.com/idealista/solrcloud-role) roles:
+
+**Note:** Assuming that 'solrcloud' group has two nodes (`solrcloud1` and `solrcloud2`) as is declared in [molecule.yml](https://github.com/idealista/solrcloud-role/tree/master/molecule/default/molecule.yml),
+collection will have two shards, one replica and one shard per node as is declared in group vars file called [solrcloud.yml](https://github.com/idealista/solrcloud-role/tree/master/molecule/default/group_vars/solrcloud.yml)
+and configuration files are stored under directory called `sample_techproducts_configs` under template directory.
 
 > :warning: Use the example below just as a reference, requires inventory host groups `solr` and `zookeeper` to be correctly defined
+
 ```
-- hosts: solr:zookeeper
-  roles:
-    - role: idealista.java-role
-      become: yes
-      vars:
-        java_open_jdk_set_version: 8   
+---
 
 - hosts: zookeeper
   roles:
-    - role: idealista.zookeeper-role
-      become: yes
-      vars:
-        zookeeper_hosts: "
-          {%- set ips = [] %}
-          {%- for host in groups['zookeeper'] %}
-          {{- ips.append(dict(id=loop.index, host=host, ip=hostvars[host]['ansible_default_ipv4'].address)) }}
-          {%- endfor %}
-          {{- ips -}}"
+    - role: zookeeper
+  pre_tasks:
+    - name: installing required libs
+      apt:
+        pkg: "{{ item }}"
+        state: present
+      with_items:
+        - net-tools
+        - netcat
 
-- hosts: solr
-  serial:
-    - 1
-    - "100%"
+- hosts: solrcloud
   roles:
-    - role: idealista.solrcloud-role
-      become: yes
-      vars:
-        solr_cloud_version: 6.5.1
-        solr_heap: "10G"
-        solr_zookeeper_hosts: "
-          {%- set ips = [] %}
-          {%- for host in groups['zookeeper'] %}
-          {{- ips.append(hostvars[host]['ansible_default_ipv4'].address) }}
-          {%- endfor %}
-          {{- ips | zip_longest([], fillvalue=':2181') | map('join') | join(',') -}}
-        "
-        solr_host: "{{ ansible_hostname }}"
-
-- hosts: solr
-  vars: 
-    solr_replicas: "{{ 1 if groups['solr'] | length == 1 else 2 }}"
-    solr_shards: "{{ groups['solr'] | length }}"
-    solr_collection_home: /var/solr
-    solr_collection_name: mycollection
-    solr_collection_ok_file: "{{ solr_collection_home }}/create_collection.ok"
-
-  tasks:
-  - name: Upload collection
-    become: yes
-    when: "inventory_hostname == groups['solr'][0]"
-    copy:
-      src: "{{ playbook_dir }}/{{ solr_collection_name }}"
-      dest: "{{ solr_collection_home }}"
-      owner: solr
-      group: solr
-      mode: 0644
-
-  - name: Create mycollection collection
-    become: yes 
-    when: "inventory_hostname == groups['solr'][0]"
-    become_user: solr
-    shell: |
-      /opt/solr/bin/solr create_collection \
-        -c {{solr_collection_name}} \
-        -n {{solr_collection_name}} \
-        -d {{solr_collection_home}}/{{solr_collection_name}} \
-        -shards {{solr_shards}} \
-        -replicationFactor {{solr_replicas}} \
-        && touch {{solr_collection_ok_file}}
-        
-    register: command_output
-    args:
-      executable: /bin/bash
-      creates: "{{solr_collection_ok_file}}"
-
-  - name: Collection creation print
-    debug: msg="{{ command_output }}"
+    - role: solrcloud-role
 ```
 
 ## Usage
@@ -143,20 +88,33 @@ Look to the defaults properties file to see the possible configuration propertie
 ## Testing
 
 ```
-molecule test --platform=Debian9
+$ pipenv install -r test-requirements.txt -python 2.7
+
+# This will execute tests but doesn't destroy created environment (because of --destroy=never)
+$ pipenv run molecule test --destroy=never
 ```
 
-See molecule.yml to check possible testing platforms.
+Solr Admin UI should be accessible from docker container host at URL:
+
+http://localhost:8983/solr/#/ (node: `solrcloud1`)
+
+or
+
+http://localhost:8984/solr/#/ (node: `solrcloud2`)
+
+<img src="https://raw.githubusercontent.com/idealista/solrcloud-role/master/assets/solr_admin_ui.png" alt="Solr Admin UI example" style="width: 600px;"/>
+
+See [molecule.yml](https://github.com/idealista/solrcloud-role/blob/master/molecule/default/molecule.yml) to check possible testing platforms.
 
 ## Built With
 
-![Ansible](https://img.shields.io/badge/ansible-2.2.1.0-green.svg)
+![Ansible](https://img.shields.io/badge/ansible-2.5.5.0-green.svg)
 
 ## Versioning
 
 For the versions available, see the [tags on this repository](https://github.com/idealista/solrcloud-role/tags).
 
-Additionaly you can see what change in each version in the [CHANGELOG.md](CHANGELOG.md) file.
+Additionaly you can see what change in each version in the [CHANGELOG.md](https://github.com/idealista/solrcloud-role/blob/master/CHANGELOG.md) file.
 
 ## Authors
 
@@ -168,8 +126,8 @@ See also the list of [contributors](https://github.com/idealista/solrcloud-role/
 
 ![Apache 2.0 Licence](https://img.shields.io/hexpm/l/plug.svg)
 
-This project is licensed under the [Apache 2.0](https://www.apache.org/licenses/LICENSE-2.0) license - see the [LICENSE.txt](LICENSE.txt) file for details.
+This project is licensed under the [Apache 2.0](https://www.apache.org/licenses/LICENSE-2.0) license - see the [LICENSE](LICENSE) file for details.
 
 ## Contributing
 
-Please read [CONTRIBUTING.md](CONTRIBUTING.md) for details on our code of conduct, and the process for submitting pull requests to us.
+Please read [CONTRIBUTING.md](https://github.com/idealista/solrcloud-role/blob/master/.github/CONTRIBUTING.md) for details on our code of conduct, and the process for submitting pull requests to us.

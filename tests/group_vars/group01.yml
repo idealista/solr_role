@@ -1,8 +1,0 @@
----
-java_implementation: openjdk
-
-solr_cloud_version: 7.0.0
-solr_port: 8983
-
-solr_zookeeper_hosts: zookeeper.vm:2181
-solr_host: "{{ hostvars[ansible_nodename + '.vm']['ansible_' + ansible_default_ipv4.alias]['ipv4']['address'] }}"

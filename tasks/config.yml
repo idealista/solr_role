@@ -19,73 +19,55 @@
     -zkhost {{ solr_zookeeper_hosts }}
     -cmd makepath /{{ solr_zookeeper_hosts_solr_path }}
   when: '" /{{ solr_zookeeper_hosts_solr_path }} " not in solr_path_check.stdout'
+  register: create_root_path_result
+  failed_when: |
+    create_root_path_result.rc != 0 and
+    "NodeExists" not in create_root_path_result.stderr
 
 - name: SolrCloud | Configuring jetty server
   template:
-      src: jetty.xml.j2
-      dest: /opt/solr/server/etc/jetty.xml
-      force: yes
+    src: jetty.xml.j2
+    dest: /opt/solr/server/etc/jetty.xml
+    force: true
   notify: restart SolrCloud
 
 - name: SolrCloud | Configuring jetty server http
   template:
-      src: jetty-http.xml.j2
-      dest: /opt/solr/server/etc/jetty-http.xml
-      force: yes
+    src: jetty-http.xml.j2
+    dest: /opt/solr/server/etc/jetty-http.xml
+    force: true
   notify: restart SolrCloud
 
 - name: SolrCloud | Configuring SolrCloud init script
   template:
-      src: solr.in.sh.j2
-      dest: /etc/default/solr.in.sh
-      force: yes
+    src: solr.in.sh.j2
+    dest: /etc/default/solr.in.sh
+    force: true
   notify: restart SolrCloud
 
 - name: SolrCloud | Configuring SolrCloud properties
   template:
-      src: solr.xml.j2
-      dest: "{{ solr_data_dir }}/solr.xml"
-      force: yes
+    src: solr.xml.j2
+    dest: "{{ solr_data_dir }}/solr.xml"
+    force: true
   notify: restart SolrCloud
 
 - name: SolrCloud | Configuring logging
   template:
-      src: log4j.properties.j2
-      dest: /opt/solr/log4j.properties
-      force: yes
+    src: log4j.properties.j2
+    dest: /opt/solr/log4j.properties
+    force: true
   notify: restart SolrCloud
 
-- name: SolrCloud | Create NFS folder (Install dependencies)
-  apt:
-    name: nfs-common
-    state: installed
-  when:
-    - mount_name is defined
-    - mount_source is defined
-    - solr_mount_name is defined
-    - solr_mount_source is defined
+- name: SolrCloud | Force handlers
+  meta: flush_handlers
 
-- name: SolrCloud | Create NFS folder (Mount the folder)
-  mount:
-    name: "{{ mount_name }}"
-    src: "{{ mount_source }}"
-    fstype: nfs
-    opts: "{{ mount_options }}"
-    state: mounted
-  when:
-    - mount_name is defined
-    - mount_source is defined
-    - solr_mount_name is defined
-    - solr_mount_source is defined
-
-- name: SolrCloud | Create NFS folder (Change owner)
-  file:
-    path: "{{ mount_name }}"
-    state: directory
-    owner: "{{ solr_user }}"
-    group: "{{ solr_group }}"
-  when:
-    - mount_name is defined
-    - mount_source is defined
-    - solr_mount_name is defined
-    - solr_mount_source is defined
+- name: SolrCloud | Wait for SolrCloud to fully startup before continue
+  uri:
+    url: "http://{{ solr_host }}:{{ solr_port }}/solr"
+    status_code: 200
+  retries: "100"
+  delay: "1"
+  register: result
+  until: result.status == 200
+  changed_when: false
