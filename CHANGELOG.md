@@ -3,7 +3,13 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased](https://github.com/idealista/solrcloud-role/tree/develop)
 
+## [2.1.0](https://github.com/idealista/solrcloud-role/tree/2.1.0) (2018-12-19)
+[Full Changelog](https://github.com/idealista/solrcloud-role/compare/2.0.0...2.1.0)
+### Changed
+- *[#63](https://github.com/idealista/solrcloud-role/issues/63) Installing Apache Solr 7.6.0 by default* @dortegau
+
 ## [2.0.0](https://github.com/idealista/solrcloud-role/tree/2.0.0) (2018-12-17)
+[Full Changelog](https://github.com/idealista/solrcloud-role/compare/1.9.0...2.0.0)
 ### Added
 - *[#53](https://github.com/idealista/solrcloud-role/issues/53) Adding tasks to manage collections* @dortegau
 
