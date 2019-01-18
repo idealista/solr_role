@@ -2,6 +2,8 @@
 All notable changes to this project will be documented in this file.
 
 ## [Unreleased](https://github.com/idealista/solrcloud-role/tree/develop)
+### Fixed
+- *[#67](https://github.com/idealista/solrcloud-role/issues/67) Role fails when collections aren't provided* @sorobon
 
 ## [2.1.0](https://github.com/idealista/solrcloud-role/tree/2.1.0) (2018-12-19)
 [Full Changelog](https://github.com/idealista/solrcloud-role/compare/2.0.0...2.1.0)

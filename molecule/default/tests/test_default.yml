@@ -26,22 +26,12 @@ file:
     group: {{ solr_group }}
     exists: true
     filetype: directory
-  {{ solr_collections_config_tmp_dir }}:
-    owner: {{ solr_user }}
-    group: {{ solr_group }}
-    exists: true
-    filetype: directory
     
 port:
   tcp:{{ solr_port }}:
     listening: true
   tcp:{{ solr_jmx_port }}:
     listening: true
-
-http:
-  {{ solr_url }}/admin/collections?action=LIST:
-    status: 200
-    body: [ {{ solr_collections.keys() | join(', ') }} ]
 
 service:
   solr:
