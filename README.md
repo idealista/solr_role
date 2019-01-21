@@ -88,7 +88,7 @@ Look to the defaults properties file to see the possible configuration propertie
 ## Testing
 
 ```
-$ pipenv install -r test-requirements.txt -python 2.7
+$ pipenv install -r test-requirements.txt --python 2.7
 
 # This will execute tests but doesn't destroy created environment (because of --destroy=never)
 $ pipenv run molecule test --destroy=never
