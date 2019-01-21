@@ -17,6 +17,7 @@
 
 - name: SolrCloud | Manage collections
   import_tasks: collections.yml
+  when: "{{ solr_collections is defined and solr_collections|length > 0 }}"
   run_once: true
   tags:
     - collections
