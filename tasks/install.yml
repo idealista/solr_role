@@ -7,8 +7,8 @@
     state: present
     cache_valid_time: 3600
     update_cache: true
-  until: solrclod_installed_required_libs is succeeded
-  register: solrclod_installed_required_libs
+  until: solr_installed_required_libs is succeeded
+  register: solr_installed_required_libs
 
 - name: SolrCloud | Ensure solr group
   group:
