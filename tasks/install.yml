@@ -3,9 +3,12 @@
 # installation instructions taken from: https://cwiki.apache.org/confluence/display/solr/Taking+Solr+to+Production
 - name: SolrCloud | Installing required libs
   apt:
-    pkg: "{{ item }}"
+    pkg: "{{ solr_required_libs }}"
     state: present
-  with_items: "{{ solr_required_libs }}"
+    cache_valid_time: 3600
+    update_cache: true
+  until: solr_installed_required_libs is succeeded
+  register: solr_installed_required_libs
 
 - name: SolrCloud | Ensure solr group
   group:

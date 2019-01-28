@@ -3,6 +3,9 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased](https://github.com/idealista/solrcloud-role/tree/develop)
 
+### Changed
+- *[#72](https://github.com/idealista/solrcloud-role/issues/72) Adding cache and retries in remote package installation* @dortegau
+
 
 ## [2.1.1](https://github.com/idealista/solrcloud-role/tree/2.1.0) (2019-01-21)
 [Full Changelog](https://github.com/idealista/solrcloud-role/compare/2.1.0...2.1.1)
