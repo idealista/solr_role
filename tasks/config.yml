@@ -27,14 +27,14 @@
 - name: SolrCloud | Configuring jetty server
   template:
     src: jetty.xml.j2
-    dest: /opt/solr/server/etc/jetty.xml
+    dest: "{{ solr_installation_dir }}/server/etc/jetty.xml"
     force: true
   notify: restart SolrCloud
 
 - name: SolrCloud | Configuring jetty server http
   template:
     src: jetty-http.xml.j2
-    dest: /opt/solr/server/etc/jetty-http.xml
+    dest: "{{ solr_installation_dir }}/server/etc/jetty-http.xml"
     force: true
   notify: restart SolrCloud
 
@@ -55,7 +55,7 @@
 - name: SolrCloud | Configuring logging
   template:
     src: "{{ solr_log_config_file }}.j2"
-    dest: "/opt/solr/{{ solr_log_config_file }}"
+    dest: "{{ solr_installation_dir }}/{{ solr_log_config_file }}"
     force: true
   notify: restart SolrCloud
 

@@ -43,7 +43,7 @@ SOLR_HEAP="{{solr_heap}}"
 #
 #GC_LOG_OPTS='-Xlog:gc*'  # (Java 9+)
 GC_LOG_OPTS="-verbose:gc -XX:+PrintHeapAtGC -XX:+PrintGCDetails \
-  -XX:+PrintGCDateStamps -XX:+PrintGCTimeStamps -XX:+PrintTenuringDistribution -XX:+PrintGCApplicationStoppedTime"
+-XX:+PrintGCDateStamps -XX:+PrintGCTimeStamps -XX:+PrintTenuringDistribution -XX:+PrintGCApplicationStoppedTime"
 
 # These GC settings have shown to work well for a number of common Solr workloads
 #GC_TUNE="-XX:NewRatio=3 -XX:SurvivorRatio=4    etc.
@@ -101,7 +101,7 @@ SOLR_HOME="{{ solr_data_dir }}"
 # Solr provides a default Log4J configuration xml file in server/resources
 # however, you may want to customize the log settings and file appender location
 # so you can point the script to use a different log4j2.xml file
-LOG4J_PROPS={{ solr_log_dir }}/{{ solr_log_config_file }}
+LOG4J_PROPS={{ {{ solr_installation_dir }} }}/{{ solr_log_config_file }}
 
 # Changes the logging level. Valid values: ALL, TRACE, DEBUG, INFO, WARN, ERROR, FATAL, OFF. Default is INFO
 # This is an alternative to changing the rootLogger in log4j2.xml

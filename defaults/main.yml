@@ -14,6 +14,7 @@ solr_service_enabled: true
 solr_service_state: started
 
 # Files & Paths
+solr_installation_dir: /opt/solr/
 solr_log_dir: /var/log/solr
 solr_home: /var/solr
 solr_data_dir: "{{ solr_home }}/data"
@@ -78,7 +79,7 @@ solr_jetty_http_acceptors: -1
 solr_zookeeper_hosts: localhost:2181
 solr_zookeeper_hosts_solr_path: solr
 solr_zk_host: "{{ solr_zookeeper_hosts }}/{{ solr_zookeeper_hosts_solr_path }}"
-solr_zookeeper_client_path: /opt/solr/server/scripts/cloud-scripts
+solr_zookeeper_client_path: "{{ solr_installation_dir }}/server/scripts/cloud-scripts"
 solr_zookeeper_client_timeout: 15000
 
 # Collections configuration
