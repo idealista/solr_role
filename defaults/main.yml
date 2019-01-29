@@ -23,6 +23,10 @@ solr_collections_config_tmp_dir: /tmp/collections
 solr_log_root_level: WARN
 solr_log_file_size: 500MB
 solr_log_max_backup_index: 9
+solr_log_config_file: log4j2.xml
+solr_log_file_name: solr.log
+solr_log_slow_queries_file_name: solr_slow_requests.log
+
 
 # Ports
 solr_host: "{{ hostvars[ansible_nodename]['ansible_' + ansible_default_ipv4.alias]['ipv4']['address'] }}"

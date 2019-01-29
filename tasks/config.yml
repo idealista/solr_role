@@ -54,8 +54,8 @@
 
 - name: SolrCloud | Configuring logging
   template:
-    src: log4j.properties.j2
-    dest: /opt/solr/log4j.properties
+    src: "{{ solr_log_config_file }}.j2"
+    dest: "/opt/solr/{{ solr_log_config_file }}"
     force: true
   notify: restart SolrCloud
 
