@@ -14,6 +14,7 @@ solr_service_enabled: true
 solr_service_state: started
 
 # Files & Paths
+solr_installation_dir: /opt/solr/
 solr_log_dir: /var/log/solr
 solr_home: /var/solr
 solr_data_dir: "{{ solr_home }}/data"
@@ -23,6 +24,10 @@ solr_collections_config_tmp_dir: /tmp/collections
 solr_log_root_level: WARN
 solr_log_file_size: 500MB
 solr_log_max_backup_index: 9
+solr_log_config_file: log4j2.xml
+solr_log_file_name: solr.log
+solr_log_slow_queries_file_name: solr_slow_requests.log
+
 
 # Ports
 solr_host: "{{ hostvars[ansible_nodename]['ansible_' + ansible_default_ipv4.alias]['ipv4']['address'] }}"
@@ -74,7 +79,7 @@ solr_jetty_http_acceptors: -1
 solr_zookeeper_hosts: localhost:2181
 solr_zookeeper_hosts_solr_path: solr
 solr_zk_host: "{{ solr_zookeeper_hosts }}/{{ solr_zookeeper_hosts_solr_path }}"
-solr_zookeeper_client_path: /opt/solr/server/scripts/cloud-scripts
+solr_zookeeper_client_path: "{{ solr_installation_dir }}/server/scripts/cloud-scripts"
 solr_zookeeper_client_timeout: 15000
 
 # Collections configuration

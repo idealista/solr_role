@@ -26,6 +26,16 @@ file:
     group: {{ solr_group }}
     exists: true
     filetype: directory
+  {{ solr_log_dir }}/{{ solr_log_file_name }}:
+    owner: {{ solr_user }}
+    group: {{ solr_group }}
+    exists: true
+    filetype: file
+  {{ solr_log_dir }}/{{ solr_log_slow_queries_file_name }}:
+    owner: {{ solr_user }}
+    group: {{ solr_group }}
+    exists: true
+    filetype: file
     
 port:
   tcp:{{ solr_port }}:
