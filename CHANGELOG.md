@@ -2,6 +2,8 @@
 All notable changes to this project will be documented in this file.
 
 ## [Unreleased](https://github.com/idealista/solrcloud-role/tree/develop)
+### Added
+- *[#80](https://github.com/idealista/solrcloud-role/issues/80) External libs support added* @sorobon
 
 ## [2.1.2](https://github.com/idealista/solrcloud-role/tree/2.1.2) (2019-01-30)
 ### Changed

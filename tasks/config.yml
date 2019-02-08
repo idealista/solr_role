@@ -59,6 +59,25 @@
     force: true
   notify: restart SolrCloud
 
+- name: SolrCloud | Install download war from maven require package
+  apt:
+    package: "{{ item }}"
+    state: present
+  with_items: "{{ solr_external_libraries_required_packages }}"
+  notify: restart SolrCloud
+  when: solr_external_libraries is defined and solr_external_libraries|length > 0
+
+- name: SolrCloud | Copy external libraries
+  maven_artifact:
+    group_id: "{{ item.group_id }}"
+    artifact_id: "{{ item.artifact_id }}"
+    version: "{{ item.version }}"
+    repository_url: "{{ solr_external_libraries_repository_url }}"
+    dest: "{{ solr_external_libraries_destination_path }}"
+    mode: 0644
+  with_items: "{{ solr_external_libraries }}"
+  when: solr_external_libraries is defined and solr_external_libraries|length > 0
+
 - name: SolrCloud | Force handlers
   meta: flush_handlers
 
