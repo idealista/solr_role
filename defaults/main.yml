@@ -1,6 +1,7 @@
 ---
+
 ## General
-solr_version: 7.6.0
+solr_version: 7.7.0
 
 ## Service options
 
@@ -41,8 +42,7 @@ solr_gc_tune: "-XX:NewRatio=3 \
 -XX:SurvivorRatio=4 \
 -XX:TargetSurvivorRatio=90 \
 -XX:MaxTenuringThreshold=8 \
--XX:+UseConcMarkSweepGC \
--XX:+UseParNewGC \
+-XX:+UseG1GC \
 -XX:ConcGCThreads=4 \
 -XX:ParallelGCThreads=4 \
 -XX:+CMSScavengeBeforeRemark \
@@ -52,8 +52,6 @@ solr_gc_tune: "-XX:NewRatio=3 \
 -XX:CMSMaxAbortablePrecleanTime=6000 \
 -XX:+CMSParallelRemarkEnabled \
 -XX:+ParallelRefProcEnabled \
--XX:+AggressiveOpts \
--XX:+UseFastAccessorMethods \
 -XX:+UseTLAB"
 solr_stack_size: 256k
 solr_heap: 512m

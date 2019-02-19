@@ -6,6 +6,4 @@ FROM {{ item.registry.url }}/{{ item.image }}
 FROM {{ item.image }}
 {% endif %}
 
-RUN if [ $(command -v apt-get) ]; then apt-get update && apt-get upgrade -y && apt-get install -y python sudo bash ca-certificates \
- systemd build-essential libffi-dev libssl-dev python-pip python-dev python-setuptools python-wheel net-tools \
-    && apt-get clean; fi
+RUN if [ $(command -v apt-get) ]; then apt-get update && apt-get upgrade -y && apt-get install -y python sudo bash ca-certificates systemd systemd-cron iproute && apt-get clean; fi
