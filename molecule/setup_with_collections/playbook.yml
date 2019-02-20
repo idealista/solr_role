@@ -1,17 +1,5 @@
 ---
 
-- hosts: zookeeper
-  roles:
-    - role: zookeeper
-  pre_tasks:
-    - name: installing required libs
-      apt:
-        pkg: "{{ item }}"
-        state: present
-      with_items:
-        - net-tools
-        - netcat
-
 - hosts: solrcloud
   roles:
     - role: solrcloud-role

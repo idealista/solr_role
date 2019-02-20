@@ -6,7 +6,7 @@ driver:
 platforms:
   - name: zookeeper
     hostname: zookeeper
-    image: idealista/jdk:11.0.2-stretch-openjdk-headless
+    image: idealista/zookeeper:latest
     privileged: true
     capabilities:
       - SYS_ADMIN

@@ -1,5 +1,0 @@
----
-
-- src: idealista.zookeeper-role
-  version: 1.4.1
-  name: zookeeper
