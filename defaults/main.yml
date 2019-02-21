@@ -85,3 +85,7 @@ solr_zookeeper_client_timeout: 15000
 # Collections configuration
 solr_collections: {}
 solr_collections_template_path: "{{ playbook_dir }}/templates/collections/"
+
+# External libs support
+solr_external_libraries_repository_url: http://repo1.maven.org/maven2
+solr_external_libraries: {}

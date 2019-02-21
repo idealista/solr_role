@@ -91,7 +91,7 @@ Look to the defaults properties file to see the possible configuration propertie
 $ pipenv install -r test-requirements.txt --python 2.7
 
 # This will execute tests but doesn't destroy created environment (because of --destroy=never)
-$ pipenv run molecule test --destroy=never
+$ pipenv run molecule test --destroy=never -s setup_with_collections
 ```
 
 Solr Admin UI should be accessible from docker container host at URL:
