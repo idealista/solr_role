@@ -59,7 +59,7 @@
     force: true
   notify: restart SolrCloud
 
-- name: SolrCloud | Install download war from maven require package
+- name: SolrCloud | Install maven_artifact module required packages
   apt:
     package: "{{ item }}"
     state: present
