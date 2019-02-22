@@ -1,10 +1,9 @@
 ---
 
-solr_version: 7.6.0
-solr_port: 8983
-
+solr_version: 7.7.0
 solr_zookeeper_hosts: zookeeper:2181
 solr_host: "{{ hostvars[ansible_nodename]['ansible_' + ansible_default_ipv4.alias]['ipv4']['address'] }}"
+solr_port: 8983
 
 solr_collections:
   # Extracted from https://github.com/apache/lucene-solr/tree/master/solr/server/solr/configsets/sample_techproducts_configs/conf
