@@ -1,7 +1,12 @@
 ---
-# handlers file for solr_cloud
 - name: restart SolrCloud
   systemd:
     name: solr
     state: restarted
   when: solr_service_state != 'stopped'
+
+- name: restart SolrCloud Prometheus Exporter
+  systemd:
+    name: solrcloud_prometheus_exporter
+    state: restarted
+  when: solr_prometheus_exporter_service_state != 'stopped'

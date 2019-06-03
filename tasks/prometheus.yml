@@ -1,0 +1,24 @@
+---
+- name: SolrCloud | Check if prometheus exporter exists
+  file:
+    path: "{{ solr_prometheus_exporter_dir }}/bin/solr-exporter"
+    state: file
+    mode: 0755
+
+- name: SolrCloud | Template out exporter service
+  template:
+    src: "{{ solr_templates_dir }}/prometheus_exporter/solrcloud_prometheus_exporter.service.j2"
+    dest: /etc/systemd/system/solrcloud_prometheus_exporter.service
+    owner: root
+    group: root
+    mode: 0644
+  notify: restart SolrCloud Prometheus Exporter
+
+- name: SolrCloud | Template out exporter config
+  template:
+    src: "{{ solr_templates_dir }}/prometheus_exporter/solr-exporter-config.xml.j2"
+    dest: "{{ solr_prometheus_exporter_dir }}/conf/solr-exporter-config.xml"
+    owner: root
+    group: root
+    mode: 0644
+  notify: restart SolrCloud Prometheus Exporter

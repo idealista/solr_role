@@ -6,3 +6,11 @@
     state: "{{ solr_service_state }}"
     enabled: "{{ solr_service_enabled }}"
     daemon_reload: true
+
+- name: SolrCloud | Configuring Prometheus Exporter Service
+  systemd:
+    name: solrcloud_prometheus_exporter
+    state: "{{ solr_prometheus_exporter_service_state }}"
+    enabled: "{{ solr_prometheus_exporter_service_enabled }}"
+    daemon_reload: true
+  when: solr_prometheus_exporter

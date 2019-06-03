@@ -1,0 +1,19 @@
+[Unit]
+Description=solr webserver daemon
+After=network.target
+
+[Service]
+User={{ solr_user }}
+Group={{ solr_group }}
+Type=simple
+ExecStart={{ solr_prometheus_exporter_dir }}/bin/solr-exporter \
+            --port {{ solr_prometheus_exporter_port }} \
+            {% if solr_prometheus_exporter_mode == "standalone" %}--baseurl {{ solr_url }} {% elif solr_prometheus_exporter_mode == "solrcloud" %}--zkhost {{ solr_zk_host }}{% endif %} \
+            --config-file {{ solr_prometheus_exporter_dir }}/conf/solr-exporter-config.xml \
+            --num-threads {{ solr_prometheus_exporter_num_threads }}
+Restart=on-failure
+RestartSec=5s
+PrivateTmp=true
+
+[Install]
+WantedBy=multi-user.target

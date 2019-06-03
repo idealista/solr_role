@@ -5,8 +5,10 @@ All notable changes to this project will be documented in this file.
 ### Added
 - *[#80](https://github.com/idealista/solrcloud-role/issues/80) External libs support added* @sorobon
 - *[#82](https://github.com/idealista/solrcloud-role/issues/82) Java 11 support* @sorobon
+- *[#84](https://github.com/idealista/solrcloud-role/issues/84) Solr Prometheus Exporter support* @jnogol
+- *Add ability to provide custom templates via `solr_templates_dir` variable* @jnogol
 ### Changed
-- *Default version installed is Solr 7.7.0* @sorobon
+- *Default version installed is Solr 7.7.1* @jnogol
 
 ## [2.1.2](https://github.com/idealista/solrcloud-role/tree/2.1.2) (2019-01-30)
 ### Changed

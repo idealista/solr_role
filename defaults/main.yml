@@ -1,7 +1,7 @@
 ---
 
 ## General
-solr_version: 7.7.0
+solr_version: 7.7.1
 
 ## Service options
 
@@ -11,11 +11,11 @@ solr_group: solr
 
 # start on boot
 solr_service_enabled: true
-# current state: started, stopped
-solr_service_state: started
+solr_service_state: started  # current state: started, stopped
 
 # Files & Paths
-solr_installation_dir: /opt/solr/
+solr_installation_dir: /opt/solr
+solr_templates_dir: templates
 solr_log_dir: /var/log/solr
 solr_home: /var/solr
 solr_data_dir: "{{ solr_home }}/data"
@@ -87,3 +87,12 @@ solr_collections_template_path: "{{ playbook_dir }}/templates/collections/"
 # External libs support
 solr_external_libraries_repository_url: http://repo1.maven.org/maven2
 solr_external_libraries: {}
+
+# Prometheus
+solr_prometheus_exporter: false
+solr_prometheus_exporter_dir: "{{ solr_installation_dir }}/contrib/prometheus-exporter"
+solr_prometheus_exporter_port: 9854
+solr_prometheus_exporter_service_state: started
+solr_prometheus_exporter_service_enabled: true
+solr_prometheus_exporter_mode: solrcloud  # standalone, solrcloud
+solr_prometheus_exporter_num_threads: 1

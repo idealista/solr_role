@@ -10,6 +10,12 @@
   tags:
     - configure
 
+- name: SolrCloud | Prometheus exporter
+  import_tasks: prometheus.yml
+  when: solr_prometheus_exporter
+  tags:
+    - solrcloud_prometheus
+
 - name: SolrCloud | Service
   import_tasks: service.yml
   tags:
