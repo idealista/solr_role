@@ -9,6 +9,7 @@ All notable changes to this project will be documented in this file.
 - *Add ability to provide custom templates via `solr_templates_dir` variable* @jnogol
 ### Changed
 - *Default version installed is Solr 7.7.1* @jnogol
+- *Upgrade Ansible version to 2.5.15 in test-requirements to avoid CVE-2019-3828* @jnogol
 
 ## [2.1.2](https://github.com/idealista/solrcloud-role/tree/2.1.2) (2019-01-30)
 ### Changed
