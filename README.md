@@ -85,6 +85,10 @@ and configuration files are stored under directory called `sample_techproducts_c
 
 Look to the defaults properties file to see the possible configuration properties.
 
+## Prometheus Exporter
+
+If you want to scrape metrics from Solr using [Prometheus](https://github.com/idealista/prometheus_server-role), you will need to [configure a exporter](https://lucene.apache.org/solr/guide/7_7/monitoring-solr-with-prometheus-and-grafana.html). We have a [Prometheus Solr Exporter role](https://github.com/idealista/prometheus_solr_exporter_role) that will make configuration easier for you, just keep in mind that the variables `solr_version` and `prometheus_solr_exporter_version` must have the same value.
+
 ## Testing
 
 ```
