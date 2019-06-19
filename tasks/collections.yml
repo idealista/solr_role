@@ -21,7 +21,17 @@
     group: true
   become: true
   become_user: "{{ solr_user }}"
-  register: synchronized_config
+  register: synchronized_config_synchronize
+  when: solr_collections_transfer_mode == "synchronize"
+
+- name: SolrCloud | Copy files for collections configs in tmp directories
+  copy:
+    src: "{{ solr_collections_template_path }}"
+    dest: "{{ solr_collections_config_tmp_dir }}"
+    owner: "{{ solr_user }}"
+    group: "{{ solr_group }}"
+  register: synchronized_config_copy
+  when: solr_collections_transfer_mode == "copy"
 
 - name: SolrCloud | Upload initial config
   command: >
@@ -30,7 +40,7 @@
     -cmd upconfig
     -confname {{ item.key }}
     -confdir {{ solr_collections_config_tmp_dir }}/{{ item.key }}
-  when: synchronized_config.changed
+  when: synchronized_config_synchronize.changed or synchronized_config_copy.changed
   with_dict: "{{ solr_collections }}"
   tags: skip_ansible_lint
 

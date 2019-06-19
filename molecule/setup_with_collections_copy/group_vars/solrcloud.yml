@@ -11,3 +11,5 @@ solr_collections:
     shards: 2
     replicas: 1
     shards_per_node: 1
+
+solr_collections_transfer_mode: copy

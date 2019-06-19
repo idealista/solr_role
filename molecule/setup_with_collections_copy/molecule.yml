@@ -1,0 +1,71 @@
+---
+dependency:
+  name: galaxy
+driver:
+  name: docker
+platforms:
+  - name: zookeeper
+    hostname: zookeeper
+    image: idealista/zookeeper:latest
+    privileged: true
+    capabilities:
+      - SYS_ADMIN
+    volumes:
+      - '/sys/fs/cgroup:/sys/fs/cgroup:ro'
+    groups:
+      - zookeeper_group
+    command: '/lib/systemd/systemd'
+    networks:
+      - name: solr-network
+        aliases:
+          - zookeeper
+
+  - name: solrcloud1
+    hostname: solrcloud1
+    image: idealista/jdk:8u181-stretch-openjdk-headless
+    privileged: true
+    capabilities:
+      - SYS_ADMIN
+    volumes:
+      - '/sys/fs/cgroup:/sys/fs/cgroup:ro'
+    groups:
+      - solrcloud
+    command: '/lib/systemd/systemd'
+    networks:
+      - name: solr-network
+        aliases:
+          - solrcloud1
+        links:
+          - zookeeper:zookeeper
+    published_ports:
+      - 0.0.0.0:8983:8983/tcp
+
+  - name: solrcloud2
+    hostname: solrcloud2
+    image: idealista/jdk:8u181-stretch-openjdk-headless
+    privileged: true
+    capabilities:
+      - SYS_ADMIN
+    volumes:
+      - '/sys/fs/cgroup:/sys/fs/cgroup:ro'
+    groups:
+      - solrcloud
+    command: '/lib/systemd/systemd'
+    networks:
+      - name: solr-network
+        aliases:
+          - solrcloud2
+        links:
+          - zookeeper:zookeeper
+    published_ports:
+      - 0.0.0.0:8984:8983/tcp
+provisioner:
+  name: ansible
+  lint:
+    name: ansible-lint
+scenario:
+  name: setup_with_collections_copy
+verifier:
+  name: goss
+  lint:
+    name: yamllint
