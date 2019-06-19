@@ -1,6 +1,8 @@
 ---
+
 ## General
-solr_version: 7.6.0
+solr_version: 8.1.1
+solrcloud_install: true
 
 ## Service options
 
@@ -10,11 +12,11 @@ solr_group: solr
 
 # start on boot
 solr_service_enabled: true
-# current state: started, stopped
-solr_service_state: started
+solr_service_state: started  # current state: started, stopped
 
 # Files & Paths
-solr_installation_dir: /opt/solr/
+solr_installation_dir: /opt/solr
+solr_templates_dir: templates
 solr_log_dir: /var/log/solr
 solr_home: /var/solr
 solr_data_dir: "{{ solr_home }}/data"
@@ -41,8 +43,7 @@ solr_gc_tune: "-XX:NewRatio=3 \
 -XX:SurvivorRatio=4 \
 -XX:TargetSurvivorRatio=90 \
 -XX:MaxTenuringThreshold=8 \
--XX:+UseConcMarkSweepGC \
--XX:+UseParNewGC \
+-XX:+UseG1GC \
 -XX:ConcGCThreads=4 \
 -XX:ParallelGCThreads=4 \
 -XX:+CMSScavengeBeforeRemark \
@@ -52,8 +53,6 @@ solr_gc_tune: "-XX:NewRatio=3 \
 -XX:CMSMaxAbortablePrecleanTime=6000 \
 -XX:+CMSParallelRemarkEnabled \
 -XX:+ParallelRefProcEnabled \
--XX:+AggressiveOpts \
--XX:+UseFastAccessorMethods \
 -XX:+UseTLAB"
 solr_stack_size: 256k
 solr_heap: 512m
@@ -85,3 +84,8 @@ solr_zookeeper_client_timeout: 15000
 # Collections configuration
 solr_collections: {}
 solr_collections_template_path: "{{ playbook_dir }}/templates/collections/"
+solr_collections_transfer_mode: synchronize  # synchronize, copy
+
+# External libs support
+solr_external_libraries_repository_url: http://repo1.maven.org/maven2
+solr_external_libraries: {}

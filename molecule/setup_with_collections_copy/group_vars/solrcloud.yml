@@ -1,0 +1,15 @@
+---
+
+solr_zookeeper_hosts: zookeeper:2181
+solr_host: "{{ hostvars[ansible_nodename]['ansible_' + ansible_default_ipv4.alias]['ipv4']['address'] }}"
+solr_port: 8983
+
+solr_collections:
+  # Extracted from https://github.com/apache/lucene-solr/tree/master/solr/server/solr/configsets/sample_techproducts_configs/conf
+  # Should have configuration files under "templates/collections/[collection_name]" directory
+  sample_techproducts_configs:
+    shards: 2
+    replicas: 1
+    shards_per_node: 1
+
+solr_collections_transfer_mode: copy

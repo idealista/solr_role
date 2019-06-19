@@ -26,38 +26,57 @@
 
 - name: SolrCloud | Configuring jetty server
   template:
-    src: jetty.xml.j2
+    src: "{{ solr_templates_dir }}/jetty.xml.j2"
     dest: "{{ solr_installation_dir }}/server/etc/jetty.xml"
     force: true
   notify: restart SolrCloud
 
 - name: SolrCloud | Configuring jetty server http
   template:
-    src: jetty-http.xml.j2
+    src: "{{ solr_templates_dir }}/jetty-http.xml.j2"
     dest: "{{ solr_installation_dir }}/server/etc/jetty-http.xml"
     force: true
   notify: restart SolrCloud
 
 - name: SolrCloud | Configuring SolrCloud init script
   template:
-    src: solr.in.sh.j2
+    src: "{{ solr_templates_dir }}/solr.in.sh.j2"
     dest: /etc/default/solr.in.sh
     force: true
   notify: restart SolrCloud
 
 - name: SolrCloud | Configuring SolrCloud properties
   template:
-    src: solr.xml.j2
+    src: "{{ solr_templates_dir }}/solr.xml.j2"
     dest: "{{ solr_data_dir }}/solr.xml"
     force: true
   notify: restart SolrCloud
 
 - name: SolrCloud | Configuring logging
   template:
-    src: "{{ solr_log_config_file }}.j2"
+    src: "{{ solr_templates_dir }}/{{ solr_log_config_file }}.j2"
     dest: "{{ solr_installation_dir }}/{{ solr_log_config_file }}"
     force: true
   notify: restart SolrCloud
+
+- name: SolrCloud | Install maven_artifact module required packages
+  apt:
+    package: "{{ item }}"
+    state: present
+  with_items: "{{ solr_external_libraries_required_packages }}"
+  notify: restart SolrCloud
+  when: solr_external_libraries is defined and solr_external_libraries|length > 0
+
+- name: SolrCloud | Copy external libraries
+  maven_artifact:
+    group_id: "{{ item.group_id }}"
+    artifact_id: "{{ item.artifact_id }}"
+    version: "{{ item.version }}"
+    repository_url: "{{ solr_external_libraries_repository_url }}"
+    dest: "{{ solr_external_libraries_destination_path }}"
+    mode: 0644
+  with_items: "{{ solr_external_libraries }}"
+  when: solr_external_libraries is defined and solr_external_libraries|length > 0
 
 - name: SolrCloud | Force handlers
   meta: flush_handlers

@@ -41,10 +41,9 @@
     - skip_ansible_lint
 
 - name: SolrCloud | Check installed version
-  action: >
-    uri \
-      url="http://localhost:{{ solr_port }}/solr/admin/info/system?wt=xml" \
-      return_content=yes
+  uri:
+    url: "http://localhost:{{ solr_port }}/solr/admin/info/system?wt=xml"
+    return_content: true
   register: solrcloud_check
   changed_when: false
   ignore_errors: true

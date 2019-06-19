@@ -6,7 +6,7 @@ driver:
 platforms:
   - name: zookeeper
     hostname: zookeeper
-    image: idealista/java-debian-ansible:3.2.0-debian9
+    image: idealista/zookeeper:latest
     privileged: true
     capabilities:
       - SYS_ADMIN
@@ -22,7 +22,7 @@ platforms:
 
   - name: solrcloud1
     hostname: solrcloud1
-    image: idealista/java-debian-ansible:3.2.0-debian9
+    image: idealista/jdk:8u181-stretch-openjdk-headless
     privileged: true
     capabilities:
       - SYS_ADMIN
@@ -42,7 +42,7 @@ platforms:
 
   - name: solrcloud2
     hostname: solrcloud2
-    image: idealista/java-debian-ansible:3.2.0-debian9
+    image: idealista/jdk:8u181-stretch-openjdk-headless
     privileged: true
     capabilities:
       - SYS_ADMIN

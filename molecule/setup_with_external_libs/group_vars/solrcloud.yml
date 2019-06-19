@@ -1,0 +1,11 @@
+---
+
+solr_port: 8983
+
+solr_zookeeper_hosts: zookeeper:2181
+solr_host: "{{ hostvars[ansible_nodename]['ansible_' + ansible_default_ipv4.alias]['ipv4']['address'] }}"
+
+solr_external_libraries:
+  - artifact_id: jts-core
+    group_id: org.locationtech.jts
+    version: 1.16.0
