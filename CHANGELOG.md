@@ -2,6 +2,8 @@
 All notable changes to this project will be documented in this file.
 
 ## [Unreleased](https://github.com/idealista/solrcloud-role/tree/develop)
+
+## [2.2.0](https://github.com/idealista/solrcloud-role/tree/2.2.0) (2019-06-19)
 ### Added
 - *[#80](https://github.com/idealista/solrcloud-role/issues/80) External libs support added* @sorobon
 - *[#82](https://github.com/idealista/solrcloud-role/issues/82) Java 11 support* @sorobon
