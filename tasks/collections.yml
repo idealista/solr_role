@@ -22,6 +22,16 @@
   become: true
   become_user: "{{ solr_user }}"
   register: synchronized_config
+  when: solr_collections_transfer_mode == "synchronize"
+
+- name: SolrCloud | Copy files for collections configs in tmp directories
+  copy:
+    src: "{{ solr_collections_template_path }}"
+    dest: "{{ solr_collections_config_tmp_dir }}"
+    owner: "{{ solr_user }}"
+    group: "{{ solr_group }}"
+  register: synchronized_config
+  when: solr_collections_transfer_mode == "copy"
 
 - name: SolrCloud | Upload initial config
   command: >
