@@ -1,7 +1,8 @@
 ---
 
 ## General
-solr_version: 7.7.0
+solr_version: 7.7.1
+solrcloud_install: true
 
 ## Service options
 
@@ -11,11 +12,11 @@ solr_group: solr
 
 # start on boot
 solr_service_enabled: true
-# current state: started, stopped
-solr_service_state: started
+solr_service_state: started  # current state: started, stopped
 
 # Files & Paths
-solr_installation_dir: /opt/solr/
+solr_installation_dir: /opt/solr
+solr_templates_dir: templates
 solr_log_dir: /var/log/solr
 solr_home: /var/solr
 solr_data_dir: "{{ solr_home }}/data"

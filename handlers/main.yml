@@ -1,5 +1,4 @@
 ---
-# handlers file for solr_cloud
 - name: restart SolrCloud
   systemd:
     name: solr
