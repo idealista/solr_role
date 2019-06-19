@@ -1,11 +1,10 @@
 ---
 
 - name: SolrCloud | Check if collections configs exists
-  action: >
-    uri \
-      url="{{ solr_url }}/{{ item.key }}/config" \
-      return_content=yes \
-      status_code=200,404
+  uri:
+    url: "{{ solr_url }}/{{ item.key }}/config"
+    return_content: true
+    status_code: 200,404
   register: config_exists_api_responses
   changed_when: false
   with_dict: "{{ solr_collections }}"
@@ -36,10 +35,9 @@
   tags: skip_ansible_lint
 
 - name: SolrCloud | Return existing collections
-  action: >
-    uri \
-      url="{{ solr_url }}/admin/collections?action=LIST" \
-      return_content=yes
+  uri:
+    url: "{{ solr_url }}/admin/collections?action=LIST"
+    return_content: true
   register: existing_collections
   changed_when: false
 

@@ -7,6 +7,7 @@ All notable changes to this project will be documented in this file.
 - *[#82](https://github.com/idealista/solrcloud-role/issues/82) Java 11 support* @sorobon
 - *Add ability to provide custom templates via `solr_templates_dir` variable* @jnogol
 ### Changed
+- *[#88](https://github.com/idealista/solrcloud-role/issues/88) Change "action" tasks to use uri module instead* @jnogol
 - *Default version installed is Solr 7.7.1* @jnogol
 - *Upgrade Ansible version to 2.5.15 in test-requirements to avoid CVE-2019-3828* @jnogol
 
