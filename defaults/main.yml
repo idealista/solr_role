@@ -89,3 +89,5 @@ solr_collections_transfer_mode: synchronize  # synchronize, copy
 # External libs support
 solr_external_libraries_repository_url: http://repo1.maven.org/maven2
 solr_external_libraries: {}
+
+solr_ulimit_checks: 65000
