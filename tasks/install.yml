@@ -13,6 +13,7 @@
 - name: SolrCloud | Ensure solr group
   group:
     name: "{{ solr_group }}"
+    gid: "{{ solr_group_gid }}"
 
 - name: SolrCloud | Ensure solr user
   user:
