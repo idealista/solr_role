@@ -91,3 +91,75 @@ solr_external_libraries_repository_url: http://repo1.maven.org/maven2
 solr_external_libraries: {}
 
 solr_ulimit_checks: 65000
+
+solr_metrics:
+  hidden_props:
+    - "javax.net.ssl.keyStorePassword"
+    - "javax.net.ssl.trustStorePassword"
+    - "basicauth"
+    - "zkDigestPassword"
+    - "zkDigestReadonlyPassword"
+  reporters:
+    - name: "jmx_metrics"
+      domain: jmx_exporter
+      class: "org.apache.solr.metrics.reporters.SolrJmxReporter"
+### LOGGER METRICS
+# - name: "log_metrics"
+#   group: core
+#   class: "org.apache.solr.metrics.reporters.SolrSlf4jReporter"
+#   config:
+#     - name: "period"
+#       value: 60
+#       type: "int"
+#     - name: "filter"
+#       value: "QUERY./select.requestTimes"
+#       type: "str"
+#     - name: "filter"
+#       value: "QUERY./get.requestTimes"
+#       type: "str"
+#     - name: "filter"
+#       value: "UPDATE./update.requestTimes"
+#       type: "str"
+#     - name: "filter"
+#       value: "UPDATE./update.clientErrors"
+#       type: "str"
+#     - name: "filter"
+#       value: "UPDATE./update.errors"
+#       type: "str"
+#     - name: "filter"
+#       value: "SEARCHER.new.time"
+#       type: "str"
+#     - name: "filter"
+#       value: "SEARCHER.new.warmup"
+#       type: "str"
+#     - name: "logger"
+#       value: "org.apache.solr.metrics.reporters.SolrSlf4jReporter"
+#       type: "str"
+
+solr_backup_repository:
+  name: local
+  class: org.apache.solr.core.backup.repository.LocalFileSystemRepository
+  default: "false"
+  config:
+    - name: "location"
+      value: "${solr.default.backup.path:}"
+      type: str
+
+### HDFS EXAMPLE
+# solr_backup_repository:
+#   name: hdfs
+#   class: org.apache.solr.core.backup.repository.HdfsBackupRepository
+#   default: "false"
+#   config:
+#     - name: "location"
+#       value: "${solr.hdfs.default.backup.path:}"
+#       type: str
+#     - name: "solr.hdfs.home"
+#       value: "${solr.hdfs.home:}"
+#       type: str
+#     - name: "solr.hdfs.confdir"
+#       value: "${solr.hdfs.confdir:}"
+#       type: str
+#     - name: "solr.hdfs.buffer.size"
+#       value: "262144"
+#       type: int

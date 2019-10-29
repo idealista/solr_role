@@ -53,4 +53,49 @@
     <str name="shardsWhitelist">${solr.shardsWhitelist:}</str>
   </shardHandlerFactory>
 
+{% if solr_backup_repository is defined %}
+  <backup>
+    <repository 
+      name="{{ solr_backup_repository.name }}" 
+      class="{{ solr_backup_repository.class }}" 
+      default="{{ solr_backup_repository.default }}">
+      {% for conf in solr_backup_repository.config %}
+      <{{ conf.type }} name="{{ conf.name }}">{{ conf.value }}</{{ conf.type }}>
+      {% endfor %}
+    </repository>
+  </backup>
+{% endif %}
+
+{% if solr_metrics is defined %}
+  <metrics>
+  {% if solr_metrics.hidden_props is defined %}
+    <hiddenSysProps>
+    {% for prop in solr_metrics.hidden_props %}
+      <str>{{ prop }}</str>
+    {% endfor %}
+    </hiddenSysProps>
+    {% if solr_metrics.reporters is defined %}
+    {% for reporter in solr_metrics.reporters %}
+    <reporter 
+      name="{{ reporter.name }}" 
+      {% if reporter.domain is defined %}
+      domain="{{ reporter.domain }}" 
+      {% endif %}
+      {% if reporter.group is defined %}
+      group="{{ reporter.group }}" 
+      {% endif %}
+      class="{{ reporter.class }}"
+      >
+      {% if reporter.config is defined %}
+      {% for config in reporter.config %}
+      <{{ config.type }} name="{{ config.name }}">{{ config.value }}</{{ config.type }}>
+      {% endfor %}
+      {% endif %}
+    </reporter>
+    {% endfor %}
+    {% endif %}
+  {% endif %}
+  </metrics>
+{% endif %}
+
 </solr>
