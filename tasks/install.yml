@@ -19,6 +19,7 @@
     name: "{{ solr_user }}"
     group: "{{ solr_group }}"
     home: /bin/false
+    uid: "{{ solr_user_uid }}"
     createhome: true
 
 - name: SolrCloud | Ensure solr dirs exists

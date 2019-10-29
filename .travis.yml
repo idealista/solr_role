@@ -6,9 +6,10 @@ services:
   - docker
 install:
   - pip install pipenv
-  - pipenv install -r test-requirements.txt --python 2.7
+  - pipenv sync
 script:
-  - pipenv run molecule test --all
+  - pipenv shell
+  - molecule test --all
 
 notifications:
   webhooks: https://galaxy.ansible.com/api/v1/notifications/

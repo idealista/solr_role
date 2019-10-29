@@ -9,6 +9,7 @@ solrcloud_install: true
 # Owner
 solr_user: solr
 solr_group: solr
+solr_user_uid: 810
 
 # start on boot
 solr_service_enabled: true
