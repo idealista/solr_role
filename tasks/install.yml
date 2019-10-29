@@ -14,6 +14,7 @@
   group:
     name: "{{ solr_group }}"
     gid: "{{ solr_group_gid }}"
+    system: true
 
 - name: SolrCloud | Ensure solr user
   user:
@@ -22,6 +23,7 @@
     home: /bin/false
     uid: "{{ solr_user_uid }}"
     createhome: true
+    system: true
 
 - name: SolrCloud | Ensure solr dirs exists
   file:
