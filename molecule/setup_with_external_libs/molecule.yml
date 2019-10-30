@@ -7,30 +7,38 @@ platforms:
   - name: zookeeper
     hostname: zookeeper
     image: idealista/zookeeper:latest
-    privileged: true
+    privileged: false
     capabilities:
       - SYS_ADMIN
     volumes:
       - '/sys/fs/cgroup:/sys/fs/cgroup:ro'
+      - '/sys/fs/fuse/connections:/sys/fs/fuse/connections:ro'
+    tmpfs:
+      - '/run'
+      - '/run/lock'
     groups:
       - zookeeper_group
     command: '/lib/systemd/systemd'
+    stop_signal: 'RTMIN+3'
     networks:
       - name: solr-network
-        aliases:
-          - zookeeper
 
   - name: solrcloud1
     hostname: solrcloud1
     image: idealista/jdk:8u222-stretch-openjdk-headless
-    privileged: true
+    privileged: false
     capabilities:
       - SYS_ADMIN
     volumes:
       - '/sys/fs/cgroup:/sys/fs/cgroup:ro'
+      - '/sys/fs/fuse/connections:/sys/fs/fuse/connections:ro'
+    tmpfs:
+      - '/run'
+      - '/run/lock'
     groups:
       - solrcloud
     command: '/lib/systemd/systemd'
+    stop_signal: 'RTMIN+3'
     networks:
       - name: solr-network
         aliases:
@@ -43,14 +51,19 @@ platforms:
   - name: solrcloud2
     hostname: solrcloud2
     image: idealista/jdk:8u222-stretch-openjdk-headless
-    privileged: true
+    privileged: false
     capabilities:
       - SYS_ADMIN
     volumes:
       - '/sys/fs/cgroup:/sys/fs/cgroup:ro'
+      - '/sys/fs/fuse/connections:/sys/fs/fuse/connections:ro'
+    tmpfs:
+      - '/run'
+      - '/run/lock'
     groups:
       - solrcloud
     command: '/lib/systemd/systemd'
+    stop_signal: 'RTMIN+3'
     networks:
       - name: solr-network
         aliases:
