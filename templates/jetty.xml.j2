@@ -32,6 +32,15 @@
   <!-- uncomment to change type of threadpool
   <Arg name="threadpool"><New id="threadpool" class="org.eclipse.jetty.util.thread.QueuedThreadPool"/></Arg>
   -->
+  <Arg name="threadpool">
+    <New id="threadpool" class="com.codahale.metrics.jetty9.InstrumentedQueuedThreadPool">
+      <Arg name="registry">
+        <Call id="solrJettyMetricRegistry" name="getOrCreate" class="com.codahale.metrics.SharedMetricRegistries">
+          <Arg>solr.jetty</Arg>
+        </Call>
+      </Arg>
+    </New>
+  </Arg>
   <Get name="ThreadPool">
     <Set name="minThreads" type="int"><Property name="solr.jetty.threads.min" default="{{solr_jetty_threads_min}}" /></Set>
     <Set name="maxThreads" type="int"><Property name="solr.jetty.threads.max" default="{{solr_jetty_threads_max}}" /></Set>
@@ -77,7 +86,7 @@
     <!-- =========================================================== -->
     <!-- RewriteHandle to redirect root to Solr                      -->
     <!-- =========================================================== -->
-     <New id="RewriteHandler" class="org.eclipse.jetty.rewrite.handler.RewriteHandler">
+  <New id="RewriteHandler" class="org.eclipse.jetty.rewrite.handler.RewriteHandler">
       <Set name="rewriteRequestURI">true</Set>
       <Set name="rewritePathInfo">false</Set>
       <Set name="originalPathAttribute">requestedPath</Set>
@@ -90,32 +99,53 @@
           </New>
         </Arg>
       </Call>
+       <Call name="addRule">
+         <Arg>
+           <New class="org.eclipse.jetty.rewrite.handler.RewritePatternRule">
+             <Set name="pattern">/v2/*</Set>
+             <Set name="replacement">/solr/____v2</Set>
+           </New>
+         </Arg>
+       </Call>
+       <Call name="addRule">
+         <Arg>
+           <New class="org.eclipse.jetty.rewrite.handler.RewritePatternRule">
+             <Set name="pattern">/api/*</Set>
+             <Set name="replacement">/solr/____v2</Set>
+           </New>
+         </Arg>
+       </Call>
+       <Set name="handler">
+         <New id="Handlers" class="org.eclipse.jetty.server.handler.HandlerCollection">
+           <Set name="handlers">
+             <Array type="org.eclipse.jetty.server.Handler">
+               <Item>
+                 <New id="Contexts" class="org.eclipse.jetty.server.handler.ContextHandlerCollection"/>
+               </Item>
+               <Item>
+                 <New id="InstrumentedHandler" class="com.codahale.metrics.jetty9.InstrumentedHandler">
+                   <Arg><Ref refid="solrJettyMetricRegistry"/></Arg>
+                   <Set name="handler">
+                     <New id="DefaultHandler" class="org.eclipse.jetty.server.handler.DefaultHandler"/>
+                   </Set>
+                 </New>
+               </Item>
+               <Item>
+                 <New id="RequestLog" class="org.eclipse.jetty.server.handler.RequestLogHandler"/>
+               </Item>
+             </Array>
+           </Set>
+         </New>
+       </Set>
      </New>
 
     <!-- =========================================================== -->
     <!-- Set handler Collection Structure                            -->
     <!-- =========================================================== -->
     <Set name="handler">
-      <New id="Handlers" class="org.eclipse.jetty.server.handler.HandlerCollection">
-        <Set name="handlers">
-         <Array type="org.eclipse.jetty.server.Handler">
-           <Item>
-             <Ref id="RewriteHandler"/>
-           </Item>
-           <Item>
-             <New id="Contexts" class="org.eclipse.jetty.server.handler.ContextHandlerCollection"/>
-           </Item>
-           <Item>
-             <New id="DefaultHandler" class="org.eclipse.jetty.server.handler.DefaultHandler"/>
-           </Item>
-           <Item>
-             <New id="RequestLog" class="org.eclipse.jetty.server.handler.RequestLogHandler"/>
-           </Item>
-         </Array>
-        </Set>
-      </New>
+      <Ref id="RewriteHandler"/>
     </Set>
-
+    
     <!-- =========================================================== -->
     <!-- Configure Request Log                                       -->
     <!-- =========================================================== -->
@@ -169,9 +199,9 @@
               </New>
             </Arg>
           </Call>
-
+          
           <!-- Add a customize step to the deployment lifecycle -->
-          <!-- uncomment and replace DebugBinding with your extended AppLifeCycle.Binding class
+          <!-- uncomment and replace DebugBinding with your extended AppLifeCycle.Binding class 
           <Call name="insertLifeCycleNode">
             <Arg>deployed</Arg>
             <Arg>starting</Arg>
@@ -185,7 +215,7 @@
             </Arg>
           </Call>
           -->
-
+          
         </New>
       </Arg>
     </Call>

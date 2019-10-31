@@ -61,9 +61,8 @@
 
 - name: SolrCloud | Install maven_artifact module required packages
   apt:
-    package: "{{ item }}"
+    package: "{{ solr_external_libraries_required_packages }}"
     state: present
-  with_items: "{{ solr_external_libraries_required_packages }}"
   notify: restart SolrCloud
   when: solr_external_libraries is defined and solr_external_libraries|length > 0
 
