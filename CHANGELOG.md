@@ -3,6 +3,7 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased](https://github.com/idealista/solrcloud-role/tree/develop)
 
+## [2.3.0](https://github.com/idealista/solrcloud-role/tree/2.3.0) (2019-10-31)
 - *[#94] Upgrade to solr 8.2.0* @sorobon
 
 ## [2.2.0](https://github.com/idealista/solrcloud-role/tree/2.2.0) (2019-06-19)
