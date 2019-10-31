@@ -7,19 +7,24 @@
     state: present
     cache_valid_time: 3600
     update_cache: true
+    force_apt_get: true
   until: solr_installed_required_libs is succeeded
   register: solr_installed_required_libs
 
 - name: SolrCloud | Ensure solr group
   group:
     name: "{{ solr_group }}"
+    gid: "{{ solr_group_gid }}"
+    system: true
 
 - name: SolrCloud | Ensure solr user
   user:
     name: "{{ solr_user }}"
     group: "{{ solr_group }}"
     home: /bin/false
+    uid: "{{ solr_user_uid }}"
     createhome: true
+    system: true
 
 - name: SolrCloud | Ensure solr dirs exists
   file:
