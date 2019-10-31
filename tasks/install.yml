@@ -7,6 +7,7 @@
     state: present
     cache_valid_time: 3600
     update_cache: true
+    force_apt_get: true
   until: solr_installed_required_libs is succeeded
   register: solr_installed_required_libs
 
