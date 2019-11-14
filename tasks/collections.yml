@@ -9,29 +9,36 @@
   changed_when: false
   with_dict: "{{ solr_collections }}"
 
-- name: SolrCloud | Copy files for collections configs in tmp directories
-  synchronize:
-    src: "{{ solr_collections_template_path }}"
-    dest: "{{ solr_collections_config_tmp_dir }}"
-    recursive: true
-    delete: true
-    checksum: true
-    times: true
-    owner: true
-    group: true
-  become: true
-  become_user: "{{ solr_user }}"
-  register: synchronized_config_synchronize
-  when: solr_collections_transfer_mode == "synchronize"
+- name: SolrCloud | Create directories for collections in tmp directories
+  file:
+    path: "{{ solr_collections_config_tmp_dir }}/{{ item.path }}"
+    state: directory
+    owner: "{{ solr_user }}"
+    group: "{{ solr_group }}"
+  with_filetree:
+    - "{{ solr_collections_template_path }}"
+  when: item.state == 'directory'
 
 - name: SolrCloud | Copy files for collections configs in tmp directories
   copy:
-    src: "{{ solr_collections_template_path }}"
+    src: "{{ solr_collections_files_path }}"
     dest: "{{ solr_collections_config_tmp_dir }}"
     owner: "{{ solr_user }}"
     group: "{{ solr_group }}"
   register: synchronized_config_copy
-  when: solr_collections_transfer_mode == "copy"
+  ignore_errors: true
+
+- name: SolrCloud | Apply config to files for collections in tmp directories
+  template:
+    src: "{{ item.src }}"
+    dest: "{{ solr_collections_config_tmp_dir }}/{{ item.path | regex_replace('.j2','') }}"
+    owner: "{{ solr_user }}"
+    group: "{{ solr_group }}"
+    force: true
+  register: synchronized_config_template
+  with_filetree: "{{ solr_collections_template_path }}"
+  when: item.state == 'file'
+  ignore_errors: true
 
 - name: SolrCloud | Upload initial config
   command: >
@@ -40,7 +47,7 @@
     -cmd upconfig
     -confname {{ item.key }}
     -confdir {{ solr_collections_config_tmp_dir }}/{{ item.key }}
-  when: synchronized_config_synchronize.changed or synchronized_config_copy.changed
+  when: synchronized_config_copy.changed or synchronized_config_template.changed
   with_dict: "{{ solr_collections }}"
   tags: skip_ansible_lint
 

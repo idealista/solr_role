@@ -25,7 +25,7 @@ platforms:
   - name: solrcloud1
     hostname: solrcloud1
     image: idealista/jdk:8u222-stretch-openjdk-headless
-    privileged: false
+    privileged: true
     capabilities:
       - SYS_ADMIN
     volumes:
@@ -33,6 +33,7 @@ platforms:
     tmpfs:
       - '/run'
       - '/run/lock'
+      - '/tmp/collections'
     groups:
       - solrcloud
     command: '/lib/systemd/systemd'
@@ -49,7 +50,7 @@ platforms:
   - name: solrcloud2
     hostname: solrcloud2
     image: idealista/jdk:8u222-stretch-openjdk-headless
-    privileged: false
+    privileged: true
     capabilities:
       - SYS_ADMIN
     volumes:
@@ -57,6 +58,7 @@ platforms:
     tmpfs:
       - '/run'
       - '/run/lock'
+      - '/tmp/collections'
     groups:
       - solrcloud
     command: '/lib/systemd/systemd'
