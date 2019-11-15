@@ -3,6 +3,9 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased](https://github.com/idealista/solrcloud-role/tree/develop)
 
+### Added
+- *[#100] Add agents support* @sorobon
+
 ### Changed
 - *[#98] Add template support for collections* @sorobon
 

@@ -5,6 +5,12 @@
   tags:
     - install
 
+- name: SolrCloud | Agent config
+  import_tasks: agent.yml
+  tags:
+    - solr_agent_config
+  when: solr_agents_config is defined
+
 - name: SolrCloud | Configure
   import_tasks: config.yml
   tags:
