@@ -23,7 +23,7 @@ These instructions will get you a copy of the role for your ansible playbook. On
 
 ### Prerequisities
 
-Ansible 2.9.0 version installed.
+Ansible 2.8.6 version installed.
 Inventory destination should be a Debian environment.
 
 For testing purposes, [Molecule](https://molecule.readthedocs.io/) with [Docker](https://www.docker.com/) as driver.
@@ -113,7 +113,7 @@ See [molecule.yml](https://github.com/idealista/solrcloud-role/blob/master/molec
 
 ## Built With
 
-![Ansible](https://img.shields.io/badge/ansible-2.9.0-green.svg)
+![Ansible](https://img.shields.io/badge/ansible-2.8.6-green.svg)
 
 ## Versioning
 
