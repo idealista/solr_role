@@ -23,7 +23,7 @@ These instructions will get you a copy of the role for your ansible playbook. On
 
 ### Prerequisities
 
-Ansible 2.5.5.0 version installed.
+Ansible 2.8.6 version installed.
 Inventory destination should be a Debian environment.
 
 For testing purposes, [Molecule](https://molecule.readthedocs.io/) with [Docker](https://www.docker.com/) as driver.
@@ -34,7 +34,7 @@ Create or add to your roles dependency file (e.g requirements.yml):
 
 ```
 - src: idealista.solrcloud-role
-  version: 2.1.0
+  version: x.x.x
   name: solrcloud
 ```
 
@@ -92,10 +92,11 @@ If you want to scrape metrics from Solr using [Prometheus](https://github.com/id
 ## Testing
 
 ```
-$ pipenv install -r test-requirements.txt --python 2.7
+$ pipenv sync
+$ pipenv shell
 
 # This will execute tests but doesn't destroy created environment (because of --destroy=never)
-$ pipenv run molecule test --destroy=never -s setup_with_collections
+$ molecule test --destroy=never -s setup_with_collections
 ```
 
 Solr Admin UI should be accessible from docker container host at URL:
@@ -112,7 +113,7 @@ See [molecule.yml](https://github.com/idealista/solrcloud-role/blob/master/molec
 
 ## Built With
 
-![Ansible](https://img.shields.io/badge/ansible-2.5.5.0-green.svg)
+![Ansible](https://img.shields.io/badge/ansible-2.8.6-green.svg)
 
 ## Versioning
 
