@@ -25,7 +25,7 @@ platforms:
   - name: solrcloud1
     hostname: solrcloud1
     image: idealista/jdk:8u222-stretch-openjdk-headless
-    privileged: true
+    privileged: false
     capabilities:
       - SYS_ADMIN
     volumes:
@@ -50,7 +50,7 @@ platforms:
   - name: solrcloud2
     hostname: solrcloud2
     image: idealista/jdk:8u222-stretch-openjdk-headless
-    privileged: true
+    privileged: false
     capabilities:
       - SYS_ADMIN
     volumes:
