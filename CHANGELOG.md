@@ -4,8 +4,7 @@ All notable changes to this project will be documented in this file.
 ## [Unreleased](https://github.com/idealista/solrcloud-role/tree/develop)
 
 ### Added
-- *[#100] Add agents support* @sorobon
-
+- *[#100] JVM agents support* @sorobon
 ### Changed
 - *[#98] Add template support for collections* @sorobon
 - *[#98] Default version installed is Solr 8.3.0* @sorobon
