@@ -5,6 +5,7 @@ All notable changes to this project will be documented in this file.
 
 ### Changed
 - *[#98] Add template support for collections* @sorobon
+- *[#98] Default version installed is Solr 8.3.0* @sorobon
 
 ## [2.3.0](https://github.com/idealista/solrcloud-role/tree/2.3.0) (2019-10-31)
 ### Changed
