@@ -165,3 +165,23 @@ solr_backup_repository:
 #     - name: "solr.hdfs.buffer.size"
 #       value: "262144"
 #       type: int
+
+## Agent configuration (optional)
+
+solr_agents_template_path: "{{ playbook_dir }}/templates/agents"
+
+# solr_agents_required_libs:
+#  - unzip
+#  - apt-transport-https
+
+# solr_agents_config:
+#   - name: "agent_name"
+#     download_url: "download_url"
+#     vm_opts:
+#       - '-javaagent:{{ solr_installation_dir }}/agent_name/agent_file'
+#     configuration_files:
+#       - "configuration_file.yml"
+#     params: {
+#       application_name: "application_name",
+#       license_key: "license_key"
+#     }
