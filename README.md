@@ -6,16 +6,19 @@
 
 This ansible role installs a SolrCloud server in a debian environment.
 
-- [Getting Started](#getting-started)
-	- [Prerequisities](#prerequisities)
-	- [Installing](#installing)
-- [Usage](#usage)
-- [Testing](#testing)
-- [Built With](#built-with)
-- [Versioning](#versioning)
-- [Authors](#authors)
-- [License](#license)
-- [Contributing](#contributing)
+- [SolrCloud Ansible role](#solrcloud-ansible-role)
+  - [Getting Started](#getting-started)
+    - [Prerequisities](#prerequisities)
+    - [Installing](#installing)
+  - [Usage](#usage)
+    - [Add JVM Agent to your installation](#add-jvm-agent-to-your-installation)
+  - [Prometheus Exporter](#prometheus-exporter)
+  - [Testing](#testing)
+  - [Built With](#built-with)
+  - [Versioning](#versioning)
+  - [Authors](#authors)
+  - [License](#license)
+  - [Contributing](#contributing)
 
 ## Getting Started
 
@@ -23,7 +26,7 @@ These instructions will get you a copy of the role for your ansible playbook. On
 
 ### Prerequisities
 
-Ansible 2.5.5.0 version installed.
+Ansible 2.8.6 version installed.
 Inventory destination should be a Debian environment.
 
 For testing purposes, [Molecule](https://molecule.readthedocs.io/) with [Docker](https://www.docker.com/) as driver.
@@ -34,7 +37,7 @@ Create or add to your roles dependency file (e.g requirements.yml):
 
 ```
 - src: idealista.solrcloud-role
-  version: 2.1.0
+  version: x.x.x
   name: solrcloud
 ```
 
@@ -85,6 +88,31 @@ and configuration files are stored under directory called `sample_techproducts_c
 
 Look to the defaults properties file to see the possible configuration properties.
 
+### Add JVM Agent to your installation
+
+This role supports JVM agents (such as [Newrelic](https://newrelic.com/), [Datadog](https://www.datadoghq.com/), etc.) to be used inside your installation.
+You can view an example with JVM Agents in the molecule tests section --> [example_setup_with_agent](molecule/setup_with_agent).
+
+Its very simple, must follow this steps (in this case we will add config for [Newrelic's agent](https://newrelic.com/)):
+- Just add the config in your group_vars.
+  ```yml
+  solr_agents_required_libs:
+    - unzip
+    - apt-transport-https
+  solr_agents_config:
+    - name: "newrelic"
+      download_url: "http://download.newrelic.com/newrelic/java-agent/newrelic-agent/current/newrelic-java.zip"
+      vm_opts:
+        - '-javaagent:{{ solr_installation_dir }}/newrelic/newrelic.jar'
+      configuration_files:
+        - "newrelic.yml"
+      params: {
+        application_name: "application_sample_name",
+        license_key: "your_license_key"
+      }
+  ```
+- __Optional__: Place the configuration files in the templates folder using this order "templates/{{ agent_name }}/{{ file names specified in solr_agents_config.configuration_files }}.j2. In this case we have the newrelic.yml.j2 in [templates/agents/newrelic/newrelic.yml.j2](molecule/setup_with_agent/templates/agents/newrelic/newrelic.yml.j2).
+
 ## Prometheus Exporter
 
 If you want to scrape metrics from Solr using [Prometheus](https://github.com/idealista/prometheus_server-role), you will need to [configure a exporter](https://lucene.apache.org/solr/guide/7_7/monitoring-solr-with-prometheus-and-grafana.html). We have a [Prometheus Solr Exporter role](https://github.com/idealista/prometheus_solr_exporter_role) that will make configuration easier for you, just keep in mind that the variables `solr_version` and `prometheus_solr_exporter_version` must have the same value.
@@ -92,10 +120,11 @@ If you want to scrape metrics from Solr using [Prometheus](https://github.com/id
 ## Testing
 
 ```
-$ pipenv install -r test-requirements.txt --python 2.7
+$ pipenv sync
+$ pipenv shell
 
 # This will execute tests but doesn't destroy created environment (because of --destroy=never)
-$ pipenv run molecule test --destroy=never -s setup_with_collections
+$ molecule test --destroy=never -s setup_with_collections
 ```
 
 Solr Admin UI should be accessible from docker container host at URL:
@@ -112,7 +141,7 @@ See [molecule.yml](https://github.com/idealista/solrcloud-role/blob/master/molec
 
 ## Built With
 
-![Ansible](https://img.shields.io/badge/ansible-2.5.5.0-green.svg)
+![Ansible](https://img.shields.io/badge/ansible-2.8.6-green.svg)
 
 ## Versioning
 

@@ -1,0 +1,6 @@
+---
+
+zookeeper_hosts:
+  # the machine running
+  - host: "{{inventory_hostname}}"
+    id: 1

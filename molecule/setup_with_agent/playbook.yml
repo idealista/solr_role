@@ -1,0 +1,5 @@
+---
+
+- hosts: solrcloud
+  roles:
+    - role: solrcloud-role

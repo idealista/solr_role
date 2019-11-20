@@ -33,7 +33,6 @@ platforms:
     tmpfs:
       - '/run'
       - '/run/lock'
-      - '/tmp/collections'
     groups:
       - solrcloud
     command: '/lib/systemd/systemd'
@@ -58,7 +57,6 @@ platforms:
     tmpfs:
       - '/run'
       - '/run/lock'
-      - '/tmp/collections'
     groups:
       - solrcloud
     command: '/lib/systemd/systemd'
@@ -76,7 +74,7 @@ provisioner:
   lint:
     name: ansible-lint
 scenario:
-  name: setup_with_collections
+  name: setup_with_agent
 verifier:
   name: goss
   lint:

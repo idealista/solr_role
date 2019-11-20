@@ -1,0 +1,22 @@
+---
+
+solr_port: 8983
+
+solr_zookeeper_hosts: zookeeper:2181
+solr_host: "{{ hostvars[ansible_nodename]['ansible_' + ansible_default_ipv4.alias]['ipv4']['address'] }}"
+
+solr_agents_required_libs:
+  - unzip
+  - apt-transport-https
+
+solr_agents_config:
+  - name: "newrelic"
+    download_url: "http://download.newrelic.com/newrelic/java-agent/newrelic-agent/current/newrelic-java.zip"
+    vm_opts:
+      - '-javaagent:{{ solr_installation_dir }}/newrelic/newrelic.jar'
+    configuration_files:
+      - "newrelic.yml"
+    params: {
+      application_name: "application_sample_name",
+      license_key: "sddsasd"
+    }
