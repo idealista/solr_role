@@ -3,6 +3,7 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased](https://github.com/idealista/solrcloud-role/tree/develop)
 
+## [2.4.0](https://github.com/idealista/solrcloud-role/tree/2.4.0) (2019-11-20)
 ### Added
 - *[#100] JVM agents support* @sorobon
 ### Changed
