@@ -6,6 +6,8 @@ All notable changes to this project will be documented in this file.
 - *[#107](https://github.com/idealista/solrcloud-role/issues/107) Default naven repository using https instead of http*
 - *Bump ansible version to 2.8.8*
 - *[#110](https://github.com/idealista/solrcloud-role/issues/110) Role fully compatible with solr 8.5.1*
+### Removed
+- *Only one molecule test with all options*
 
 ## [2.4.0](https://github.com/idealista/solrcloud-role/tree/2.4.0) (2019-11-20)
 ### Added
