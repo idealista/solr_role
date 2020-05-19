@@ -1,7 +1,7 @@
 ---
 
 ## General
-solr_version: 8.3.0
+solr_version: 8.5.1
 solrcloud_install: true
 
 ## Service options
@@ -23,6 +23,12 @@ solr_log_dir: /var/log/solr
 solr_home: /var/solr
 solr_data_dir: "{{ solr_home }}/data"
 solr_collections_config_tmp_dir: /tmp/collections
+solr_recommended_open_files: 65550
+solr_recommended_max_processes: 65550
+# For a visual indication in the Admin UI of what type of environment this cluster is, configure
+# a -Dsolr.environment property below. Valid values are prod, stage, test, dev, with an optional
+# label or color, e.g. -Dsolr.environment=test,label=Functional+test,color=brown
+# solr_environment_ui: "test,label=Molecule+test,color=green"
 
 # Logs
 solr_log_root_level: WARN
@@ -75,6 +81,7 @@ solr_jetty_header_cache_size: 512
 solr_jetty_delay_dispatch_until_content: 'false'
 solr_jetty_http_selectors: -1
 solr_jetty_http_acceptors: -1
+solr_jetty_request_log_enabled: false
 
 # Zookeeper
 solr_zookeeper_hosts: localhost:2181
@@ -82,6 +89,7 @@ solr_zookeeper_hosts_solr_path: solr
 solr_zk_host: "{{ solr_zookeeper_hosts }}/{{ solr_zookeeper_hosts_solr_path }}"
 solr_zookeeper_client_path: "{{ solr_installation_dir }}/server/scripts/cloud-scripts"
 solr_zookeeper_client_timeout: 15000
+solr_wait_for_zookeeper: 30
 
 # Collections configuration
 solr_collections: {}
@@ -92,7 +100,7 @@ solr_collections_template_path: "{{ playbook_dir }}/templates/collections/"
 solr_external_libraries_repository_url: https://repo1.maven.org/maven2
 solr_external_libraries: {}
 
-solr_ulimit_checks: 65000
+solr_ulimit_checks: true
 
 solr_metrics:
   hidden_props:
