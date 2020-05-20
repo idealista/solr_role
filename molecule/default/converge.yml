@@ -4,4 +4,4 @@
   hosts: solrcloud
   serial: 100%
   roles:
-    - role: solrcloud-role
+    - role: solrcloud_role
