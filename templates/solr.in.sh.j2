@@ -62,7 +62,7 @@ ZK_CLIENT_TIMEOUT="{{ solr_zookeeper_client_timeout }}"
 SOLR_HOST={{ solr_host }}
 
 # By default Solr will try to connect to Zookeeper with 30 seconds in timeout; override the timeout if needed
-#SOLR_WAIT_FOR_ZK="30"
+SOLR_WAIT_FOR_ZK="{{ solr_wait_for_zookeeper }}"
 
 # By default the start script uses UTC; override the timezone if needed
 #SOLR_TIMEZONE="UTC"
@@ -120,8 +120,21 @@ SOLR_LOGS_DIR="{{ solr_log_dir }}"
 # framework that cannot do startup rotation, you may want to enable this to let Solr rotate logs on startup.
 #SOLR_LOG_PRESTART_ROTATION=false
 
+# Enables jetty request log for all requests
+SOLR_REQUESTLOG_ENABLED={{ solr_jetty_request_log_enabled }}
+
 # Sets the port Solr binds to, default is 8983
 SOLR_PORT="{{ solr_port }}"
+
+# Restrict access to solr by IP address.
+# Specify a comma-separated list of addresses or networks, for example:
+#   127.0.0.1, 192.168.0.0/24, [::1], [2000:123:4:5::]/64
+#SOLR_IP_WHITELIST=
+
+# Block access to solr from specific IP addresses.
+# Specify a comma-separated list of addresses or networks, for example:
+#   127.0.0.1, 192.168.0.0/24, [::1], [2000:123:4:5::]/64
+#SOLR_IP_BLACKLIST=
 
 # Enables HTTPS. It is implictly true if you set SOLR_SSL_KEY_STORE. Use this config
 # to enable https module with custom jetty configuration.
@@ -182,9 +195,33 @@ SOLR_PORT="{{ solr_port }}"
 # Solr can use many processes and many file handles. On modern operating systems the savings by leaving
 # these settings low is minuscule, while the consequence can be Solr instability. To turn these checks off, set
 # SOLR_ULIMIT_CHECKS=false either here or as part of your profile.
+SOLR_ULIMIT_CHECKS={{ solr_ulimit_checks }}
 
 # Different limits can be set in solr.in.sh or your profile if you prefer as well.
-#SOLR_RECOMMENDED_OPEN_FILES=
-#SOLR_RECOMMENDED_MAX_PROCESSES=
-SOLR_ULIMIT_CHECKS= "{{ solr_ulimit_checks }}"
+SOLR_RECOMMENDED_OPEN_FILES={{ solr_recommended_open_files }}
+SOLR_RECOMMENDED_MAX_PROCESSES={{ solr_recommended_max_processes }}
 
+
+# When running Solr in non-cloud mode and if planning to do distributed search (using the "shards" parameter), the
+# list of hosts needs to be whitelisted or Solr will forbid the request. The whitelist can be configured in solr.xml,
+# or if you are using the OOTB solr.xml, can be specified using the system property "solr.shardsWhitelist". Alternatively
+# host checking can be disabled by using the system property "solr.disable.shardsWhitelist"
+#SOLR_OPTS="$SOLR_OPTS -Dsolr.shardsWhitelist=http://localhost:8983,http://localhost:8984"
+
+# For a visual indication in the Admin UI of what type of environment this cluster is, configure
+# a -Dsolr.environment property below. Valid values are prod, stage, test, dev, with an optional
+# label or color, e.g. -Dsolr.environment=test,label=Functional+test,color=brown
+{% if solr_environment_ui is defined %}
+SOLR_OPTS="$SOLR_OPTS -Dsolr.environment={{ solr_environment_ui }}"
+{% endif%}
+
+# Specifies the path to a common library directory that will be shared across all cores.
+# Any JAR files in this directory will be added to the search path for Solr plugins.
+# If the specified path is not absolute, it will be relative to `$SOLR_HOME`.
+#SOLR_OPTS="$SOLR_OPTS -Dsolr.sharedLib=/path/to/lib"
+
+# Runs solr in java security manager sandbox. This can protect against some attacks.
+# Runtime properties are passed to the security policy file (server/etc/security.policy)
+# You can also tweak via standard JDK files such as ~/.java.policy, see https://s.apache.org/java8policy
+# This is experimental! It may not work at all with Hadoop/HDFS features.
+#SOLR_SECURITY_MANAGER_ENABLED=false
