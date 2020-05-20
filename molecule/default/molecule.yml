@@ -19,6 +19,7 @@ platforms:
     tmpfs:
       - '/run'
       - '/run/lock'
+      - '/tmp'
     groups:
       - zookeeper_group
     command: '/lib/systemd/systemd'
@@ -37,6 +38,7 @@ platforms:
     tmpfs:
       - '/run'
       - '/run/lock'
+      - '/tmp'
     groups:
       - solrcloud
     command: '/lib/systemd/systemd'
@@ -61,6 +63,7 @@ platforms:
     tmpfs:
       - '/run'
       - '/run/lock'
+      - '/tmp'
     groups:
       - solrcloud
     command: '/lib/systemd/systemd'
