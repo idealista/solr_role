@@ -22,7 +22,9 @@ solr_templates_dir: templates
 solr_log_dir: /var/log/solr
 solr_home: /var/solr
 solr_data_dir: "{{ solr_home }}/data"
-solr_collections_config_tmp_dir: /tmp/collections
+solr_tmp_basedir: "/usr/local/src"
+solr_tmp_dest_dir: "{{ solr_tmp_basedir }}/{{ solr_cloud_package }}"
+solr_collections_config_tmp_dir: "{{ solr_tmp_basedir }}/collections"
 solr_recommended_open_files: 65550
 solr_recommended_max_processes: 65550
 # For a visual indication in the Admin UI of what type of environment this cluster is, configure

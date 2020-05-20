@@ -62,7 +62,7 @@
 
 - name: SolrCloud | Agent installation | Check vm options
   set_fact:
-    solr_agent_vm_opts: "{% set solr_agent_vm_opts = solr_agent_vm_opts|default([]) + [item.1] %}{{solr_agent_vm_opts|list}}"
+    solr_agent_vm_opts: "{% set solr_agent_vm_opts = solr_agent_vm_opts|default([]) + [item.1] %}{{ solr_agent_vm_opts |list }}"
   with_subelements:
     - "{{ solr_agents_config }}"
     - vm_opts

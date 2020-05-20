@@ -1,8 +1,12 @@
 ---
+
 dependency:
   name: galaxy
 driver:
   name: docker
+lint: |
+  yamllint .
+  ansible-lint .
 platforms:
   - name: zookeeper
     hostname: zookeeper
@@ -15,6 +19,7 @@ platforms:
     tmpfs:
       - '/run'
       - '/run/lock'
+      - '/tmp'
     groups:
       - zookeeper_group
     command: '/lib/systemd/systemd'
@@ -33,6 +38,7 @@ platforms:
     tmpfs:
       - '/run'
       - '/run/lock'
+      - '/tmp'
     groups:
       - solrcloud
     command: '/lib/systemd/systemd'
@@ -57,6 +63,7 @@ platforms:
     tmpfs:
       - '/run'
       - '/run/lock'
+      - '/tmp'
     groups:
       - solrcloud
     command: '/lib/systemd/systemd'
@@ -71,11 +78,6 @@ platforms:
       - 0.0.0.0:8984:8983/tcp
 provisioner:
   name: ansible
-  lint:
-    name: ansible-lint
-scenario:
-  name: default
 verifier:
-  name: goss
-  lint:
-    name: yamllint
+  name: ansible
+  directory: ./tests
