@@ -1,7 +1,7 @@
 ---
 
 - name: Verify
-  hosts: all
+  hosts: solrcloud
   become: true
   vars:
     goss_version: v0.3.11
@@ -12,6 +12,10 @@
     goss_test_directory: /tmp
     goss_format: documentation
     tomcat_version: "{{ molecule_yml.provisioner.inventory.group_vars.tomcat.tomcat_version }}"
+  vars_files:
+    - ../../defaults/main.yml
+    - ../../vars/main.yml
+    - ./group_vars/solrcloud/main.yml
   tasks:
     - name: Download and install Goss
       get_url:

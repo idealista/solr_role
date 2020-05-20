@@ -1,5 +1,6 @@
 ---
 
-- hosts: solrcloud
+- name: Converge
+  hosts: solrcloud
   roles:
     - role: solrcloud-role
