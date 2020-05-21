@@ -177,7 +177,7 @@ solr_backup_repository:
 #       type: int
 
 ## Agent configuration (optional)
-
+solr_agents_force_reinstall: false
 solr_agents_template_path: "{{ playbook_dir }}/templates/agents"
 
 # solr_agents_required_libs:

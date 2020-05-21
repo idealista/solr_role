@@ -22,18 +22,31 @@
     - "{{ solr_agents_config }}"
     - vm_opts
 
+- name: SolrCloud | Agent installation | Check agent version
+  command: "cat {{ solr_installation_dir }}/{{ item.0.name }}/version.txt"
+  register: agent_version_checked
+  changed_when: false
+  ignore_errors: true
+  with_subelements:
+    - "{{ solr_agents_config }}"
+    - vm_opts
+
 - name: SolrCloud | Agent installation | Download agent
   get_url:
-    dest: "/tmp"
+    dest: "{{ solr_tmp_basedir }}"
     url: "{{ item.download_url }}"
     owner: "{{ solr_user }}"
     group: "{{ solr_group }}"
   register: agent_downloaded
-  with_items: '{{ solr_agents_config }}'
+  loop: "{{ solr_agents_config|flatten(levels=1) }}"
+  loop_control:
+    index_var: index
+  when: solr_agents_force_reinstall or not agent_file_exists.results[index].stat.exists or item.version != agent_version_checked.results[index].stdout or agent_version_checked.results[index].failed
+
 
 - name: SolrCloud | Agent installation | Unarchive package
   unarchive:
-    src: "/tmp/{{ item.download_url | basename }}"
+    src: "{{ solr_tmp_basedir }}/{{ item.download_url | basename }}"
     dest: "{{ solr_installation_dir }}"
     remote_src: true
     owner: "{{ solr_user }}"
@@ -43,6 +56,15 @@
   with_items: '{{ solr_agents_config }}'
   tags:
     - skip_ansible_lint
+
+- name: SolrCloud | Agent installation | Copy version number file
+  template:
+    src: "agents/version.txt.j2"
+    dest: "{{ solr_installation_dir }}/{{ item.name }}/version.txt"
+    owner: "{{ solr_user }}"
+    group: "{{ solr_group }}"
+    mode: 0644
+  with_items: '{{ solr_agents_config }}'
 
 - name: SolrCloud | Agent installation | Check configuration files
   set_fact:
@@ -57,6 +79,8 @@
     dest: "{{ solr_installation_dir }}/{{ item.name }}/{{ item.file }}"
     owner: "{{ solr_user }}"
     group: "{{ solr_group }}"
+  when: agent_downloaded.changed
+  notify: restart SolrCloud
   with_items:
     - '{{ solr_agent_configuration }}'
 
@@ -66,16 +90,3 @@
   with_subelements:
     - "{{ solr_agents_config }}"
     - vm_opts
-
-# - name: SolrCloud | Agent installation | Check previous solr installation
-#   stat:
-#     path: /etc/default/solr.in.sh
-#   register: agent_previous_solr_exists
-
-# - name: SolrCloud | Agent installation | Configuring SolrCloud init script with agents config
-#   template:
-#     src: "{{ solr_templates_dir }}/solr.in.sh.j2"
-#     dest: /etc/default/solr.in.sh
-#     force: true
-#   when: agent_previous_solr_exists.stat is defined and agent_previous_solr_exists.stat.exists == True
-#   notify: restart SolrCloud
