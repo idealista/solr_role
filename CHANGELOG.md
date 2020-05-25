@@ -9,6 +9,7 @@ All notable changes to this project will be documented in this file.
 - *[#109](https://github.com/idealista/solrcloud_role/issues/109) Migration to molecule 3.x* @sorobon
 - *[#113](https://github.com/idealista/solrcloud_role/issues/113) Rename role to solrcloud_role* @sorobon
 - *[#112](https://github.com/idealista/solrcloud_role/issues/112) Improve agents management* @sorobon
+- *[#117](https://github.com/idealista/solrcloud_role/issues/117) Support for debian buster* @sorobon
 ### Fixed
 - *[#106](https://github.com/idealista/solrcloud_role/issues/106) Extra space in SOLR_ULIMIT_CHECKS var in solr.in.sh.j2*
 ### Removed

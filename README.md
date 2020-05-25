@@ -24,9 +24,16 @@ This ansible role installs a SolrCloud server in a debian environment.
 
 These instructions will get you a copy of the role for your ansible playbook. Once launched, it will install a [SolrCloud](https://cwiki.apache.org/confluence/display/solr/SolrCloud) server in a Debian system.
 
+This role is tested on:
+- Debian
+  - stretch (java 8 and 11)
+  - buster (java 11)
+- Ubuntu
+  - focal (java 8 and 14)
+
 ### Prerequisities
 
-Ansible 2.8.6 version installed.
+Ansible 2.8.8 version installed.
 Inventory destination should be a Debian environment.
 
 For testing purposes, [Molecule](https://molecule.readthedocs.io/) with [Docker](https://www.docker.com/) as driver.
@@ -141,7 +148,9 @@ See [molecule.yml](https://github.com/idealista/solrcloud_role/blob/master/molec
 
 ## Built With
 
-![Ansible](https://img.shields.io/badge/ansible-2.8.6-green.svg)
+![Ansible](https://img.shields.io/badge/ansible-2.8.8-green.svg)
+![Molecule](https://img.shields.io/badge/molecule-3.0.4-green.svg)
+![Goss](https://img.shields.io/badge/goss-0.3.11-green.svg)
 
 ## Versioning
 

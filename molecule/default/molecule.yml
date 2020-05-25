@@ -29,7 +29,7 @@ platforms:
 
   - name: solrcloud1
     hostname: solrcloud1
-    image: idealista/jdk:8u222-stretch-openjdk-headless
+    image: ${DOCKER_IMAGE_BASE:-idealista/jdk:8u252-stretch-openjdk-headless}
     privileged: false
     capabilities:
       - SYS_ADMIN
@@ -54,7 +54,7 @@ platforms:
 
   - name: solrcloud2
     hostname: solrcloud2
-    image: idealista/jdk:8u222-stretch-openjdk-headless
+    image: ${DOCKER_IMAGE_BASE:-idealista/jdk:8u252-stretch-openjdk-headless}
     privileged: false
     capabilities:
       - SYS_ADMIN

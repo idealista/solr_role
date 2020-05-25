@@ -6,4 +6,10 @@ FROM {{ item.registry.url }}/{{ item.image }}
 FROM {{ item.image }}
 {% endif %}
 
-RUN if [ $(command -v apt-get) ]; then apt-get update && apt-get upgrade -y && apt-get install -y iproute sudo systemd systemd-sysv && apt-get clean; fi
+# install minimal packages for debian slim images
+RUN apt-get update && \
+    DEBIAN_FRONTEND="noninteractive" apt-get install -y -q python3 sudo bash ca-certificates iproute2 systemd systemd-sysv python3-lxml && \
+    apt-get clean
+
+STOPSIGNAL SIGRTMIN+3
+RUN systemctl set-default multi-user.target
