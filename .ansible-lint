@@ -1,0 +1,9 @@
+exclude_paths:
+  - ./molecule
+parseable: true
+skip_list:
+  - '204'
+  - '503'
+  - '102'
+use_default_rules: true
+verbosity: 1

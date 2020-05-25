@@ -36,12 +36,37 @@ file:
     group: {{ solr_group }}
     exists: true
     filetype: file
+  {{ solr_installation_dir }}/newrelic/newrelic.jar:
+    owner: {{ solr_user }}
+    group: {{ solr_group }}
+    exists: true
+    filetype: file
+  {{ solr_installation_dir }}/newrelic/newrelic.yml:
+    owner: {{ solr_user }}
+    group: {{ solr_group }}
+    exists: true
+    filetype: file
+  {{ solr_collections_config_tmp_dir }}:
+    owner: {{ solr_user }}
+    group: {{ solr_group }}
+    exists: true
+    filetype: directory
+{% for lib in solr_external_libraries %}
+  {{ solr_external_libraries_destination_path }}/{{ lib.artifact_id }}-{{ lib.version }}.jar:
+    exists: true
+    filetype: file
+{% endfor %}
     
 port:
   tcp:{{ solr_port }}:
     listening: true
   tcp:{{ solr_jmx_port }}:
     listening: true
+
+http:
+  {{ solr_url }}/admin/collections?action=LIST:
+    status: 200
+    body: [ {{ solr_collections.keys() | join(', ') }} ]
 
 service:
   solr:

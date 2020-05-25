@@ -1,6 +1,0 @@
----
-
-solr_port: 8983
-
-solr_zookeeper_hosts: zookeeper:2181
-solr_host: "{{ hostvars[ansible_nodename]['ansible_' + ansible_default_ipv4.alias]['ipv4']['address'] }}"

@@ -57,7 +57,7 @@
 - name: SolrCloud | Download SolrCloud binaries
   get_url:
     url: "{{ solr_cloud_url }}"
-    dest: /tmp/{{ solr_cloud_package }}
+    dest: "{{ solr_tmp_dest_dir }}"
   when: |
       service_solrcloud_status.rc > 0 or
       service_solrcloud_status is success and
@@ -65,9 +65,9 @@
         "<str name=\"lucene-spec-version\">{{ solr_version }}</str>" not in solrcloud_check.content)
 
 - name: SolrCloud | Extract SolrCloud installation script in the current directory
-  shell: "tar xzf /tmp/{{ solr_cloud_package }} {{ solr_cloud_build_name }}/bin/install_solr_service.sh --strip-components=2"
+  shell: "tar xzf {{ solr_tmp_dest_dir }} {{ solr_cloud_build_name }}/bin/install_solr_service.sh --strip-components=2"
   args:
-    chdir: /tmp
+    chdir: "{{ solr_tmp_basedir }}"
   when: |
       service_solrcloud_status.rc > 0 or
       service_solrcloud_status is success and
@@ -77,7 +77,7 @@
     - skip_ansible_lint
 
 - name: SolrCloud | Execute SolrCloud installation script
-  shell: /tmp/install_solr_service.sh /tmp/{{ solr_cloud_package }} -f -u {{ solr_user }} -n
+  shell: "{{ solr_tmp_basedir }}/install_solr_service.sh {{ solr_tmp_dest_dir }} -f -u {{ solr_user }} -n"
   when: |
       service_solrcloud_status.rc > 0 or
       service_solrcloud_status is success and
