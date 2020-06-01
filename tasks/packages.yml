@@ -1,0 +1,29 @@
+---
+
+- name: SolrCloud | Packages | Install maven_artifact module required packages
+  apt:
+    package: "{{ solr_packages_libraries_required_packages }}"
+    state: present
+  notify: restart SolrCloud
+  when: solr_external_libraries is defined and solr_external_libraries|length > 0
+
+- name: SolrCloud | Packages | Download external libraries
+  maven_artifact:
+    group_id: "{{ item.group_id }}"
+    artifact_id: "{{ item.artifact_id }}"
+    version: "{{ item.version }}"
+    repository_url: "{{ solr_external_packages_repository_url }}"
+    dest: "{{ solr_external_packages_tmp_dir }}"
+    mode: 0644
+  with_items: "{{ solr_external_packages }}"
+  when: solr_external_packages is defined and solr_external_packages|length > 0
+
+- name: SolrCloud | Packages | Upload external libs
+  uri:
+    url: "{{ solr_node_base_url }}/api/cluster/files/{{ item.artifact_id }}/{{ item.version }}/{{ item.artifact_id }}-{{ item.version }}.jar"
+    method: PUT
+    src: "{{ solr_external_packages_tmp_dir }}/{{ item.artifact_id }}-{{ item.version }}.jar"
+    remote_src: true
+  with_items: "{{ solr_external_packages }}"
+  ignore_errors: true
+  changed_when: false

@@ -2,10 +2,13 @@
 All notable changes to this project will be documented in this file.
 
 ## [Unreleased](https://github.com/idealista/solrcloud_role/tree/develop)
+### Added
+
+- *[#112](https://github.com/idealista/solrcloud_role/issues/112) Support for package management* @sorobon
 
 ## [2.4.1](https://github.com/idealista/solrcloud_role/tree/2.4.1) (2020-05-25)
 ### Changed
-- *[#107](https://github.com/idealista/solrcloud_role/issues/107) Default naven repository using https instead of http*
+- *[#107](https://github.com/idealista/solrcloud_role/issues/107) Default naven repository using https instead of http*  @sorobon
 - *Bump ansible version to 2.8.8* @sorobon
 - *[#110](https://github.com/idealista/solrcloud_role/issues/110) Role fully compatible with solr 8.5.1* @sorobon
 - *[#109](https://github.com/idealista/solrcloud_role/issues/109) Migration to molecule 3.x* @sorobon
@@ -13,9 +16,9 @@ All notable changes to this project will be documented in this file.
 - *[#112](https://github.com/idealista/solrcloud_role/issues/112) Improve agents management* @sorobon
 - *[#117](https://github.com/idealista/solrcloud_role/issues/117) Support for debian buster* @sorobon
 ### Fixed
-- *[#106](https://github.com/idealista/solrcloud_role/issues/106) Extra space in SOLR_ULIMIT_CHECKS var in solr.in.sh.j2*
+- *[#106](https://github.com/idealista/solrcloud_role/issues/106) Extra space in SOLR_ULIMIT_CHECKS var in solr.in.sh.j2*  @sorobon
 ### Removed
-- *Only one molecule test with all options*
+- *Only one molecule test with all options*  @sorobon
 
 ## [2.4.0](https://github.com/idealista/solrcloud_role/tree/2.4.0) (2019-11-20)
 ### Added
