@@ -10,6 +10,11 @@ solr_external_libraries:
     group_id: org.locationtech.jts
     version: 1.16.0
 
+solr_external_packages:
+  - artifact_id: simpleclient
+    group_id: io.prometheus
+    version: 0.9.0
+
 solr_collections:
   # Extracted from https://github.com/apache/lucene-solr/tree/master/solr/server/solr/configsets/sample_techproducts_configs/conf
   # Should have configuration files under "templates/collections/[collection_name]" directory

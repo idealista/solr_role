@@ -5,3 +5,4 @@ tests/__pycache__
 .vagrant
 .cache
 .python-version
+.idea

@@ -9,3 +9,5 @@ solr_cloud_url: "http://archive.apache.org/dist/lucene/solr/{{ solr_version }}/{
 solr_external_libraries_destination_path: "{{ solr_installation_dir }}/server/solr-webapp/webapp/WEB-INF/lib/"
 solr_external_libraries_required_packages:
   - python-lxml
+solr_packages_libraries_required_packages:
+  - curl

@@ -56,6 +56,12 @@ file:
     exists: true
     filetype: file
 {% endfor %}
+{% for pkg in solr_external_packages %}
+  {{ solr_data_dir }}/filestore/{{ pkg.artifact_id }}/{{ pkg.version }}/{{ pkg.artifact_id }}-{{ pkg.version }}.jar:
+    exists: true
+    filetype: file
+{% endfor %}
+
     
 port:
   tcp:{{ solr_port }}:

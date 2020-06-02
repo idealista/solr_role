@@ -1,7 +1,7 @@
 ---
 
 ## General
-solr_version: 8.5.1
+solr_version: 8.5.2
 solrcloud_install: true
 
 ## Service options
@@ -44,7 +44,8 @@ solr_log_slow_queries_file_name: solr_slow_requests.log
 # Ports
 solr_host: "{{ hostvars[ansible_nodename]['ansible_' + ansible_default_ipv4.alias]['ipv4']['address'] }}"
 solr_port: 8983
-solr_url: http://{{ solr_host }}:{{ solr_port }}/solr
+solr_node_base_url: "http://{{ solr_host }}:{{ solr_port }}"
+solr_url: "{{ solr_node_base_url }}/solr"
 solr_jmx_enabled: 'true'
 solr_jmx_port: 1099
 
@@ -63,7 +64,9 @@ solr_gc_tune: "-XX:NewRatio=3 \
 -XX:CMSMaxAbortablePrecleanTime=6000 \
 -XX:+CMSParallelRemarkEnabled \
 -XX:+ParallelRefProcEnabled \
--XX:+UseTLAB"
+-XX:+UseTLAB
+-Denable.packages=true"
+
 solr_stack_size: 256k
 solr_heap: 512m
 
@@ -101,6 +104,21 @@ solr_collections_template_path: "{{ playbook_dir }}/templates/collections/"
 # External libs support
 solr_external_libraries_repository_url: https://repo1.maven.org/maven2
 solr_external_libraries: {}
+
+## Example
+# solr_external_libraries:
+#  - artifact_id: jts-core
+#    group_id: org.locationtech.jts
+#    version: 1.16.0
+
+solr_external_packages_repository_url: https://repo1.maven.org/maven2
+solr_external_packages_tmp_dir: "{{ solr_tmp_basedir }}"
+solr_external_packages: {}
+## Example
+# solr_external_packages:
+#  - artifact_id: simpleclient
+#    group_id: io.prometheus
+#    version: 0.9.0
 
 solr_ulimit_checks: true
 
