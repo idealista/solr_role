@@ -2,8 +2,9 @@
 All notable changes to this project will be documented in this file.
 
 ## [Unreleased](https://github.com/idealista/solrcloud_role/tree/develop)
-### Added
 
+## [2.5.0](https://github.com/idealista/solrcloud_role/tree/2.5.0) (2020-06-02)
+### Added
 - *[#112](https://github.com/idealista/solrcloud_role/issues/112) Support for package management* @sorobon
 
 ## [2.4.1](https://github.com/idealista/solrcloud_role/tree/2.4.1) (2020-05-25)
