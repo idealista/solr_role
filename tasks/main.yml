@@ -3,7 +3,7 @@
 - name: SolrCloud | Install
   import_tasks: install.yml
   tags:
-    - install
+    - solr_install
 
 - name: SolrCloud | Agent config
   import_tasks: agent.yml
@@ -19,11 +19,18 @@
 - name: SolrCloud | Service
   import_tasks: service.yml
   tags:
-    - service
+    - solr_service
+
+- name: SolrCloud | Manage packages
+  import_tasks: packages.yml
+  when: solr_external_packages is defined and solr_external_packages|length > 0
+  run_once: true
+  tags:
+    - solr_packages
 
 - name: SolrCloud | Manage collections
   import_tasks: collections.yml
   when: solr_collections is defined and solr_collections|length > 0
   run_once: true
   tags:
-    - collections
+    - solr_collections
