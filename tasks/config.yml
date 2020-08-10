@@ -75,6 +75,7 @@
     dest: "{{ solr_external_libraries_destination_path }}"
     mode: 0644
   with_items: "{{ solr_external_libraries }}"
+  notify: restart SolrCloud
   when: solr_external_libraries is defined and solr_external_libraries|length > 0
 
 - name: SolrCloud | Force handlers
