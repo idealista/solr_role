@@ -1,7 +1,7 @@
 ---
 
 ## General
-solr_version: 8.5.2
+solr_version: 8.6.0
 solrcloud_install: true
 
 ## Service options
