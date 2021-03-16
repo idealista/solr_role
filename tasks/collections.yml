@@ -78,9 +78,11 @@
     url: "{{ solr_url }}/admin/collections?action=DELETE&name={{ item }}"
   with_items: "{{ existing_collections.json.collections | difference(solr_collections.keys()) }}"
 
-# - name: Solr | Remove directories for collections in tmp directories
-#   file:
-#     path: "{{ solr_collections_config_tmp_dir }}/{{ item.path }}"
-#     state: absent
-#   with_filetree:
-#     - "{{ solr_collections_template_path }}"
+- name: Solr | Remove directories for collections in tmp directories
+  file:
+    path: "{{ solr_collections_config_tmp_dir }}/{{ item.path }}"
+    state: absent
+  when: solr_collections_clean_house
+  changed_when: not solr_collections_clean_house or synchronized_config_copy.changed or synchronized_config_template.changed
+  with_filetree:
+    - "{{ solr_collections_template_path }}"

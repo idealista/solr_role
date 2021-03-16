@@ -1,6 +1,6 @@
 ![Logo](https://raw.githubusercontent.com/idealista/solr_role/master/logo.gif)
 
-[![Build Status](https://travis-ci.org/idealista/solr_role.png)](https://travis-ci.org/idealista/solr_role)
+[![Build Status](https://travis-ci.com/idealista/solr_role.png)](https://travis-ci.com/idealista/solr_role)
 
 # Solr Ansible role
 

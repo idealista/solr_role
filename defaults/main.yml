@@ -103,6 +103,7 @@ solr_wait_for_zookeeper: 30
 solr_collections: {}
 solr_collections_files_path: "{{ playbook_dir }}/files/collections/"
 solr_collections_template_path: "{{ playbook_dir }}/templates/collections/"
+solr_collections_clean_house: true
 
 # Cores configuration
 solr_cores: {}
