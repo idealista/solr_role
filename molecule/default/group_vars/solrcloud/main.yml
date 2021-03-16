@@ -22,6 +22,7 @@ solr_collections:
     shards: 2
     replicas: 1
     shards_per_node: 1
+    auto_add_replicas: false
 
 solr_agents_required_libs:
   - unzip
@@ -29,7 +30,7 @@ solr_agents_required_libs:
 
 solr_agents_config:
   - name: "newrelic"
-    version: "5.11.1"
+    version: "6.4.2"
     download_url: "http://download.newrelic.com/newrelic/java-agent/newrelic-agent/current/newrelic-java.zip"
     vm_opts:
       - '-javaagent:{{ solr_installation_dir }}/newrelic/newrelic.jar'
@@ -41,3 +42,4 @@ solr_agents_config:
     }
 
 solr_environment_ui: "test,label=Molecule+test,color=green"
+solr_mode: cloud

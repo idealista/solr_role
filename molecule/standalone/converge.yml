@@ -1,0 +1,7 @@
+---
+
+- name: Converge
+  hosts: solr
+  serial: 100%
+  roles:
+    - role: solr_role

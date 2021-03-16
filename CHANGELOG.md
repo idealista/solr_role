@@ -2,6 +2,11 @@
 All notable changes to this project will be documented in this file.
 
 ## [Unreleased](https://github.com/idealista/solrcloud_role/tree/develop)
+### Added
+- *[#95] Solr standalone mode support* @sorobon
+### Changed
+- *Role renamed to solr_role* @sorobon
+- *Default version as 8.8.1*
 
 ## [2.5.1](https://github.com/idealista/solrcloud_role/tree/2.5.1) (2020-08-10)
 ### Fixed

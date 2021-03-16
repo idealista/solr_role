@@ -1,0 +1,37 @@
+---
+
+dependency:
+  name: galaxy
+driver:
+  name: docker
+lint: |
+  yamllint .
+  ansible-lint .
+platforms:
+  - name: solr1
+    hostname: solr1
+    image: ${DOCKER_IMAGE_BASE:-idealista/jdk:11.0.7-buster-openjdk-headless}
+    privileged: false
+    capabilities:
+      - SYS_ADMIN
+    volumes:
+      - '/sys/fs/cgroup:/sys/fs/cgroup:ro'
+    tmpfs:
+      - '/run'
+      - '/run/lock'
+      - '/tmp'
+    groups:
+      - solr
+    command: '/lib/systemd/systemd'
+    stop_signal: 'RTMIN+3'
+    networks:
+      - name: solr-network
+        aliases:
+          - solr1
+    published_ports:
+      - 0.0.0.0:8983:8983/tcp
+provisioner:
+  name: ansible
+verifier:
+  name: ansible
+  directory: ./tests

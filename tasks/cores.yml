@@ -1,0 +1,65 @@
+---
+
+- name: Solr | Check if core configs exists
+  uri:
+    url: "{{ solr_url }}/{{ item }}/config"
+    return_content: true
+    status_code: 200,404
+  register: config_exists_api_responses
+  changed_when: false
+  with_items: "{{ solr_cores }}"
+
+- name: Solr | Create directories for cores in directories
+  file:
+    path: "{{ solr_cores_config_dir }}/{{ item.path }}"
+    state: directory
+    owner: "{{ solr_user }}"
+    group: "{{ solr_group }}"
+  with_filetree:
+    - "{{ solr_cores_template_path }}"
+  when: item.state == 'directory'
+
+- name: Solr | Copy files for cores configs in directories
+  copy:
+    src: "{{ solr_cores_files_path }}"
+    dest: "{{ solr_cores_config_dir }}"
+    owner: "{{ solr_user }}"
+    group: "{{ solr_group }}"
+  register: synchronized_config_copy
+  ignore_errors: true
+
+- name: Solr | Apply config to files for cores in directories
+  template:
+    src: "{{ item.src }}"
+    dest: "{{ solr_cores_config_dir }}/{{ item.path | regex_replace('.j2','') }}"
+    owner: "{{ solr_user }}"
+    group: "{{ solr_group }}"
+    force: true
+  register: synchronized_config_template
+  with_filetree: "{{ solr_cores_template_path }}"
+  when: item.state == 'file'
+  ignore_errors: true
+
+- name: Solr | Return existing cores
+  uri:
+    url: "{{ solr_url }}/admin/cores?action=STATUS&indexInfo=false"
+    return_content: true
+  register: existing_cores
+  changed_when: false
+
+- name: Solr | Create new cores
+  uri:
+    url: "{{ solr_url }}/admin/cores?action=CREATE&name={{ item }}&instanceDir={{ solr_cores_config_dir }}/{{ item }}&config=solrconfig.xml&dataDir=data"
+  with_items: "{{ solr_cores | difference(existing_cores.json.status.keys()) }}"
+  ignore_errors: true
+
+- name: Solr | Unload cores that exists in Solr but not in given configuration
+  uri:
+    url: "{{ solr_url }}/admin/cores?action=UNLOAD&core={{ item }}"
+  with_items: "{{ existing_cores.json.status.keys() | difference(solr_cores) }}"
+
+- name: Solr | Remove directories of unloaded cores
+  file:
+    path: "{{ solr_cores_config_dir }}/{{ item.path }}"
+    state: absent
+  with_items: "{{ existing_cores.json.status.keys() | difference(solr_cores) }}"

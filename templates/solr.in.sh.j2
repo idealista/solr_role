@@ -52,17 +52,23 @@ GC_TUNE="{{ solr_gc_tune }}"
 # Set the ZooKeeper connection string if using an external ZooKeeper ensemble
 # e.g. host1:2181,host2:2181/chroot
 # Leave empty if not using SolrCloud
+{% if solr_mode == 'cloud' %}
 ZK_HOST="{{ solr_zk_host }}"
+{% endif %}
 
 # Set the ZooKeeper client timeout (for SolrCloud mode)
+{% if solr_mode == 'cloud' %}
 ZK_CLIENT_TIMEOUT="{{ solr_zookeeper_client_timeout }}"
+{% endif %}
 
 # By default the start script uses "localhost"; override the hostname here
 # for production SolrCloud environments to control the hostname exposed to cluster state
 SOLR_HOST={{ solr_host }}
 
 # By default Solr will try to connect to Zookeeper with 30 seconds in timeout; override the timeout if needed
+{% if solr_mode == 'cloud' %}
 SOLR_WAIT_FOR_ZK="{{ solr_wait_for_zookeeper }}"
+{% endif %}
 
 # By default the start script uses UTC; override the timezone if needed
 #SOLR_TIMEZONE="UTC"

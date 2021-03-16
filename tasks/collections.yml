@@ -1,6 +1,6 @@
 ---
 
-- name: SolrCloud | Check if collections configs exists
+- name: Solr | Check if collections configs exists
   uri:
     url: "{{ solr_url }}/{{ item.key }}/config"
     return_content: true
@@ -9,7 +9,7 @@
   changed_when: false
   with_dict: "{{ solr_collections }}"
 
-- name: SolrCloud | Create directories for collections in tmp directories
+- name: Solr | Create directories for collections in tmp directories
   file:
     path: "{{ solr_collections_config_tmp_dir }}/{{ item.path }}"
     state: directory
@@ -19,7 +19,7 @@
     - "{{ solr_collections_template_path }}"
   when: item.state == 'directory'
 
-- name: SolrCloud | Copy files for collections configs in tmp directories
+- name: Solr | Copy files for collections configs in tmp directories
   copy:
     src: "{{ solr_collections_files_path }}"
     dest: "{{ solr_collections_config_tmp_dir }}"
@@ -28,7 +28,7 @@
   register: synchronized_config_copy
   ignore_errors: true
 
-- name: SolrCloud | Apply config to files for collections in tmp directories
+- name: Solr | Apply config to files for collections in tmp directories
   template:
     src: "{{ item.src }}"
     dest: "{{ solr_collections_config_tmp_dir }}/{{ item.path | regex_replace('.j2','') }}"
@@ -40,7 +40,7 @@
   when: item.state == 'file'
   ignore_errors: true
 
-- name: SolrCloud | Upload initial config
+- name: Solr | Upload initial config
   command: >
     {{ solr_zookeeper_client_path }}/zkcli.sh
     -zkhost {{ solr_zookeeper_hosts }}/{{ solr_zookeeper_hosts_solr_path }}
@@ -51,29 +51,36 @@
   with_dict: "{{ solr_collections }}"
   tags: skip_ansible_lint
 
-- name: SolrCloud | Return existing collections
+- name: Solr | Return existing collections
   uri:
     url: "{{ solr_url }}/admin/collections?action=LIST"
     return_content: true
   register: existing_collections
   changed_when: false
 
-- name: SolrCloud | Create new collections
+- name: Solr | Create new collections
   uri:
-    url: "{{ solr_url }}/admin/collections?action=CREATE&name={{ item }}&numShards={{ solr_collections[item].shards }}&replicationFactor={{ solr_collections[item].replicas }}&collection.configName={{ item }}&maxShardsPerNode={{ solr_collections[item].shards_per_node }}"
+    url: "{{ solr_url }}/admin/collections?action=CREATE&name={{ item }}&numShards={{ solr_collections[item].shards }}&replicationFactor={{ solr_collections[item].replicas }}&collection.configName={{ item }}&maxShardsPerNode={{ solr_collections[item].shards_per_node }}&autoAddReplicas={{ solr_collections[item].auto_add_replicas | default('true') }}"
   with_items: "{{ solr_collections.keys() | difference(existing_collections.json.collections) }}"
 
-- name: SolrCloud | Modify existing collections
+- name: Solr | Modify existing collections
   uri:
     url: "{{ solr_url }}/admin/collections?action=MODIFYCOLLECTION&collection={{ item }}&replicationFactor={{ solr_collections[item].replicas }}&maxShardsPerNode={{ solr_collections[item].shards_per_node }}&autoAddReplicas=true"
   with_items: "{{ existing_collections.json.collections | intersect(solr_collections.keys()) }}"
 
-- name: SolrCloud | Reload modified collections
+- name: Solr | Reload modified collections
   uri:
     url: "{{ solr_url }}/admin/collections?action=RELOAD&name={{ item }}"
   with_items: "{{ existing_collections.json.collections | intersect(solr_collections.keys()) }}"
 
-- name: SolrCloud | Delete collections that exists in SolrCloud but not in given configuration
+- name: Solr | Delete collections that exists in Solr but not in given configuration
   uri:
     url: "{{ solr_url }}/admin/collections?action=DELETE&name={{ item }}"
   with_items: "{{ existing_collections.json.collections | difference(solr_collections.keys()) }}"
+
+# - name: Solr | Remove directories for collections in tmp directories
+#   file:
+#     path: "{{ solr_collections_config_tmp_dir }}/{{ item.path }}"
+#     state: absent
+#   with_filetree:
+#     - "{{ solr_collections_template_path }}"

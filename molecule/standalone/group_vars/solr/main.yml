@@ -1,0 +1,40 @@
+---
+
+solr_port: 8983
+
+solr_host: "{{ hostvars[ansible_nodename]['ansible_' + ansible_default_ipv4.alias]['ipv4']['address'] }}"
+
+solr_external_libraries:
+  - artifact_id: jts-core
+    group_id: org.locationtech.jts
+    version: 1.16.0
+
+solr_external_packages:
+  - artifact_id: simpleclient
+    group_id: io.prometheus
+    version: 0.9.0
+
+solr_cores:
+  # Extracted from https://github.com/apache/lucene-solr/tree/master/solr/server/solr/configsets/sample_techproducts_configs/conf
+  # Should have configuration files under "templates/collections/[collection_name]" directory
+  - mail
+
+solr_agents_required_libs:
+  - unzip
+  - apt-transport-https
+
+solr_agents_config:
+  - name: "newrelic"
+    version: "6.4.2"
+    download_url: "http://download.newrelic.com/newrelic/java-agent/newrelic-agent/current/newrelic-java.zip"
+    vm_opts:
+      - '-javaagent:{{ solr_installation_dir }}/newrelic/newrelic.jar'
+    configuration_files:
+      - "newrelic.yml"
+    params: {
+      application_name: "application_sample_name",
+      license_key: "sddsasd"
+    }
+
+solr_environment_ui: "test,label=Molecule+test,color=green"
+solr_mode: standalone

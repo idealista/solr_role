@@ -1,7 +1,7 @@
 ---
-# tasks file for SolrCloud
+# tasks file for Solr
 # installation instructions taken from: https://cwiki.apache.org/confluence/display/solr/Taking+Solr+to+Production
-- name: SolrCloud | Installing required libs
+- name: Solr | Installing required libs
   apt:
     pkg: "{{ solr_required_libs }}"
     state: present
@@ -11,13 +11,13 @@
   until: solr_installed_required_libs is succeeded
   register: solr_installed_required_libs
 
-- name: SolrCloud | Ensure solr group
+- name: Solr | Ensure solr group
   group:
     name: "{{ solr_group }}"
     gid: "{{ solr_group_gid }}"
     system: true
 
-- name: SolrCloud | Ensure solr user
+- name: Solr | Ensure solr user
   user:
     name: "{{ solr_user }}"
     group: "{{ solr_group }}"
@@ -26,7 +26,7 @@
     createhome: true
     system: true
 
-- name: SolrCloud | Ensure solr dirs exists
+- name: Solr | Ensure solr dirs exists
   file:
     path: "{{ item }}"
     state: directory
@@ -37,51 +37,51 @@
     - "{{ solr_data_dir }}"
     - "{{ solr_collections_config_tmp_dir }}"
 
-- name: SolrCloud | Check if service is running
+- name: Solr | Check if service is running
   command: systemctl status solr.service
   ignore_errors: true
   changed_when: false
-  register: service_solrcloud_status
+  register: service_solr_status
   tags:
     - skip_ansible_lint
 
-- name: SolrCloud | Check installed version
+- name: Solr | Check installed version
   uri:
     url: "http://localhost:{{ solr_port }}/solr/admin/info/system?wt=xml"
     return_content: true
-  register: solrcloud_check
+  register: solr_check
   changed_when: false
   ignore_errors: true
-  when: service_solrcloud_status is success
+  when: service_solr_status is success
 
-- name: SolrCloud | Download SolrCloud binaries
+- name: Solr | Download solr binaries
   get_url:
-    url: "{{ solr_cloud_url }}"
+    url: "{{ solr_download_url }}"
     dest: "{{ solr_tmp_dest_dir }}"
   when: |
-      service_solrcloud_status.rc > 0 or
-      service_solrcloud_status is success and
-        (solrcloud_check is failed or
-        "<str name=\"lucene-spec-version\">{{ solr_version }}</str>" not in solrcloud_check.content)
+      service_solr_status.rc > 0 or
+      service_solr_status is success and
+        (solr_check is failed or
+        "<str name=\"lucene-spec-version\">{{ solr_version }}</str>" not in solr_check.content)
 
-- name: SolrCloud | Extract SolrCloud installation script in the current directory
-  shell: "tar xzf {{ solr_tmp_dest_dir }} {{ solr_cloud_build_name }}/bin/install_solr_service.sh --strip-components=2"
+- name: Solr | Extract solr installation script in the current directory
+  shell: "tar xzf {{ solr_tmp_dest_dir }} {{ solr_build_name }}/bin/install_solr_service.sh --strip-components=2"
   args:
     chdir: "{{ solr_tmp_basedir }}"
   when: |
-      service_solrcloud_status.rc > 0 or
-      service_solrcloud_status is success and
-        (solrcloud_check is failed or
-        "<str name=\"lucene-spec-version\">{{ solr_version }}</str>" not in solrcloud_check.content)
+      service_solr_status.rc > 0 or
+      service_solr_status is success and
+        (solr_check is failed or
+        "<str name=\"lucene-spec-version\">{{ solr_version }}</str>" not in solr_check.content)
   tags:
     - skip_ansible_lint
 
-- name: SolrCloud | Execute SolrCloud installation script
+- name: Solr | Execute solr installation script
   shell: "{{ solr_tmp_basedir }}/install_solr_service.sh {{ solr_tmp_dest_dir }} -f -u {{ solr_user }} -n"
   when: |
-      service_solrcloud_status.rc > 0 or
-      service_solrcloud_status is success and
-        (solrcloud_check is failed or
-        "<str name=\"lucene-spec-version\">{{ solr_version }}</str>" not in solrcloud_check.content)
+      service_solr_status.rc > 0 or
+      service_solr_status is success and
+        (solr_check is failed or
+        "<str name=\"lucene-spec-version\">{{ solr_version }}</str>" not in solr_check.content)
   tags:
     - skip_ansible_lint
