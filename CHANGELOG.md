@@ -3,7 +3,7 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased](https://github.com/idealista/solr_role/tree/develop)
 ### Added
-- *[#95] Solr standalone mode support* @sorobon
+- *[#127] Solr standalone mode support* @sorobon
 ### Changed
 - *Role renamed to solr_role* @sorobon
 - *Default version as 8.8.1*
