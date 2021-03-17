@@ -1,36 +1,49 @@
 ---
 
-- name: SolrCloud | Install
+- name: Solr | Install
   import_tasks: install.yml
   tags:
     - solr_install
 
-- name: SolrCloud | Agent config
+- name: Solr | Agent config
   import_tasks: agent.yml
   tags:
     - solr_agent_config
   when: solr_agents_config is defined
 
-- name: SolrCloud | Configure
+- name: Solr | Configure cloud
+  import_tasks: config-cloud.yml
+  when: solr_mode == 'cloud'
+  tags:
+    - configure
+
+- name: Solr | Configure
   import_tasks: config.yml
   tags:
     - configure
 
-- name: SolrCloud | Service
+- name: Solr | Service
   import_tasks: service.yml
   tags:
     - solr_service
 
-- name: SolrCloud | Manage packages
+- name: Solr | Manage packages
   import_tasks: packages.yml
-  when: solr_external_packages is defined and solr_external_packages|length > 0
+  when: solr_external_packages is defined and solr_external_packages|length > 0 and solr_mode == 'cloud'
   run_once: true
   tags:
     - solr_packages
 
-- name: SolrCloud | Manage collections
+- name: Solr | Manage collections
   import_tasks: collections.yml
-  when: solr_collections is defined and solr_collections|length > 0
+  when: solr_collections is defined and solr_collections|length > 0 and solr_mode == 'cloud'
   run_once: true
   tags:
     - solr_collections
+
+- name: Solr | Manage cores
+  import_tasks: cores.yml
+  when: solr_cores is defined and solr_cores|length > 0 and solr_mode == 'standalone'
+  run_once: true
+  tags:
+    - solr_cores

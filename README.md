@@ -1,12 +1,12 @@
-![Logo](https://raw.githubusercontent.com/idealista/solrcloud_role/master/logo.gif)
+![Logo](https://raw.githubusercontent.com/idealista/solr_role/master/logo.gif)
 
-[![Build Status](https://travis-ci.org/idealista/solrcloud_role.png)](https://travis-ci.org/idealista/solrcloud_role)
+[![Build Status](https://travis-ci.com/idealista/solr_role.png)](https://travis-ci.com/idealista/solr_role)
 
-# SolrCloud Ansible role
+# Solr Ansible role
 
-This ansible role installs a SolrCloud server in a debian environment.
+This ansible role installs a Solr server in a debian environment.
 
-- [SolrCloud Ansible role](#solrcloud-ansible-role)
+- [Solr Ansible role](#Solr-ansible-role)
   - [Getting Started](#getting-started)
     - [Prerequisities](#prerequisities)
     - [Installing](#installing)
@@ -22,7 +22,7 @@ This ansible role installs a SolrCloud server in a debian environment.
 
 ## Getting Started
 
-These instructions will get you a copy of the role for your ansible playbook. Once launched, it will install a [SolrCloud](https://cwiki.apache.org/confluence/display/solr/SolrCloud) server in a Debian system.
+These instructions will get you a copy of the role for your ansible playbook. Once launched, it will install a [Solr](https://cwiki.apache.org/confluence/display/solr/SolrCloud) server in a Debian system.
 
 This role is tested on:
 - Debian
@@ -43,9 +43,9 @@ For testing purposes, [Molecule](https://molecule.readthedocs.io/) with [Docker]
 Create or add to your roles dependency file (e.g requirements.yml):
 
 ```
-- src: idealista.solrcloud_role
+- src: idealista.solr_role
   version: x.x.x
-  name: solrcloud
+  name: solr
 ```
 
 Install the role with ansible-galaxy command:
@@ -60,13 +60,13 @@ Use in a playbook:
 ---
 - hosts: someserver
   roles:
-    - { role: solrcloud }
+    - { role: solr }
 ```
 
-Playbook example below showing how to provision from scratch a SolrCloud cluster with two nodes plus create an example (and empty) collection called `sample_techproducts_configs`, using idealista [java](https://github.com/idealista/java-role), [zookeeper](https://github.com/idealista/zookeeper-role) and [solrcloud](https://github.com/idealista/solrcloud_role) roles:
+Playbook example below showing how to provision from scratch a SolrCloud cluster with two nodes plus create an example (and empty) collection called `sample_techproducts_configs`, using idealista [java](https://github.com/idealista/java-role), [zookeeper](https://github.com/idealista/zookeeper-role) and [solr](https://github.com/idealista/solr_role) roles:
 
-**Note:** Assuming that 'solrcloud' group has two nodes (`solrcloud1` and `solrcloud2`) as is declared in [molecule.yml](https://github.com/idealista/solrcloud_role/tree/master/molecule/default/molecule.yml),
-collection will have two shards, one replica and one shard per node as is declared in group vars file called [solrcloud.yml](https://github.com/idealista/solrcloud_role/tree/master/molecule/default/group_vars/solrcloud.yml)
+**Note:** Assuming that 'solrcloud' group has two nodes (`solrcloud1` and `solrcloud2`) as is declared in [molecule.yml](https://github.com/idealista/solr_role/tree/master/molecule/default/molecule.yml),
+collection will have two shards, one replica and one shard per node as is declared in group vars file called [solrcloud.yml](https://github.com/idealista/solr_role/tree/master/molecule/default/group_vars/solrcloud.yml)
 and configuration files are stored under directory called `sample_techproducts_configs` under template directory.
 
 > :warning: Use the example below just as a reference, requires inventory host groups `solr` and `zookeeper` to be correctly defined
@@ -88,7 +88,7 @@ and configuration files are stored under directory called `sample_techproducts_c
 
 - hosts: solrcloud
   roles:
-    - role: solrcloud_role
+    - role: solr_role
 ```
 
 ## Usage
@@ -142,9 +142,9 @@ or
 
 http://localhost:8984/solr/#/ (node: `solrcloud2`)
 
-<img src="https://raw.githubusercontent.com/idealista/solrcloud_role/master/assets/solr_admin_ui.png" alt="Solr Admin UI example" style="width: 600px;"/>
+<img src="https://raw.githubusercontent.com/idealista/solr_role/master/assets/solr_admin_ui.png" alt="Solr Admin UI example" style="width: 600px;"/>
 
-See [molecule.yml](https://github.com/idealista/solrcloud_role/blob/master/molecule/default/molecule.yml) to check possible testing platforms.
+See [molecule.yml](https://github.com/idealista/solr_role/blob/master/molecule/default/molecule.yml) to check possible testing platforms.
 
 ## Built With
 
@@ -154,15 +154,15 @@ See [molecule.yml](https://github.com/idealista/solrcloud_role/blob/master/molec
 
 ## Versioning
 
-For the versions available, see the [tags on this repository](https://github.com/idealista/solrcloud_role/tags).
+For the versions available, see the [tags on this repository](https://github.com/idealista/solr_role/tags).
 
-Additionaly you can see what change in each version in the [CHANGELOG.md](https://github.com/idealista/solrcloud_role/blob/master/CHANGELOG.md) file.
+Additionaly you can see what change in each version in the [CHANGELOG.md](https://github.com/idealista/solr_role/blob/master/CHANGELOG.md) file.
 
 ## Authors
 
 * **Idealista** - *Work with* - [idealista](https://github.com/idealista)
 
-See also the list of [contributors](https://github.com/idealista/solrcloud_role/contributors) who participated in this project.
+See also the list of [contributors](https://github.com/idealista/solr_role/contributors) who participated in this project.
 
 ## License
 
@@ -172,4 +172,4 @@ This project is licensed under the [Apache 2.0](https://www.apache.org/licenses/
 
 ## Contributing
 
-Please read [CONTRIBUTING.md](https://github.com/idealista/solrcloud_role/blob/master/.github/CONTRIBUTING.md) for details on our code of conduct, and the process for submitting pull requests to us.
+Please read [CONTRIBUTING.md](https://github.com/idealista/solr_role/blob/master/.github/CONTRIBUTING.md) for details on our code of conduct, and the process for submitting pull requests to us.

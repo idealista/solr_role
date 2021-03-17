@@ -1,72 +1,48 @@
 ---
 
-- name: SolrCloud | Give execution permission to zkcli script
-  file:
-    path: "{{ solr_zookeeper_client_path }}/zkcli.sh"
-    mode: 0744
-
-- name: SolrCloud | Check Root Path (znode) in ZooKeeper
-  command: >
-    {{ solr_zookeeper_client_path }}/zkcli.sh
-    -zkhost {{ solr_zookeeper_hosts }}
-    -cmd list /{{ solr_zookeeper_hosts_solr_path }}
-  register: solr_path_check
-  changed_when: false
-
-- name: SolrCloud | Create Root Path (znode) in ZooKeeper using zkcli script
-  command: >
-    {{ solr_zookeeper_client_path }}/zkcli.sh
-    -zkhost {{ solr_zookeeper_hosts }}
-    -cmd makepath /{{ solr_zookeeper_hosts_solr_path }}
-  when: '" /{{ solr_zookeeper_hosts_solr_path }} " not in solr_path_check.stdout'
-  register: create_root_path_result
-  failed_when: |
-    create_root_path_result.rc != 0 and
-    "NodeExists" not in create_root_path_result.stderr
-
-- name: SolrCloud | Configuring jetty server
+- name: Solr | Configuring jetty server
   template:
     src: "{{ solr_templates_dir }}/jetty.xml.j2"
     dest: "{{ solr_installation_dir }}/server/etc/jetty.xml"
     force: true
-  notify: restart SolrCloud
+  notify: restart Solr
 
-- name: SolrCloud | Configuring jetty server http
+- name: Solr | Configuring jetty server http
   template:
     src: "{{ solr_templates_dir }}/jetty-http.xml.j2"
     dest: "{{ solr_installation_dir }}/server/etc/jetty-http.xml"
     force: true
-  notify: restart SolrCloud
+  notify: restart Solr
 
-- name: SolrCloud | Configuring SolrCloud init script
+- name: Solr | Configuring Solr init script
   template:
     src: "{{ solr_templates_dir }}/solr.in.sh.j2"
     dest: /etc/default/solr.in.sh
     force: true
-  notify: restart SolrCloud
+  notify: restart Solr
 
-- name: SolrCloud | Configuring SolrCloud properties
+- name: Solr | Configuring Solr properties
   template:
     src: "{{ solr_templates_dir }}/solr.xml.j2"
     dest: "{{ solr_data_dir }}/solr.xml"
     force: true
-  notify: restart SolrCloud
+  notify: restart Solr
 
-- name: SolrCloud | Configuring logging
+- name: Solr | Configuring logging
   template:
     src: "{{ solr_templates_dir }}/{{ solr_log_config_file }}.j2"
     dest: "{{ solr_installation_dir }}/{{ solr_log_config_file }}"
     force: true
-  notify: restart SolrCloud
+  notify: restart Solr
 
-- name: SolrCloud | Install maven_artifact module required packages
+- name: Solr | Install maven_artifact module required packages
   apt:
     package: "{{ solr_external_libraries_required_packages }}"
     state: present
-  notify: restart SolrCloud
+  notify: restart Solr
   when: solr_external_libraries is defined and solr_external_libraries|length > 0
 
-- name: SolrCloud | Copy external libraries
+- name: Solr | Copy external libraries
   maven_artifact:
     group_id: "{{ item.group_id }}"
     artifact_id: "{{ item.artifact_id }}"
@@ -75,13 +51,13 @@
     dest: "{{ solr_external_libraries_destination_path }}"
     mode: 0644
   with_items: "{{ solr_external_libraries }}"
-  notify: restart SolrCloud
+  notify: restart Solr
   when: solr_external_libraries is defined and solr_external_libraries|length > 0
 
-- name: SolrCloud | Force handlers
+- name: Solr | Force handlers
   meta: flush_handlers
 
-- name: SolrCloud | Wait for SolrCloud to fully startup before continue
+- name: Solr | Wait for Solr to fully startup before continue
   uri:
     url: "http://{{ solr_host }}:{{ solr_port }}/solr"
     status_code: 200

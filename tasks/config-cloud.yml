@@ -1,0 +1,25 @@
+---
+
+- name: Solr | Give execution permission to zkcli script
+  file:
+    path: "{{ solr_zookeeper_client_path }}/zkcli.sh"
+    mode: 0744
+
+- name: Solr | Check Root Path (znode) in ZooKeeper
+  command: >
+    {{ solr_zookeeper_client_path }}/zkcli.sh
+    -zkhost {{ solr_zookeeper_hosts }}
+    -cmd list /{{ solr_zookeeper_hosts_solr_path }}
+  register: solr_path_check
+  changed_when: false
+
+- name: Solr | Create Root Path (znode) in ZooKeeper using zkcli script
+  command: >
+    {{ solr_zookeeper_client_path }}/zkcli.sh
+    -zkhost {{ solr_zookeeper_hosts }}
+    -cmd makepath /{{ solr_zookeeper_hosts_solr_path }}
+  when: '" /{{ solr_zookeeper_hosts_solr_path }} " not in solr_path_check.stdout'
+  register: create_root_path_result
+  failed_when: |
+    create_root_path_result.rc != 0 and
+    "NodeExists" not in create_root_path_result.stderr

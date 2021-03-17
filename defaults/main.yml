@@ -1,8 +1,9 @@
 ---
 
 ## General
-solr_version: 8.6.0
-solrcloud_install: true
+solr_version: 8.8.1
+solr_install: true
+solr_mode: cloud  # standalone|cloud
 
 ## Service options
 
@@ -23,8 +24,10 @@ solr_log_dir: /var/log/solr
 solr_home: /var/solr
 solr_data_dir: "{{ solr_home }}/data"
 solr_tmp_basedir: "/usr/local/src"
-solr_tmp_dest_dir: "{{ solr_tmp_basedir }}/{{ solr_cloud_package }}"
+solr_tmp_dest_dir: "{{ solr_tmp_basedir }}/{{ solr_package }}"
 solr_collections_config_tmp_dir: "{{ solr_tmp_basedir }}/collections"
+solr_cores_config_dir: "{{ solr_data_dir }}/cores"
+solr_cores_transfer_mode: copy
 solr_recommended_open_files: 65550
 solr_recommended_max_processes: 65550
 # For a visual indication in the Admin UI of what type of environment this cluster is, configure
@@ -100,6 +103,12 @@ solr_wait_for_zookeeper: 30
 solr_collections: {}
 solr_collections_files_path: "{{ playbook_dir }}/files/collections/"
 solr_collections_template_path: "{{ playbook_dir }}/templates/collections/"
+solr_collections_clean_house: true
+
+# Cores configuration
+solr_cores: {}
+solr_cores_files_path: "{{ playbook_dir }}/files/cores/"
+solr_cores_template_path: "{{ playbook_dir }}/templates/cores/"
 
 # External libs support
 solr_external_libraries_repository_url: https://repo1.maven.org/maven2
