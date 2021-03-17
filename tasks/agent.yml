@@ -1,12 +1,12 @@
 ---
 
-- name: SolrCloud | Agent installation | Install required packages
+- name: Solr | Agent installation | Install required packages
   apt:
     pkg: "{{ solr_agents_required_libs }}"
     state: present
   when: solr_agents_required_libs is defined
 
-- name: SolrCloud | Agent installation | Ensure install path
+- name: Solr | Agent installation | Ensure install path
   file:
     path: "{{ solr_installation_dir }}/{{ item.name }}"
     state: directory
@@ -14,7 +14,7 @@
     group: "{{ solr_group }}"
   with_items: '{{ solr_agents_config }}'
 
-- name: SolrCloud | Agent installation | Check if agent is installed
+- name: Solr | Agent installation | Check if agent is installed
   stat:
     path: "{{ solr_installation_dir }}/{{ item.0.name }}/{{ item.1 | basename }}"
   register: agent_file_exists
@@ -22,7 +22,7 @@
     - "{{ solr_agents_config }}"
     - vm_opts
 
-- name: SolrCloud | Agent installation | Check agent version
+- name: Solr | Agent installation | Check agent version
   command: "cat {{ solr_installation_dir }}/{{ item.0.name }}/version.txt"
   register: agent_version_checked
   changed_when: false
@@ -31,7 +31,7 @@
     - "{{ solr_agents_config }}"
     - vm_opts
 
-- name: SolrCloud | Agent installation | Download agent
+- name: Solr | Agent installation | Download agent
   get_url:
     dest: "{{ solr_tmp_basedir }}"
     url: "{{ item.download_url }}"
@@ -44,7 +44,7 @@
   when: solr_agents_force_reinstall or not agent_file_exists.results[index].stat.exists or item.version != agent_version_checked.results[index].stdout or agent_version_checked.results[index].failed
 
 
-- name: SolrCloud | Agent installation | Unarchive package
+- name: Solr | Agent installation | Unarchive package
   unarchive:
     src: "{{ solr_tmp_basedir }}/{{ item.download_url | basename }}"
     dest: "{{ solr_installation_dir }}"
@@ -57,7 +57,7 @@
   tags:
     - skip_ansible_lint
 
-- name: SolrCloud | Agent installation | Copy version number file
+- name: Solr | Agent installation | Copy version number file
   template:
     src: "agents/version.txt.j2"
     dest: "{{ solr_installation_dir }}/{{ item.name }}/version.txt"
@@ -66,25 +66,25 @@
     mode: 0644
   with_items: '{{ solr_agents_config }}'
 
-- name: SolrCloud | Agent installation | Check configuration files
+- name: Solr | Agent installation | Check configuration files
   set_fact:
     solr_agent_configuration: "{{ solr_agent_configuration|default([]) + [ {'name': item.0.name, 'file': item.1, 'params': item.0.params}] }}"
   with_subelements:
     - "{{ solr_agents_config }}"
     - configuration_files
 
-- name: SolrCloud | Agent installation | Configure the Java agent
+- name: Solr | Agent installation | Configure the Java agent
   template:
     src: "{{ solr_agents_template_path }}/{{ item.name }}/{{ item.file }}.j2"
     dest: "{{ solr_installation_dir }}/{{ item.name }}/{{ item.file }}"
     owner: "{{ solr_user }}"
     group: "{{ solr_group }}"
   when: agent_downloaded.changed
-  notify: restart SolrCloud
+  notify: restart Solr
   with_items:
     - '{{ solr_agent_configuration }}'
 
-- name: SolrCloud | Agent installation | Check vm options
+- name: Solr | Agent installation | Check vm options
   set_fact:
     solr_agent_vm_opts: "{% set solr_agent_vm_opts = solr_agent_vm_opts|default([]) + [item.1] %}{{ solr_agent_vm_opts |list }}"
   with_subelements:

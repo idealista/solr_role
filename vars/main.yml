@@ -3,9 +3,9 @@
 solr_required_libs:
   - rsync
 
-solr_cloud_build_name: "solr-{{ solr_version }}"
-solr_cloud_package: "{{ solr_cloud_build_name }}.tgz"
-solr_cloud_url: "http://archive.apache.org/dist/lucene/solr/{{ solr_version }}/{{ solr_cloud_package }}"
+solr_build_name: "solr-{{ solr_version }}"
+solr_package: "{{ solr_build_name }}.tgz"
+solr_download_url: "http://archive.apache.org/dist/lucene/solr/{{ solr_version }}/{{ solr_package }}"
 solr_external_libraries_destination_path: "{{ solr_installation_dir }}/server/solr-webapp/webapp/WEB-INF/lib/"
 solr_external_libraries_required_packages:
   - python-lxml

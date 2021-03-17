@@ -15,7 +15,7 @@ env:
     - DOCKER_IMAGE_BASE=idealista/jdk:8u252-focal-openjdk-headless
     - DOCKER_IMAGE_BASE=idealista/jdk:14.0.1-focal-openjdk-headless
 script:
-  - pipenv run molecule test
+  - pipenv run molecule test --all --destroy always
 
 notifications:
   webhooks: https://galaxy.ansible.com/api/v1/notifications/

@@ -1,5 +1,5 @@
 ---
-- name: restart SolrCloud
+- name: restart Solr
   systemd:
     name: solr
     state: restarted

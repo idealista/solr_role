@@ -1,9 +1,9 @@
 ---
 
-- name: SolrCloud | Configuring service
+- name: Solr | Configuring service
   systemd:
     name: solr
     state: "{{ solr_service_state }}"
     enabled: "{{ solr_service_enabled }}"
     daemon_reload: true
-  when: solrcloud_install
+  when: solr_install
