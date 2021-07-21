@@ -12,6 +12,7 @@ solr_user: solr
 solr_group: solr
 solr_user_uid: 810
 solr_group_gid: 810
+solr_user_shell: /bin/false
 
 # start on boot
 solr_service_enabled: true
