@@ -10,7 +10,7 @@ lint: |
 platforms:
   - name: solr1
     hostname: solr1
-    image: ${DOCKER_IMAGE_BASE:-idealista/jdk:11.0.7-buster-openjdk-headless}
+    image: ${DOCKER_IMAGE_BASE:-idealista/jdk:11.0.12-buster-openjdk-headless}
     privileged: false
     capabilities:
       - SYS_ADMIN
