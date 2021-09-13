@@ -2,6 +2,8 @@
 All notable changes to this project will be documented in this file.
 
 ## [Unreleased](https://github.com/idealista/solr_role/tree/develop)
+
+## [3.0.1](https://github.com/idealista/solr_role/tree/3.0.1) (2021-09-13)
 ### Changed
 - *Default version as 8.9.0* @sorobon
 ### Fixed
