@@ -231,3 +231,6 @@ SOLR_OPTS="$SOLR_OPTS -Dsolr.environment={{ solr_environment_ui }}"
 # You can also tweak via standard JDK files such as ~/.java.policy, see https://s.apache.org/java8policy
 # This is experimental! It may not work at all with Hadoop/HDFS features.
 #SOLR_SECURITY_MANAGER_ENABLED=false
+
+# log4j vulnerability https://solr.apache.org/security.html#apache-solr-affected-by-apache-log4j-cve-2021-44228
+SOLR_OPTS="$SOLR_OPTS -Dlog4j2.formatMsgNoLookups=true"
