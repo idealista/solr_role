@@ -8,6 +8,7 @@ solr_package: "{{ solr_build_name }}.tgz"
 solr_download_url: "http://archive.apache.org/dist/lucene/solr/{{ solr_version }}/{{ solr_package }}"
 solr_external_libraries_destination_path: "{{ solr_installation_dir }}/server/solr-webapp/webapp/WEB-INF/lib/"
 solr_external_libraries_required_packages:
+  - python3-lxml 
   - python-lxml
 solr_packages_libraries_required_packages:
   - curl
