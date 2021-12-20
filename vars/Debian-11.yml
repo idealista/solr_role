@@ -1,0 +1,4 @@
+---
+
+solr_external_libraries_required_packages:
+  - python3-lxml
