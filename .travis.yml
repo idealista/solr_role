@@ -1,6 +1,6 @@
 ---
 language: python
-python: "3.7"
+python: "3.9"
 sudo: required
 services:
   - docker
@@ -14,6 +14,7 @@ env:
     - DOCKER_IMAGE_BASE=idealista/jdk:11.0.6-stretch-openjdk-headless
     - DOCKER_IMAGE_BASE=idealista/jdk:8u252-focal-openjdk-headless
     - DOCKER_IMAGE_BASE=idealista/jdk:14.0.1-focal-openjdk-headless
+    - DOCKER_IMAGE_BASE=idealista/jdk:11.0.12-bullseye-openjdk-headless
 script:
   - pipenv run molecule test --all --destroy always
 

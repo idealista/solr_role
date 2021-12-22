@@ -35,6 +35,9 @@
     force: true
   notify: restart Solr
 
+- name: Solr | Gather OS specific vars
+  include_vars: "{{ ansible_distribution }}-{{ ansible_distribution_major_version }}.yml"
+
 - name: Solr | Install maven_artifact module required packages
   apt:
     package: "{{ solr_external_libraries_required_packages }}"
