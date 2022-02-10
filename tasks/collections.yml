@@ -60,12 +60,12 @@
 
 - name: Solr | Create new collections
   uri:
-    url: "{{ solr_url }}/admin/collections?action=CREATE&name={{ item }}&numShards={{ solr_collections[item].shards }}&replicationFactor={{ solr_collections[item].replicas }}&collection.configName={{ item }}&maxShardsPerNode={{ solr_collections[item].shards_per_node }}&autoAddReplicas={{ solr_collections[item].auto_add_replicas | default('true') }}"
+    url: "{{ solr_url }}/admin/collections?action=CREATE&name={{ item }}&numShards={{ solr_collections[item].shards }}&replicationFactor={{ solr_collections[item].replicas }}&collection.configName={{ item }}&maxShardsPerNode={{ solr_collections[item].shards_per_node }}&autoAddReplicas={{ solr_collections[item].auto_add_replicas | default(solr_auto_add_replicas) }}"
   with_items: "{{ solr_collections.keys() | difference(existing_collections.json.collections) }}"
 
 - name: Solr | Modify existing collections
   uri:
-    url: "{{ solr_url }}/admin/collections?action=MODIFYCOLLECTION&collection={{ item }}&replicationFactor={{ solr_collections[item].replicas }}&maxShardsPerNode={{ solr_collections[item].shards_per_node }}&autoAddReplicas={{ solr_collections[item].auto_add_replicas | default('true') }}"
+    url: "{{ solr_url }}/admin/collections?action=MODIFYCOLLECTION&collection={{ item }}&replicationFactor={{ solr_collections[item].replicas }}&maxShardsPerNode={{ solr_collections[item].shards_per_node }}&autoAddReplicas={{ solr_collections[item].auto_add_replicas | default(solr_auto_add_replicas) }}"
   with_items: "{{ existing_collections.json.collections | intersect(solr_collections.keys()) }}"
 
 - name: Solr | Reload modified collections
