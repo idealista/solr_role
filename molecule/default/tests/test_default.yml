@@ -73,6 +73,14 @@ http:
   {{ solr_url }}/admin/collections?action=LIST:
     status: 200
     body: [ {{ solr_collections.keys() | join(', ') }} ]
+  {{ solr_url }}/admin/collections?action=CLUSTERSTATUS&collection={{ solr_collections.keys() | list | first }}:
+    status: 200
+    body:
+      - '"autoAddReplicas":"False"'
+  {{ solr_url }}/admin/collections?action=CLUSTERSTATUS&collection={{ solr_collections.keys() | list | last }}:
+    status: 200
+    body:
+      - '"autoAddReplicas":"True"'
 
 service:
   solr:
