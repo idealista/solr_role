@@ -23,6 +23,10 @@ solr_collections:
     replicas: 1
     shards_per_node: 1
     auto_add_replicas: false
+  sample_techproducts_configs_2:
+    shards: 2
+    replicas: 1
+    shards_per_node: 1
 
 solr_agents_required_libs:
   - unzip
