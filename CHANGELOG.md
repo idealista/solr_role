@@ -2,6 +2,9 @@
 All notable changes to this project will be documented in this file.
 
 ## [Unreleased](https://github.com/idealista/solr_role/tree/develop)
+
+## [3.0.3](https://github.com/idealista/solr_role/tree/3.0.3) (2022-01-26)
+### Added
 - *[#149] Use provided configured value for `autoAddReplicas` at `Modify existing collections` step* @ilorancab
 
 ## [3.0.2](https://github.com/idealista/solr_role/tree/3.0.2) (2021-12-20)
