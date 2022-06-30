@@ -36,7 +36,7 @@
 
 - name: Solr | Manage collections
   import_tasks: collections.yml
-  when: solr_collections is defined and solr_collections|length > 0 and solr_mode == 'cloud'
+  when: solr_collections is defined and solr_collections|length > 0 and solr_mode == 'cloud' and ansible_play_hosts_all|length > 0 and inventory_hostname == ansible_play_hosts_all[0]
   run_once: true
   tags:
     - solr_collections
