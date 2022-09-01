@@ -38,3 +38,4 @@ solr_agents_config:
 
 solr_environment_ui: "test,label=Molecule+test,color=green"
 solr_mode: standalone
+solr_os_tunning: false
