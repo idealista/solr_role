@@ -6,6 +6,37 @@ solr_install: true
 solr_mode: cloud  # standalone|cloud
 solr_auto_add_replicas: true
 
+## OS Tunning options
+
+solr_os_tunning: true
+
+# pam_limits
+solr_nofile_limit: 65535
+solr_nproc_limit: 65535
+
+# network
+solr_sysctl_required_packages:
+  - procps
+
+solr_sysctl_properties:
+ - name: net.core.rmem_max
+   value: 16777216
+ - name: net.core.wmem_max
+   value: 16777216
+ - name: net.core.somaxconn
+   value: 4096
+ - name: net.core.netdev_max_backlog
+   value: 16384
+ - name: net.ipv4.tcp_max_syn_backlog
+   value: 8192
+ - name: net.ipv4.tcp_syncookies
+   value: 1
+ - name: vm.max_map_count
+   value: 262144
+
+# swap
+solr_disable_swap: true
+
 ## Service options
 
 # Owner

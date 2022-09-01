@@ -1,5 +1,11 @@
 ---
 
+- name: Solr | OS Tunning
+  import_tasks: os-tunning.yml
+  tags:
+    - solr_tunning
+  when: solr_os_tunning
+
 - name: Solr | Install
   import_tasks: install.yml
   tags:

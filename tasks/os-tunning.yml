@@ -1,0 +1,57 @@
+---
+
+- name: TUNNING | Install required packages
+  apt:
+    pkg: "{{ item }}"
+    state: present
+  with_items: "{{ solr_sysctl_required_packages }}"
+  when: solr_sysctl_required_packages is defined
+
+- name: TUNNING | Apply sysctl settings
+  sysctl:
+    name: "{{ item.name }}"
+    value: "{{ item.value }}"
+    sysctl_set: yes
+    state: present
+  with_items: "{{ solr_sysctl_properties }}"
+  when: solr_sysctl_properties is defined
+
+- name: TUNNING | Set to {{ solr_nofile_limit }} the nofile limit
+  pam_limits:
+    domain: '*'
+    limit_type: soft
+    limit_item: nofile
+    value: "{{ solr_nofile_limit }}"
+  register: ulimit
+  when: solr_nofile_limit is defined
+
+- name: TUNNING | Set to {{ solr_nproc_limit }} the nproc limit
+  pam_limits:
+    domain: '*'
+    limit_type: soft
+    limit_item: nproc
+    value: "{{ solr_nproc_limit }}"
+  register: ulimit
+  when: solr_nproc_limit is defined
+
+- name: TUNNING | Reboot host if ulimit changed
+  shell: sleep 10 && shutdown -r now
+  async: 1
+  poll: 0
+  ignore_errors: true
+  when: ulimit.changed
+
+- name: TUNNING | Wait for connection
+  wait_for_connection:
+
+- name: TUNNING | Disable SWAP (1/2)
+  shell: |
+    swapoff -a
+  when: solr_disable_swap
+
+- name: TUNNING | Disable SWAP in fstab (2/2)
+  replace:
+    path: /etc/fstab
+    regexp: '^([^#].*?\sswap\s+sw\s+.*)$'
+    replace: '# \1'
+  when: solr_disable_swap
