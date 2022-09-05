@@ -11,8 +11,10 @@ solr_auto_add_replicas: true
 solr_os_tunning: true
 
 # pam_limits
-solr_nofile_limit: 65535
-solr_nproc_limit: 65535
+solr_nofile_soft_limit: 65535
+solr_nofile_hard_limit: 65535
+solr_nproc_soft_limit: 65535
+solr_nproc_hard_limit: 65535
 
 # network
 solr_sysctl_required_packages:
