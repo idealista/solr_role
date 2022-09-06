@@ -11,7 +11,7 @@
   sysctl:
     name: "{{ item.name }}"
     value: "{{ item.value }}"
-    sysctl_set: yes
+    sysctl_set: true
     state: present
   with_items: "{{ solr_sysctl_properties }}"
   when: solr_sysctl_properties is defined
@@ -22,7 +22,6 @@
     limit_type: soft
     limit_item: nofile
     value: "{{ solr_nofile_soft_limit }}"
-  register: ulimit
   when: solr_nofile_soft_limit is defined
 
 - name: Solr | Set to {{ solr_nofile_hard_limit }} the nofile hard limit
@@ -31,7 +30,6 @@
     limit_type: hard
     limit_item: nofile
     value: "{{ solr_nofile_hard_limit }}"
-  register: ulimit
   when: solr_nofile_hard_limit is defined
 
 - name: Solr | Set to {{ solr_nproc_soft_limit }} the nproc soft limit
@@ -40,7 +38,6 @@
     limit_type: soft
     limit_item: nproc
     value: "{{ solr_nproc_soft_limit }}"
-  register: ulimit
   when: solr_nproc_soft_limit is defined
 
 - name: Solr | Set to {{ solr_nproc_hard_limit }} the nproc hard limit
@@ -49,7 +46,6 @@
     limit_type: hard
     limit_item: nproc
     value: "{{ solr_nproc_hard_limit }}"
-  register: ulimit
   when: solr_nproc_hard_limit is defined
 
 - name: Solr | Disable SWAP (1/2)
