@@ -1,0 +1,61 @@
+---
+
+- name: Solr | Install required packages
+  apt:
+    pkg: "{{ item }}"
+    state: present
+  with_items: "{{ solr_sysctl_required_packages }}"
+  when: solr_sysctl_required_packages is defined
+
+- name: Solr | Apply sysctl settings
+  sysctl:
+    name: "{{ item.name }}"
+    value: "{{ item.value }}"
+    sysctl_set: true
+    state: present
+  with_items: "{{ solr_sysctl_properties }}"
+  when: solr_sysctl_properties is defined
+
+- name: Solr | Set to {{ solr_nofile_soft_limit }} the nofile soft limit
+  pam_limits:
+    domain: '{{ solr_user }}'
+    limit_type: soft
+    limit_item: nofile
+    value: "{{ solr_nofile_soft_limit }}"
+  when: solr_nofile_soft_limit is defined
+
+- name: Solr | Set to {{ solr_nofile_hard_limit }} the nofile hard limit
+  pam_limits:
+    domain: '{{ solr_user }}'
+    limit_type: hard
+    limit_item: nofile
+    value: "{{ solr_nofile_hard_limit }}"
+  when: solr_nofile_hard_limit is defined
+
+- name: Solr | Set to {{ solr_nproc_soft_limit }} the nproc soft limit
+  pam_limits:
+    domain: '{{ solr_user }}'
+    limit_type: soft
+    limit_item: nproc
+    value: "{{ solr_nproc_soft_limit }}"
+  when: solr_nproc_soft_limit is defined
+
+- name: Solr | Set to {{ solr_nproc_hard_limit }} the nproc hard limit
+  pam_limits:
+    domain: '{{ solr_user }}'
+    limit_type: hard
+    limit_item: nproc
+    value: "{{ solr_nproc_hard_limit }}"
+  when: solr_nproc_hard_limit is defined
+
+- name: Solr | Disable SWAP (1/2)
+  shell: |
+    swapoff -a
+  when: solr_disable_swap
+
+- name: Solr | Disable SWAP in fstab (2/2)
+  replace:
+    path: /etc/fstab
+    regexp: '^([^#].*?\sswap\s+sw\s+.*)$'
+    replace: '# \1'
+  when: solr_disable_swap

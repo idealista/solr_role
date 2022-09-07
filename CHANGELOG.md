@@ -2,6 +2,8 @@
 All notable changes to this project will be documented in this file.
 
 ## [Unreleased](https://github.com/idealista/solr_role/tree/develop)
+- *[#157](https://github.com/idealista/solr_role/issues/157) Add OS tunning* @MarioNv91
+
 ## [3.0.4](https://github.com/idealista/solr_role/tree/3.0.3) (2022-06-13)
 ### Fixed
 - *[#154](https://github.com/idealista/solr_role/issues/154) fix task with tag solr_collections running on all hosts when the play set the batch size with serial 1* @ajiang

@@ -1,0 +1,36 @@
+[Unit]
+Description=LSB: Controls Apache Solr as a Service
+Before=multi-user.target
+Before=multi-user.target
+Before=multi-user.target
+Before=graphical.target
+After=remote-fs.target
+
+[Service]
+Type=forking
+Restart=no
+TimeoutSec=5min
+IgnoreSIGPIPE=no
+KillMode=process
+GuessMainPID=no
+RemainAfterExit=yes
+SuccessExitStatus=5 6
+ExecStart=/etc/init.d/solr start
+ExecStop=/etc/init.d/solr stop
+
+
+{% if solr_nofile_soft_limit and solr_nofile_hard_limit %}
+LimitNOFILE={{solr_nofile_soft_limit}}:{{solr_nofile_hard_limit}}
+{% elif solr_nofile_hard_limit %}
+LimitNOFILE={{solr_nofile_hard_limit}}
+{% elif solr_nofile_soft_limit %}
+LimitNOFILE={{solr_nofile_soft_limit}}
+{% endif %}
+
+{% if solr_nproc_soft_limit and solr_nproc_hard_limit %}
+LimitNPROC={{solr_nproc_soft_limit}}:{{solr_nproc_hard_limit}}
+{% elif solr_nproc_hard_limit %}
+LimitNPROC={{solr_nproc_hard_limit}}
+{% elif solr_nproc_soft_limit %}
+LimitNPROC={{solr_nproc_soft_limit}}
+{% endif %}
