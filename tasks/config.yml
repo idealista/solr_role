@@ -21,6 +21,14 @@
     force: true
   notify: restart Solr
 
+- name: Solr | Configure Solr service with limits
+  template:
+    src: "{{ solr_templates_dir }}/solr.service.j2"
+    dest: /etc/systemd/system/solr.service
+    force: true
+  notify: restart Solr
+  when: solr_os_tunning
+
 - name: Solr | Configuring Solr properties
   template:
     src: "{{ solr_templates_dir }}/solr.xml.j2"
