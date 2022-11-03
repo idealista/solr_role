@@ -54,6 +54,11 @@
   ignore_errors: true
   when: service_solr_status is success
 
+- name: Solr | Set solr_mirror for Solr 9+.
+  set_fact:
+    solr_project_mirror: "{{ solr_mirror }}/solr"
+  when: solr_version.split('.')[0]|int >= 9
+
 - name: Solr | Download solr binaries
   get_url:
     url: "{{ solr_download_url }}"
@@ -83,5 +88,6 @@
       service_solr_status is success and
         (solr_check is failed or
         "<str name=\"lucene-spec-version\">{{ solr_version }}</str>" not in solr_check.content)
+  notify: restart Solr
   tags:
     - skip_ansible_lint

@@ -1,17 +1,19 @@
 ![Logo](https://raw.githubusercontent.com/idealista/solr_role/master/logo.gif)
 
-[![Build Status](https://travis-ci.com/idealista/solr_role.png)](https://travis-ci.com/idealista/solr_role)
+[![Build Status](https://api.travis-ci.com/idealista/solr_role.png)](https://app.travis-ci.com/github/idealista/solr_role)
 
 # Solr Ansible role
 
 This ansible role installs a Solr server in a debian environment.
 
-- [Solr Ansible role](#Solr-ansible-role)
+- [Solr Ansible role](#solr-ansible-role)
   - [Getting Started](#getting-started)
     - [Prerequisities](#prerequisities)
     - [Installing](#installing)
   - [Usage](#usage)
     - [Add JVM Agent to your installation](#add-jvm-agent-to-your-installation)
+  - [Set up collections](#set-up-collections)
+  - [Set up cores](#set-up-cores)
   - [Prometheus Exporter](#prometheus-exporter)
   - [Testing](#testing)
   - [Built With](#built-with)
@@ -119,6 +121,38 @@ Its very simple, must follow this steps (in this case we will add config for [Ne
       }
   ```
 - __Optional__: Place the configuration files in the templates folder using this order "templates/{{ agent_name }}/{{ file names specified in solr_agents_config.configuration_files }}.j2. In this case we have the newrelic.yml.j2 in [templates/agents/newrelic/newrelic.yml.j2](molecule/setup_with_agent/templates/agents/newrelic/newrelic.yml.j2).
+
+## Set up collections
+
+In order to configure collections just put this config in yml like this example:
+
+```yaml
+solr_mode: cloud
+solr_collections:
+  # Extracted from https://github.com/apache/lucene-solr/tree/master/solr/server/solr/configsets/sample_techproducts_configs/conf
+  # Should have configuration files under "templates/collections/[collection_name]" directory
+  sample_techproducts_configs:
+    shards: 2
+    replicas: 1
+    shards_per_node: 1
+    auto_add_replicas: false
+  sample_techproducts_configs_2:
+    shards: 2
+    replicas: 1
+    shards_per_node: 1
+```
+
+## Set up cores
+
+In order to configure cores just put this config in yml like this example:
+
+```yaml
+solr_mode: standalone
+solr_cores:
+  # Extracted from https://github.com/apache/lucene-solr/tree/master/solr/server/solr/configsets/sample_techproducts_configs/conf
+  # Should have configuration files under "templates/collections/[collection_name]" directory
+  - mail
+```
 
 ## Prometheus Exporter
 

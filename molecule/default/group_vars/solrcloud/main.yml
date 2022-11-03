@@ -34,7 +34,7 @@ solr_agents_required_libs:
 
 solr_agents_config:
   - name: "newrelic"
-    version: "6.4.2"
+    version: "7.11.0"
     download_url: "http://download.newrelic.com/newrelic/java-agent/newrelic-agent/current/newrelic-java.zip"
     vm_opts:
       - '-javaagent:{{ solr_installation_dir }}/newrelic/newrelic.jar'
@@ -47,5 +47,5 @@ solr_agents_config:
 
 solr_environment_ui: "test,label=Molecule+test,color=green"
 solr_mode: cloud
-solr_collections_clean_house: false
+solr_collections_clean_house: true
 solr_os_tunning: false

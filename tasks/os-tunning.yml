@@ -15,6 +15,7 @@
     state: present
   with_items: "{{ solr_sysctl_properties }}"
   when: solr_sysctl_properties is defined
+  notify: reboot machine
 
 - name: Solr | Set to {{ solr_nofile_soft_limit }} the nofile soft limit
   pam_limits:
@@ -22,6 +23,7 @@
     limit_type: soft
     limit_item: nofile
     value: "{{ solr_nofile_soft_limit }}"
+  notify: reboot machine
   when: solr_nofile_soft_limit is defined
 
 - name: Solr | Set to {{ solr_nofile_hard_limit }} the nofile hard limit
@@ -30,6 +32,7 @@
     limit_type: hard
     limit_item: nofile
     value: "{{ solr_nofile_hard_limit }}"
+  notify: reboot machine
   when: solr_nofile_hard_limit is defined
 
 - name: Solr | Set to {{ solr_nproc_soft_limit }} the nproc soft limit
@@ -38,6 +41,7 @@
     limit_type: soft
     limit_item: nproc
     value: "{{ solr_nproc_soft_limit }}"
+  notify: reboot machine
   when: solr_nproc_soft_limit is defined
 
 - name: Solr | Set to {{ solr_nproc_hard_limit }} the nproc hard limit
@@ -46,11 +50,13 @@
     limit_type: hard
     limit_item: nproc
     value: "{{ solr_nproc_hard_limit }}"
+  notify: reboot machine
   when: solr_nproc_hard_limit is defined
 
 - name: Solr | Disable SWAP (1/2)
   shell: |
     swapoff -a
+  notify: reboot machine
   when: solr_disable_swap
 
 - name: Solr | Disable SWAP in fstab (2/2)
@@ -58,4 +64,8 @@
     path: /etc/fstab
     regexp: '^([^#].*?\sswap\s+sw\s+.*)$'
     replace: '# \1'
+  notify: reboot machine
   when: solr_disable_swap
+
+- name: Solr | Force handlers
+  meta: flush_handlers
