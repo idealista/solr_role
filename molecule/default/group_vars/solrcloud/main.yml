@@ -47,5 +47,5 @@ solr_agents_config:
 
 solr_environment_ui: "test,label=Molecule+test,color=green"
 solr_mode: cloud
-solr_collections_clean_house: true
+solr_collections_clean_house: false
 solr_os_tunning: false
