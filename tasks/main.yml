@@ -28,6 +28,12 @@
   tags:
     - configure
 
+- name: Solr | Cleanup
+  import_tasks: cleanup.yml
+  tags:
+    - solr_cleanup
+  when: solr_cleanup
+
 - name: Solr | Service
   import_tasks: service.yml
   tags:

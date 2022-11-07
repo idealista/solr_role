@@ -4,3 +4,6 @@
     name: solr
     state: restarted
   when: solr_service_state != 'stopped'
+
+- name: reboot machine
+  ansible.builtin.reboot:

@@ -1,10 +1,8 @@
 [Unit]
 Description=LSB: Controls Apache Solr as a Service
 Before=multi-user.target
-Before=multi-user.target
-Before=multi-user.target
-Before=graphical.target
-After=remote-fs.target
+After=network-online.target
+Requires=multi-user.target
 
 [Service]
 Type=forking
@@ -34,3 +32,6 @@ LimitNPROC={{solr_nproc_hard_limit}}
 {% elif solr_nproc_soft_limit %}
 LimitNPROC={{solr_nproc_soft_limit}}
 {% endif %}
+
+[Install]
+WantedBy=multi-user.target
