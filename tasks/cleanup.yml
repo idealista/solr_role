@@ -1,0 +1,21 @@
+---
+- name: Solr | Remove the downloaded Solr archive.
+  file:
+    path: "{{ item }}"
+    state: absent
+  with_items:
+    - "{{ solr_tmp_dest_dir }}"
+    - "{{ solr_tmp_basedir }}/{{ solr_build_name }}"
+
+- name: Solr | Remove docs, if not needed.
+  file:
+    path: "{{ solr_installation_dir }}/docs"
+    state: absent
+  when: solr_remove_examples
+
+- name: Solr | Remove example dir, if not needed.
+  file:
+    path: "{{ solr_installation_dir }}/example"
+    state: absent
+  when:
+    - solr_remove_examples

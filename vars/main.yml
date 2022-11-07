@@ -2,10 +2,13 @@
 
 solr_required_libs:
   - rsync
+  - procps
 
 solr_build_name: "solr-{{ solr_version }}"
 solr_package: "{{ solr_build_name }}.tgz"
-solr_download_url: "http://archive.apache.org/dist/lucene/solr/{{ solr_version }}/{{ solr_package }}"
+solr_mirror: "http://archive.apache.org/dist"
+solr_project_mirror: "{{ solr_mirror }}/lucene"
+solr_download_url: "{{ solr_project_mirror }}/solr/{{ solr_version }}/{{ solr_package }}"
 solr_external_libraries_destination_path: "{{ solr_installation_dir }}/server/solr-webapp/webapp/WEB-INF/lib/"
 solr_external_libraries_required_packages:
   - python-lxml

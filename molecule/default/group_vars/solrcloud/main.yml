@@ -34,7 +34,7 @@ solr_agents_required_libs:
 
 solr_agents_config:
   - name: "newrelic"
-    version: "6.4.2"
+    version: "7.11.0"
     download_url: "http://download.newrelic.com/newrelic/java-agent/newrelic-agent/current/newrelic-java.zip"
     vm_opts:
       - '-javaagent:{{ solr_installation_dir }}/newrelic/newrelic.jar'
