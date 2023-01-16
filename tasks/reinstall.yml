@@ -22,7 +22,7 @@
 
 - name: Solr | Agent installation | Cleanup agent files
   file:
-    path:  "{{ solr_tmp_basedir }}/{{ item.download_url | basename }}"
+    path: "{{ solr_tmp_basedir }}/{{ item.download_url | basename }}"
     state: absent
   loop: "{{ solr_agents_config|flatten(levels=1) }}"
   loop_control:
