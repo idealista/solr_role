@@ -3,6 +3,9 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased](https://github.com/idealista/solr_role/tree/develop)
 
+### Fixed
+- *[#164](https://github.com/idealista/solr_role/issues/164) Reinstalling/Updating problem* @sorobon
+
 ## [3.1.1](https://github.com/idealista/solr_role/tree/3.1.1) (2022-11-07)
 ### Added
 - *[#136](https://github.com/idealista/solr_role/issues/136) Add documentation about setting up cores and collections* @sorobon

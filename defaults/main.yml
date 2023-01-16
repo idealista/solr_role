@@ -13,6 +13,9 @@ solr_os_tunning: true
 solr_cleanup: true
 solr_remove_examples: false
 
+# Misc
+solr_force_reinstall: false
+
 # pam_limits
 solr_nofile_soft_limit: 65535
 solr_nofile_hard_limit: 65535
@@ -66,6 +69,7 @@ solr_tmp_basedir: "/usr/local/src"
 solr_tmp_dest_dir: "{{ solr_tmp_basedir }}/{{ solr_package }}"
 solr_collections_config_tmp_dir: "{{ solr_tmp_basedir }}/collections"
 solr_cores_config_dir: "{{ solr_data_dir }}/cores"
+solr_config_file_dir: /etc/default/solr.in.sh
 solr_cores_transfer_mode: copy
 solr_recommended_open_files: 65550
 solr_recommended_max_processes: 65550

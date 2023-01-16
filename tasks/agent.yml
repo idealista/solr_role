@@ -90,3 +90,4 @@
   with_subelements:
     - "{{ solr_agents_config }}"
     - vm_opts
+
