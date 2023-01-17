@@ -1,5 +1,11 @@
 ---
 
+- name: Solr | Prepare env
+  import_tasks: reinstall.yml
+  tags:
+    - solr_install
+  when: solr_force_reinstall
+
 - name: Solr | Install
   import_tasks: install.yml
   tags:
