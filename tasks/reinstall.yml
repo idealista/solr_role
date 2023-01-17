@@ -1,0 +1,29 @@
+---
+# tasks file for Solr
+# installation instructions taken from: https://cwiki.apache.org/confluence/display/solr/Taking+Solr+to+Production
+- name: Solr | Stopping service
+  systemd:
+    name: solr
+    state: "stopped"
+    enabled: "no"
+    daemon_reload: true
+  ignore_errors: true
+
+- name: Solr | Cleaning config
+  file:
+    path: "{{ solr_config_file_dir }}"
+    state: absent
+  ignore_errors: true
+
+- name: Solr | Cleaning previous downloaded files
+  file:
+    path: "{{ solr_tmp_basedir }}/solr*"
+    state: absent
+
+- name: Solr | Agent installation | Cleanup agent files
+  file:
+    path: "{{ solr_tmp_basedir }}/{{ item.download_url | basename }}"
+    state: absent
+  loop: "{{ solr_agents_config|flatten(levels=1) }}"
+  loop_control:
+    index_var: index

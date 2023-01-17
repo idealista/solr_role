@@ -15,6 +15,7 @@
     repository_url: "{{ solr_external_packages_repository_url }}"
     dest: "{{ solr_external_packages_tmp_dir }}"
     mode: 0644
+    keep_name: true
   with_items: "{{ solr_external_packages }}"
   when: solr_external_packages is defined and solr_external_packages|length > 0
 
