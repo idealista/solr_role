@@ -23,7 +23,7 @@
 
 - name: Solr | Configure Solr service
   template:
-    src: "{{ solr_templates_dir }}/solr.service.j2"
+    src: "{{ solr_template_service }}"
     dest: /lib/systemd/system/solr.service
     force: true
   notify: restart Solr

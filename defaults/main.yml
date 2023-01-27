@@ -73,6 +73,7 @@ solr_config_file_dir: /etc/default/solr.in.sh
 solr_cores_transfer_mode: copy
 solr_recommended_open_files: 65550
 solr_recommended_max_processes: 65550
+solr_template_service: "{{ solr_templates_dir }}/solr.service.j2"
 # For a visual indication in the Admin UI of what type of environment this cluster is, configure
 # a -Dsolr.environment property below. Valid values are prod, stage, test, dev, with an optional
 # label or color, e.g. -Dsolr.environment=test,label=Functional+test,color=brown
