@@ -2,6 +2,8 @@
 All notable changes to this project will be documented in this file.
 
 ## [Unreleased](https://github.com/idealista/solr_role/tree/develop)
+### Fixed
+- *[#68] Wrong user creation* @denics
 
 ## [3.1.3](https://github.com/idealista/solr_role/tree/3.1.3) (2023-01-26)
 ### Added
