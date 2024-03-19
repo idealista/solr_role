@@ -49,3 +49,21 @@ solr_environment_ui: "test,label=Molecule+test,color=green"
 solr_mode: cloud
 solr_collections_clean_house: false
 solr_os_tunning: false
+
+solr_backup_repository:
+  name: s3
+  class: org.apache.solr.s3.S3BackupRepository
+  default: "false"
+  config:
+    - name: "s3.bucket.name"
+      value: "solr-backup"
+      type: str
+    - name: "s3.region"
+      value: "eu-west-1"
+      type: str
+    - name: "s3.endpoint"
+      value: "http://solr-minio1:9000"
+      type: str
+
+aws_access_key_id: "admin"
+aws_secret_access_key: "adminpass"

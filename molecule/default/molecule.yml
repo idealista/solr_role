@@ -11,6 +11,7 @@ platforms:
   - name: zookeeper
     hostname: zookeeper
     image: idealista/zookeeper:latest
+    pre_build_image: true
     privileged: false
     capabilities:
       - SYS_ADMIN
@@ -76,6 +77,28 @@ platforms:
           - zookeeper:zookeeper
     published_ports:
       - 0.0.0.0:8984:8983/tcp
+  - name: solr-minio1
+    image: minio/minio
+    command: 'server /data --console-address ":9001"'
+    privileged: false
+    pre_build_image: true
+    env:
+      MINIO_ROOT_USER: admin
+      MINIO_ROOT_PASSWORD: adminpass
+      MINIO_REGION: eu-west-1
+    exposed_ports:
+      - 9000/tcp
+      - 9001/tcp
+    published_ports:
+      - 0.0.0.0:9000:9000
+      - 0.0.0.0:9001:9001
+    networks:
+      - name: solr-network
+        aliases:
+          - solr-minio1
+        links:
+          - zookeeper:zookeeper
+    purge_networks: true
 provisioner:
   name: ansible
 verifier:
