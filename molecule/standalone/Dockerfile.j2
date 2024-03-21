@@ -7,11 +7,10 @@ FROM {{ item.image }}
 {% endif %}
 
 # install minimal packages for debian slim images
-{% set python = "python" %}
+{% set python = "python3" %}
 {% if item.image is regex('stretch') %}
     {% set distro = "stretch" %}
-{% elif item.image is regex('bullseye') %}
-    {% set python = "python3" %}
+    {% set python = "python" %}
 {% endif %}
 
 {% if distro is defined %}
