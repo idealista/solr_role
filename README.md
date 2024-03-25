@@ -122,6 +122,30 @@ Its very simple, must follow this steps (in this case we will add config for [Ne
   ```
 - __Optional__: Place the configuration files in the templates folder using this order "templates/{{ agent_name }}/{{ file names specified in solr_agents_config.configuration_files }}.j2. In this case we have the newrelic.yml.j2 in [templates/agents/newrelic/newrelic.yml.j2](molecule/setup_with_agent/templates/agents/newrelic/newrelic.yml.j2).
 
+### Backup with S3
+
+By default backups are configured to local directory. This role also supports S3 Backup, just add the next configuration to your variable file:
+```yaml
+solr_backup_repository:
+  name: s3
+  class: org.apache.solr.s3.S3BackupRepository
+  default: "false"
+  config:
+    - name: "s3.bucket.name"
+      value: "solr-backup"
+      type: str
+    - name: "s3.region"
+      value: "eu-west-1"
+      type: str
+```
+The backup bucket needs to be created.
+
+When using IAM user, you can add credential with this two extra variables (ansible-vault is recomended):
+```yaml
+aws_access_key_id: "admin"
+aws_secret_access_key: "adminpass"
+```
+
 ## Set up collections
 
 In order to configure collections just put this config in yml like this example:
