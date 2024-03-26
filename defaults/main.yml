@@ -237,13 +237,13 @@ solr_metrics:
 #       type: "str"
 
 solr_backup_repository:
-  name: local
-  class: org.apache.solr.core.backup.repository.LocalFileSystemRepository
-  default: "false"
-  config:
-    - name: "location"
-      value: "${solr.default.backup.path:}"
-      type: str
+  - name: local
+    class: org.apache.solr.core.backup.repository.LocalFileSystemRepository
+    default: "false"
+    config:
+      - name: "location"
+        value: "${solr.default.backup.path:}"
+        type: str
 
 ### HDFS EXAMPLE
 # solr_backup_repository:

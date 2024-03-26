@@ -235,6 +235,6 @@ SOLR_OPTS="$SOLR_OPTS -Dsolr.environment={{ solr_environment_ui }}"
 # log4j vulnerability https://solr.apache.org/security.html#apache-solr-affected-by-apache-log4j-cve-2021-44228
 SOLR_OPTS="$SOLR_OPTS -Dlog4j2.formatMsgNoLookups=true"
 
-{% if solr_backup_repository.name == "s3" and aws_access_key_id is defined %}
+{% if aws_access_key_id is defined %}
 SOLR_OPTS="$SOLR_OPTS -Daws.accessKeyId={{ aws_access_key_id }} -Daws.secretAccessKey={{ aws_secret_access_key }}"
 {% endif %}
