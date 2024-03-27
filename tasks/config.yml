@@ -65,6 +65,51 @@
   notify: restart Solr
   when: solr_external_libraries is defined and solr_external_libraries|length > 0
 
+- name: Solr | Configuring Solr S3 Backup
+  block:
+    - name: Solr S3 Backup | Create lib directory
+      file:
+        path: "{{ solr_installation_dir }}/server/solr/lib"
+        state: directory
+        owner: "{{ solr_user }}"
+        group: "{{ solr_group }}"
+    - name: Solr S3 Backup | Create external libraries directory
+      file:
+        path: "{{ solr_external_libraries_destination_path }}"
+        state: directory
+        owner: "{{ solr_user }}"
+        group: "{{ solr_group }}"
+    - name: BACKUP | Copy SOLR S3 library lib directory
+      copy:
+        src: "{{ solr_installation_dir }}/dist/solr-s3-repository-{{ solr_version }}.jar"
+        dest: "{{ solr_installation_dir }}/server/solr/lib/solr-s3-repository-{{ solr_version }}.jar"
+        owner: "{{ solr_user }}"
+        group: "{{ solr_group }}"
+        remote_src: true
+    - name: BACKUP | Copy SOLR S3 library external lib directory
+      copy:
+        src: "{{ solr_installation_dir }}/dist/solr-s3-repository-{{ solr_version }}.jar"
+        dest: "{{ solr_installation_dir }}/server/solr-webapp/webapp/WEB-INF/lib/solr-s3-repository-{{ solr_version }}.jar"
+        owner: "{{ solr_user }}"
+        group: "{{ solr_group }}"
+        remote_src: true
+    - name: BACKUP | Copy all S3 libraries lib directory
+      copy:
+        src: "{{ solr_installation_dir }}/contrib/s3-repository/lib/"
+        dest: "{{ solr_installation_dir }}/server/solr/lib/"
+        owner: "{{ solr_user }}"
+        group: "{{ solr_group }}"
+        remote_src: true
+    - name: BACKUP | Copy all S3 libraries external lib directory
+      copy:
+        src: "{{ solr_installation_dir }}/contrib/s3-repository/lib/"
+        dest: "{{ solr_installation_dir }}/server/solr-webapp/webapp/WEB-INF/lib/"
+        owner: "{{ solr_user }}"
+        group: "{{ solr_group }}"
+        remote_src: true
+  when: "'s3' in (solr_backup_repository | map(attribute='name') )"
+  notify: restart Solr
+
 - name: Solr | Force handlers
   meta: flush_handlers
 
@@ -72,8 +117,8 @@
   uri:
     url: "http://{{ solr_host }}:{{ solr_port }}/solr"
     status_code: 200
-  retries: "100"
-  delay: "1"
+  retries: 100
+  delay: 1
   register: result
   until: result.status == 200
   changed_when: false

@@ -14,7 +14,6 @@
     tomcat_version: "{{ molecule_yml.provisioner.inventory.group_vars.tomcat.tomcat_version }}"
   vars_files:
     - ../../defaults/main.yml
-    - ../../vars/main.yml
     - ./group_vars/solr/main.yml
   tasks:
     - name: Download and install Goss

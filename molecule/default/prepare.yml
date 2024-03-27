@@ -1,0 +1,29 @@
+---
+- name: Prepare
+  hosts: solrcloud
+  gather_facts: false
+  vars:
+  tasks:
+    - name: Prepare | Get docker info from 'solr-minio1' container
+      docker_container_info:
+        name: solr-minio1
+      register: minio_docker_facts
+      delegate_to: localhost
+      ignore_errors: true
+      run_once: true
+
+    - name: TEST
+      debug:
+        msg: "{{ minio_docker_facts }}"
+
+    - name: Prepare | Create bucket in 'solr-minio1'
+      aws_s3:
+        aws_access_key: "{{ aws_access_key_id }}"
+        aws_secret_key: "{{ aws_secret_access_key }}"
+        bucket: "solr-backup"
+        mode: create
+        region: "eu-west-1"
+        s3_url: "http://localhost:9000"
+      delegate_to: localhost
+      run_once: true
+      when: minio_docker_facts is not failed

@@ -55,14 +55,16 @@
 
 {% if solr_backup_repository is defined %}
   <backup>
-    <repository 
-      name="{{ solr_backup_repository.name }}" 
-      class="{{ solr_backup_repository.class }}" 
-      default="{{ solr_backup_repository.default }}">
-      {% for conf in solr_backup_repository.config %}
+  {% for repository in solr_backup_repository %}
+    <repository
+      name="{{ repository.name }}"
+      class="{{ repository.class }}"
+      default="{{ repository.default }}">
+      {% for conf in repository.config %}
       <{{ conf.type }} name="{{ conf.name }}">{{ conf.value }}</{{ conf.type }}>
       {% endfor %}
     </repository>
+  {% endfor %}
   </backup>
 {% endif %}
 

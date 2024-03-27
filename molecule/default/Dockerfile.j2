@@ -7,16 +7,26 @@ FROM {{ item.image }}
 {% endif %}
 
 # install minimal packages for debian slim images
-{% if 'bullseye' in item.image  %}
-RUN apt-get update && \
-    DEBIAN_FRONTEND="noninteractive" apt-get install -y python3 sudo bash ca-certificates iproute2 systemd systemd-sysv python3-pip python3-lxml && \
-    update-alternatives --install /usr/bin/python python /usr/bin/python3 0 &&\
-    apt-get clean
+{% set python = "python3" %}
+{% if item.image is regex('stretch') %}
+    {% set distro = "stretch" %}
+    {% set python = "python" %}
+{% endif %}
+
+{% if distro is defined %}
+RUN rm /etc/apt/sources.list.d/* || true
+RUN echo "deb http://archive.debian.org/debian/ {{ distro }} main contrib non-free" > /etc/apt/sources.list && \
+    echo "deb-src http://archive.debian.org/debian/ {{ distro }} main contrib non-free" >> /etc/apt/sources.list && \
+    echo "deb http://archive.debian.org/debian-security {{ distro }}/updates main contrib non-free" >> /etc/apt/sources.list && \
+    echo "deb-src http://archive.debian.org/debian-security {{ distro }}/updates main contrib non-free" >> /etc/apt/sources.list && \
+    echo "deb http://archive.debian.org/debian/ {{ distro }}-backports main contrib non-free" >> /etc/apt/sources.list && \
+    echo "deb-src http://archive.debian.org/debian/ {{ distro }}-backports main contrib non-free" >> /etc/apt/sources.list && \
+    apt-get update && \
 {% else %}
 RUN apt-get update && \
-    DEBIAN_FRONTEND="noninteractive" apt-get install -y -q python3 sudo bash ca-certificates iproute2 systemd systemd-sysv python3-lxml && \
-    apt-get clean
 {% endif %}
+    DEBIAN_FRONTEND="noninteractive" apt-get install -y --force-yes {{ python }} sudo bash ca-certificates iproute2 systemd systemd-sysv {{ python }}-pip && \
+    apt-get clean
 
 STOPSIGNAL SIGRTMIN+3
 RUN systemctl set-default multi-user.target
