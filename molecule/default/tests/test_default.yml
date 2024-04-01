@@ -81,6 +81,9 @@ http:
     status: 200
     body:
       - '"autoAddReplicas":"True"'
+  {{ solr_url }}/admin/collections?action=BACKUP&collection={{ solr_collections.keys() | list | first }}&name={{ inventory_hostname }}-{{ ansible_date_time.epoch }}&location=/&repository=s3&incremental=false&wt=json:
+    status: 200
+    timeout: 20000
 
 service:
   solr:

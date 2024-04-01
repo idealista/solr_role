@@ -3,6 +3,10 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased](https://github.com/idealista/solr_role/tree/develop)
 
+## [3.2.0](https://github.com/idealista/solr_role/tree/3.2.0) (2024-03-25)
+### Added
+- *[#171](https://github.com/idealista/solr_role/issues/171) Add S3 backup for solr* @santi-eidu
+
 ## [3.1.3](https://github.com/idealista/solr_role/tree/3.1.3) (2023-01-26)
 ### Added
 - *[#167](https://github.com/idealista/solr_role/issues/167) Add service template variable* @santi-eidu

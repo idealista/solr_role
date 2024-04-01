@@ -13,6 +13,13 @@ solr_os_tunning: true
 solr_cleanup: true
 solr_remove_examples: false
 
+solr_required_libs:
+  - rsync
+  - procps
+
+solr_packages_libraries_required_packages:
+  - curl
+
 # Misc
 solr_force_reinstall: false
 
@@ -78,6 +85,13 @@ solr_template_service: "{{ solr_templates_dir }}/solr.service.j2"
 # a -Dsolr.environment property below. Valid values are prod, stage, test, dev, with an optional
 # label or color, e.g. -Dsolr.environment=test,label=Functional+test,color=brown
 # solr_environment_ui: "test,label=Molecule+test,color=green"
+
+solr_build_name: "solr-{{ solr_version }}"
+solr_package: "{{ solr_build_name }}.tgz"
+solr_mirror: "http://archive.apache.org/dist"
+solr_project_mirror: "{{ solr_mirror }}/lucene"
+solr_download_url: "{{ solr_project_mirror }}/solr/{{ solr_version }}/{{ solr_package }}"
+solr_external_libraries_destination_path: "{{ solr_installation_dir }}/server/solr-webapp/webapp/WEB-INF/lib/"
 
 # Logs
 solr_log_root_level: WARN
@@ -223,13 +237,13 @@ solr_metrics:
 #       type: "str"
 
 solr_backup_repository:
-  name: local
-  class: org.apache.solr.core.backup.repository.LocalFileSystemRepository
-  default: "false"
-  config:
-    - name: "location"
-      value: "${solr.default.backup.path:}"
-      type: str
+  - name: local
+    class: org.apache.solr.core.backup.repository.LocalFileSystemRepository
+    default: "false"
+    config:
+      - name: "location"
+        value: "${solr.default.backup.path:}"
+        type: str
 
 ### HDFS EXAMPLE
 # solr_backup_repository:
