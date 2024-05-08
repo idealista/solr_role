@@ -53,18 +53,28 @@
     <str name="shardsWhitelist">${solr.shardsWhitelist:}</str>
   </shardHandlerFactory>
 
-{% if solr_backup_repository is defined %}
+{% if solr_backup_repository is defined or solr_backup_s3_repository is defined %}
   <backup>
-  {% for repository in solr_backup_repository %}
-    <repository
-      name="{{ repository.name }}"
-      class="{{ repository.class }}"
-      default="{{ repository.default }}">
-      {% for conf in repository.config %}
+  {% if solr_backup_repository is defined %}
+    <repository 
+      name="{{ solr_backup_repository.name }}" 
+      class="{{ solr_backup_repository.class }}" 
+      default="{{ solr_backup_repository.default }}">
+      {% for conf in solr_backup_repository.config %}
       <{{ conf.type }} name="{{ conf.name }}">{{ conf.value }}</{{ conf.type }}>
       {% endfor %}
     </repository>
-  {% endfor %}
+  {% endif %}
+  {% if solr_backup_s3_repository is defined %}
+    <repository
+      name="{{ solr_backup_s3_repository.name }}"
+      class="{{ solr_backup_s3_repository.class }}"
+      default="{{ solr_backup_s3_repository.default }}">
+      {% for conf in solr_backup_s3_repository.config %}
+      <{{ conf.type }} name="{{ conf.name }}">{{ conf.value }}</{{ conf.type }}>
+      {% endfor %}
+    </repository>
+  {% endif %}
   </backup>
 {% endif %}
 
