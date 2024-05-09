@@ -126,17 +126,17 @@ Its very simple, must follow this steps (in this case we will add config for [Ne
 
 By default, backups are configured to a local directory. This role also supports S3 Backup, just add the next configuration to your variable file:
 ```yaml
-solr_backup_repository:
-  - name: s3
-    class: org.apache.solr.s3.S3BackupRepository
-    default: "false"
-    config:
-      - name: "s3.bucket.name"
-        value: "solr-backup"
-        type: str
-      - name: "s3.region"
-        value: "eu-west-1"
-        type: str
+solr_backup_s3_repository:
+  name: s3
+  class: org.apache.solr.s3.S3BackupRepository
+  default: "false"
+  config:
+    - name: "s3.bucket.name"
+      value: "solr-backup"
+      type: str
+    - name: "s3.region"
+      value: "eu-west-1"
+      type: str
 ```
 The backup bucket needs to be created.
 

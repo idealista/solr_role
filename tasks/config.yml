@@ -107,7 +107,7 @@
         owner: "{{ solr_user }}"
         group: "{{ solr_group }}"
         remote_src: true
-  when: "'s3' in (solr_backup_repository | map(attribute='name') )"
+  when: "solr_backup_s3_repository is defined"
   notify: restart Solr
 
 - name: Solr | Force handlers
