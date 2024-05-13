@@ -86,6 +86,7 @@
         owner: "{{ solr_user }}"
         group: "{{ solr_group }}"
         remote_src: true
+      notify: restart Solr
     - name: BACKUP | Copy SOLR S3 library external lib directory
       copy:
         src: "{{ solr_installation_dir }}/dist/solr-s3-repository-{{ solr_version }}.jar"
@@ -93,6 +94,7 @@
         owner: "{{ solr_user }}"
         group: "{{ solr_group }}"
         remote_src: true
+      notify: restart Solr
     - name: BACKUP | Copy all S3 libraries lib directory
       copy:
         src: "{{ solr_installation_dir }}/contrib/s3-repository/lib/"
@@ -100,6 +102,7 @@
         owner: "{{ solr_user }}"
         group: "{{ solr_group }}"
         remote_src: true
+      notify: restart Solr
     - name: BACKUP | Copy all S3 libraries external lib directory
       copy:
         src: "{{ solr_installation_dir }}/contrib/s3-repository/lib/"
@@ -107,8 +110,8 @@
         owner: "{{ solr_user }}"
         group: "{{ solr_group }}"
         remote_src: true
+      notify: restart Solr
   when: "solr_backup_s3_repository is defined"
-  notify: restart Solr
 
 - name: Solr | Force handlers
   meta: flush_handlers
