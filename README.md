@@ -65,7 +65,7 @@ Use in a playbook:
     - { role: solr }
 ```
 
-Playbook example below showing how to provision from scratch a SolrCloud cluster with two nodes plus create an example (and empty) collection called `sample_techproducts_configs`, using idealista [java](https://github.com/idealista/java-role), [zookeeper](https://github.com/idealista/zookeeper-role) and [solr](https://github.com/idealista/solr_role) roles:
+Playbook example below showing how to provision from scratch a SolrCloud cluster with two nodes plus create an example (and empty) collection called `sample_techproducts_configs`, using idealista [java](https://github.com/idealista/java-role), [zookeeper](https://github.com/idealista/zookeeper_role) and [solr](https://github.com/idealista/solr_role) roles:
 
 **Note:** Assuming that 'solrcloud' group has two nodes (`solrcloud1` and `solrcloud2`) as is declared in [molecule.yml](https://github.com/idealista/solr_role/tree/master/molecule/default/molecule.yml),
 collection will have two shards, one replica and one shard per node as is declared in group vars file called [solrcloud.yml](https://github.com/idealista/solr_role/tree/master/molecule/default/group_vars/solrcloud.yml)
